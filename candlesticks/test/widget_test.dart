@@ -1,3 +1,13 @@
+/*
+ * Copyright © 2023 By Geeks Empire.
+ *
+ * Created by Elias Fazel
+ * Last modified 10/16/23, 10:15 AM
+ *
+ * Licensed Under MIT License.
+ * https://opensource.org/licenses/MIT
+ */
+
 // This is a basic Flutter widget test.
 //
 // To perform an interaction with a widget in your test, use the WidgetTester
@@ -5,14 +15,14 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:candlesticks/main.dart';
+import 'package:candlesticks/EntryConfigurations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(const EntryConfigurations());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
