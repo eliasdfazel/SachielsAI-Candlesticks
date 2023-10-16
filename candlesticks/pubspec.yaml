@@ -1,0 +1,178 @@
+name: candlesticks
+description: Sachiels AI Candlesticks
+
+publish_to: 'none'
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.2 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+
+  ####### ####### #######
+  app_settings: 4.2.0
+  ####### ####### #######
+
+
+
+  ####### ####### #######
+  back_button_interceptor: ^6.0.1
+
+  blur: ^3.0.0
+  ####### ####### #######
+
+
+
+  ####### ####### #######
+  cached_network_image: ^3.2.0
+
+  connectivity_plus: ^3.0.3
+
+  cupertino_icons: ^1.0.5
+
+  currency_text_input_formatter: ^2.1.7
+  ####### ####### #######
+
+
+
+  ####### ####### #######
+  flutter_app_name: ^0.1.1
+  flutter_html:
+    path: 'X:\Xlutter\Libraries\flutter_html'
+  flutter_launcher_icons: ^0.11.0
+  flutter_native_splash: ^2.1.6
+
+  flutter_phoenix: ^1.0.0
+  flutter_slidable: ^2.0.0
+  fluttertoast: ^8.0.9
+  ####### ####### #######
+
+
+
+  ####### ####### #######
+  google_sign_in: ^6.0.1
+  ####### ####### #######
+
+
+
+  ####### ####### #######
+  in_app_purchase: ^3.1.10
+  intl: ^0.17.0
+  ####### ####### #######
+
+
+
+  ####### ####### #######
+  liquid_swipe: ^3.0.0
+  loading_animation_widget:
+    path: 'X:\Xlutter\Libraries\loading_animation_widget'
+  local_auth: ^2.1.0
+  ####### ####### #######
+
+
+
+  ####### ####### #######
+  marquee: ^2.2.3
+  ####### ####### #######
+
+
+
+  ####### ####### #######
+  quick_actions: ^1.0.6
+  ####### ####### #######
+
+
+
+  ####### ####### #######
+  screenshot: ^2.1.0
+  share_plus: ^4.0.10
+  status_bar_control: ^3.2.1
+  ####### ####### #######
+
+
+
+  ####### ####### #######
+  url_launcher: ^6.1.5
+  ####### ####### #######
+
+
+
+  ####### ####### #######
+  webview_flutter: ^3.0.4
+  widget_mask: ^1.0.0+0
+  ####### ####### #######
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/logo.png
+    - assets/logo_background.png
+    - assets/logo_android.png
+    - assets/logo_ios.png
+
+
+
+  fonts:
+    - family: Ubuntu
+      fonts:
+        - asset: fonts/ubuntu.ttf
+    - family: Handwriting
+      fonts:
+        - asset: fonts/waterfall.ttf
+    - family: Electric
+      fonts:
+        - asset: fonts/electric.ttf
+
+
+
+flutter_native_splash:
+  color: "#000000"
+
+  image: assets/logo.png
+
+  branding: assets/logo.png
+
+  branding_mode: center
+
+  android_12:
+
+  android: true
+  ios: true
+  web: false
+
+
+
+flutter_icons:
+  image_path_android: "assets/logo_android.png"
+  image_path_ios: "assets/logo_ios.png"
+  android: true # can specify file name here e.g. "ic_launcher"
+  ios: true # can specify file name here e.g. "My-Launcher-Icon"
+  adaptive_icon_background: "assets/logo_background.png" # only available for Android 8.0 devices and above
+  adaptive_icon_foreground: "assets/logo.png" #
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  remove_alpha_ios: true
+  background_color_ios: "#ffffff"
+
+
+
+flutter_app_name:
+  name: "Sachiels AI; Candlesticks"
