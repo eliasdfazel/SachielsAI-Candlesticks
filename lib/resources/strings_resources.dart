@@ -2,7 +2,7 @@
  * Copyright © 2023 By Geeks Empire.
  *
  * Created by Elias Fazel
- * Last modified 10/17/23, 7:24 AM
+ * Last modified 10/17/23, 8:06 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -44,6 +44,17 @@ class StringsResources {
   }
   /*
    * End - Authentications
+   */
+
+  /*
+   * Start - Links
+   */
+  static String sachielsSignalsLink() {
+
+    return "https://play.google.com/store/apps/details?id=co.geeksempire.sachiel.signals";
+  }
+  /*
+   * End - Links
    */
 
   static String noInternetConnection() {

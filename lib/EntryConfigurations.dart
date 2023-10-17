@@ -2,7 +2,7 @@
  * Copyright © 2023 By Geeks Empire.
  *
  * Created by Elias Fazel
- * Last modified 10/17/23, 7:26 AM
+ * Last modified 10/17/23, 7:58 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -12,10 +12,12 @@ import 'dart:io';
 
 import 'package:app_settings/app_settings.dart';
 import 'package:blur/blur.dart';
+import 'package:candlesticks/dashboard/ui/DashboardInterface.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
 import 'package:candlesticks/utils/authentication/authentication_process.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
+import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:candlesticks/utils/ui/system_bars.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -96,7 +98,7 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
 
           } else {
 
-            navigationCheckpoint();
+            navigateToWithPop(context, const DashboardInterface());
 
           }
 
@@ -119,7 +121,7 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
         } else {
           debugPrint("Authenticated");
 
-          navigationCheckpoint();
+          navigateToWithPop(context, const DashboardInterface());
 
         }
 
@@ -213,7 +215,7 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
 
                                                           FirebaseAuth.instance.currentUser?.updatePhoneNumber(phoneAuthCredential).then((value) => {
 
-                                                            navigationCheckpoint()
+                                                            navigateToWithPop(context, const DashboardInterface())
 
                                                           });
 
@@ -408,7 +410,7 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
   void authenticationWithPhoneCompleted() {
     debugPrint("Authentication With Phone Number Completed");
 
-    navigationCheckpoint();
+    navigateToWithPop(context, const DashboardInterface());
 
   }
 
@@ -588,7 +590,7 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
 
                                   FirebaseAuth.instance.currentUser?.updatePhoneNumber(phoneAuthCredential).then((value) => {
 
-                                    navigationCheckpoint()
+                                    navigateToWithPop(context, const DashboardInterface())
 
                                   });
 
@@ -783,7 +785,7 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
 
                                   FirebaseAuth.instance.currentUser?.updatePhoneNumber(phoneAuthCredential).then((value) => {
 
-                                    navigationCheckpoint()
+                                    navigateToWithPop(context, const DashboardInterface())
 
                                   });
 
@@ -823,7 +825,7 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
     } else {
       debugPrint("Authentication With Phone Number Completed");
 
-      navigationCheckpoint();
+      navigateToWithPop(context, const DashboardInterface());
 
     }
 
@@ -851,12 +853,6 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
       debugPrint("Notification Permission: ${notificationSettings.authorizationStatus}");
 
     }
-
-  }
-
-  void navigationCheckpoint() {
-
-    //
 
   }
 
