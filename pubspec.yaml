@@ -141,6 +141,9 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/entrance_next.png
+    - assets/entry_background.jpg
+
     - assets/logo.png
     - assets/logo_background.png
     - assets/logo_android.png

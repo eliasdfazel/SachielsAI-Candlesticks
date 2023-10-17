@@ -127,6 +127,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "730794126051-ejc7of9l7i2hevokuo3in2kqbubko7ic.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.geeksempire.sachiels.ai.candlesticks.candlesticks",
+            "certificate_hash": "ef7c9698e2ffe57e20e0015042e6c7afcd3c23d8"
+          }
+        },
+        {
+          "client_id": "730794126051-pr2u3hen8fl1j90rpan2si9a04vsuvvr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.geeksempire.sachiels.ai.candlesticks.candlesticks",
+            "certificate_hash": "6fa2d23f54167ebdfcb1ce7cb183c0f709f8934e"
+          }
+        },
+        {
           "client_id": "730794126051-icg0efaquhvmr39v8eutglm9m429t8qu.apps.googleusercontent.com",
           "client_type": 3
         }
