@@ -2,7 +2,7 @@
  * Copyright © 2023 By Geeks Empire.
  *
  * Created by Elias Fazel
- * Last modified 10/17/23, 8:06 AM
+ * Last modified 10/17/23, 8:08 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -57,11 +57,6 @@ class StringsResources {
    * End - Links
    */
 
-  static String noInternetConnection() {
-
-    return "No Internet Connection...";
-  }
-
   static String ok() {
 
     return "OK";
@@ -82,9 +77,20 @@ class StringsResources {
     return "Terms Of Services. Agree By Login In...";
   }
 
+  /*
+   * Start - Warnings
+   */
+  static String noInternetConnection() {
+
+    return "No Internet Connection...";
+  }
+
   static String warningEmptyText() {
 
     return "You Didn't Entered Text | Error Occurred";
   }
+  /*
+   * End - Warnings
+   */
 
 }
