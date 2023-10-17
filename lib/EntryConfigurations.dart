@@ -2,7 +2,7 @@
  * Copyright © 2023 By Geeks Empire.
  *
  * Created by Elias Fazel
- * Last modified 10/16/23, 10:04 AM
+ * Last modified 10/17/23, 6:59 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -14,7 +14,9 @@ import 'package:flutter/material.dart';
 
 class EntryConfigurations extends StatefulWidget {
 
-  const EntryConfigurations({Key? key}) : super(key: key);
+  bool internetConnection = false;
+
+  EntryConfigurations({Key? key, required this.internetConnection}) : super(key: key);
 
   @override
   State<EntryConfigurations> createState() => _EntryConfigurationstate();
