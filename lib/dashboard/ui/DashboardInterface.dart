@@ -2,7 +2,7 @@
  * Copyright © 2023 By Geeks Empire.
  *
  * Created by Elias Fazel
- * Last modified 10/19/23, 9:18 AM
+ * Last modified 10/19/23, 9:35 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -16,6 +16,7 @@ import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/ui/display.dart';
 import 'package:candlesticks/utils/ui/system_bars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 class DashboardInterface extends StatefulWidget {
 
@@ -38,6 +39,12 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
 
   @override
   Widget build(BuildContext context) {
+
+    Future.delayed(const Duration(milliseconds: 777), () {
+
+      FlutterNativeSplash.remove();
+
+    });
 
     return SafeArea(
         child: MaterialApp(
@@ -188,11 +195,11 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                       Align(
                         alignment: Alignment.center,
                         child: Opacity(
-                            opacity: 0.1,
+                            opacity: 0.37,
                             child: Transform.scale(
                                 scale: 1.7,
                                 child: const Image(
-                                  image: AssetImage("assets/logo.png"),
+                                  image: AssetImage("assets/sachiels_candlestick_logo.png"),
                                 )
                             )
                         ),
