@@ -2,7 +2,7 @@
  * Copyright © 2023 By Geeks Empire.
  *
  * Created by Elias Fazel
- * Last modified 10/19/23, 9:35 AM
+ * Last modified 10/19/23, 9:37 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -235,6 +235,9 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                       /* End - Gradient Background - Golden */
                       /* End - Decorations */
 
+                      /*
+                       * Start - Content
+                       */
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 0, 0, 7),
                         child: ListView(
@@ -250,6 +253,9 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                           ],
                         ),
                       ),
+                      /*
+                       * End - Content
+                       */
 
                       /* Start - Purchase Plan Picker */
                       const Positioned(
