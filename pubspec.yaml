@@ -141,6 +141,8 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/cyborg_girl.jpg
+
     - assets/entrance_next.png
     - assets/entry_background.jpg
 
@@ -148,6 +150,11 @@ flutter:
     - assets/logo_background.png
     - assets/logo_android.png
     - assets/logo_ios.png
+
+    - assets/rectircle_shape.png
+
+    - assets/sachiels_signals_logo.png
+    - assets/squircle_shape.png
 
 
 

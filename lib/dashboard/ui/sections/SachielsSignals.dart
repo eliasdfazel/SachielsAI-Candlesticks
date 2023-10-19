@@ -2,7 +2,7 @@
  * Copyright © 2023 By Geeks Empire.
  *
  * Created by Elias Fazel
- * Last modified 10/17/23, 8:06 AM
+ * Last modified 10/19/23, 9:04 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -57,7 +57,7 @@ class _SachielsSignalsStates extends State<SachielsSignals> {
 
               },
               child: const Image(
-                image: AssetImage("assets/squircle_logo.png"),
+                image: AssetImage("assets/sachiels_signals_logo.png"),
               )
           )
       ),

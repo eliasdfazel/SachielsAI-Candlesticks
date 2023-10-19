@@ -2,7 +2,7 @@
  * Copyright © 2023 By Geeks Empire.
  *
  * Created by Elias Fazel
- * Last modified 10/17/23, 7:58 AM
+ * Last modified 10/19/23, 9:25 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -98,7 +98,11 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
 
           } else {
 
-            navigateToWithPop(context, const DashboardInterface());
+            Future.delayed(const Duration(milliseconds: 333), () async {
+
+              navigateToWithPop(context, const DashboardInterface());
+
+            });
 
           }
 
@@ -121,7 +125,11 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
         } else {
           debugPrint("Authenticated");
 
-          navigateToWithPop(context, const DashboardInterface());
+          Future.delayed(Duration.zero, () async {
+
+            navigateToWithPop(context, const DashboardInterface());
+
+          });
 
         }
 

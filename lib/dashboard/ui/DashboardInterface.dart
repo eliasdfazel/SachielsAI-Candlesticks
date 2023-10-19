@@ -2,13 +2,14 @@
  * Copyright © 2023 By Geeks Empire.
  *
  * Created by Elias Fazel
- * Last modified 10/17/23, 8:04 AM
+ * Last modified 10/19/23, 9:18 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
  */
 
 import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
+import 'package:candlesticks/dashboard/ui/sections/account_information_overview.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
@@ -24,6 +25,8 @@ class DashboardInterface extends StatefulWidget {
   State<DashboardInterface> createState() => _DashboardInterfaceState();
 }
 class _DashboardInterfaceState extends State<DashboardInterface> {
+
+  AccountInformationOverview accountInformationOverview = const AccountInformationOverview();
 
   @override
   void initState() {
@@ -233,7 +236,9 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                           scrollDirection: Axis.vertical,
                           children: [
 
-
+                            /* Start - Account Information Overview */
+                            accountInformationOverview,
+                            /* End - Account Information Overview */
 
                           ],
                         ),

@@ -2,7 +2,7 @@
  * Copyright © 2023 By Geeks Empire.
  *
  * Created by Elias Fazel
- * Last modified 10/17/23, 8:08 AM
+ * Last modified 10/19/23, 9:17 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -13,6 +13,24 @@ class StringsResources {
   static String applicationName() {
 
     return "Sachiels AI; Candlesticks";
+  }
+
+  static String sachielsAI() {
+
+    return "Sachiels AI";
+  }
+
+  static String profileTitle() {
+
+    return "Profile";
+  }
+
+  /*
+   * Start -
+   */
+  static String confirm() {
+
+    return "Confirm";
   }
 
   /*
