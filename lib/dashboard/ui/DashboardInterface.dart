@@ -29,6 +29,8 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
 
   AccountInformationOverview accountInformationOverview = const AccountInformationOverview();
 
+  ScrollController scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -45,6 +47,8 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
       FlutterNativeSplash.remove();
 
     });
+
+    int gridColumnCount = (displayLogicalWidth(context) / 199).round();
 
     return SafeArea(
         child: MaterialApp(
@@ -242,9 +246,9 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                         child: Opacity(
                           opacity: 0.73,
                           child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(17)),
+                            borderRadius: const BorderRadius.all(Radius.circular(17)),
                             child: Image(
-                              image: AssetImage("assets/roundangle_half.png"),
+                              image: const AssetImage("assets/roundangle_half.png"),
                               width: displayLogicalWidth(context),
                               fit: BoxFit.fill,
                             )
@@ -259,19 +263,95 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                       /*
                        * Start - Content
                        */
+                      /*
+                       * Start - Title
+                       */
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 137, 0, 7),
-                        child: ListView(
+                          padding: const EdgeInsets.fromLTRB(25, 177, 25, 7),
+                          child: SizedBox(
+                            height: 59,
+                            width: displayLogicalWidth(context),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+
+                                Expanded(
+                                  flex: 7,
+                                  child: SizedBox(
+                                    height: 59,
+                                    child: Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        StringsResources.configuredCandlesticks(),
+                                        style: TextStyle(
+                                          color: ColorsResources.premiumLight,
+                                          fontSize: 23,
+                                          shadows: [
+                                            Shadow(
+                                              color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                              blurRadius: 13,
+                                              offset: const Offset(-3, 3)
+                                            )
+                                          ]
+                                        ),
+                                      )
+                                    )
+                                  ),
+                                ),
+
+                                Expanded(
+                                  flex: 2,
+                                  child: SizedBox(
+                                    height: 59,
+                                    child: InkWell(
+                                      onTap: () {
+
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),
+                                        alignment: Alignment.centerRight,
+                                        child: const Image(
+                                          image: AssetImage("assets/search_icon.png"),
+                                          height: 43,
+                                        )
+                                      )
+                                    ),
+                                  ),
+                                )
+
+                              ]
+                            ),
+                          )
+                      ),
+                      /*
+                       * End - Title
+                       */
+
+                      /*
+                       * Start - List
+                       */
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 237, 0, 7),
+                        child:GridView(
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: gridColumnCount,
+                            childAspectRatio: 0.61,
+                            mainAxisSpacing: 37.0,
+                            crossAxisSpacing: 19.0,
+                          ),
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 37),
-                          physics: const BouncingScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.vertical,
+                          controller: scrollController,
                           children: [
 
-
-
                           ],
-                        ),
+                        )
                       ),
+                      /*
+                       * End - List
+                       */
                       /*
                        * End - Content
                        */

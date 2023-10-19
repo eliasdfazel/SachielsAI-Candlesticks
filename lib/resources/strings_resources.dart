@@ -15,6 +15,11 @@ class StringsResources {
     return "Sachiels AI; Candlesticks";
   }
 
+  static String configuredCandlesticks() {
+
+    return "Configured Candlesticks";
+  }
+
   static String sachielsAI() {
 
     return "Sachiels AI";
