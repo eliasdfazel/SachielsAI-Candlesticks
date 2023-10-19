@@ -2,7 +2,7 @@
  * Copyright © 2023 By Geeks Empire.
  *
  * Created by Elias Fazel
- * Last modified 10/19/23, 9:04 AM
+ * Last modified 10/19/23, 10:20 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -37,6 +37,8 @@ class _SachielsSignalsStates extends State<SachielsSignals> {
   Widget build(BuildContext context) {
 
     return Container(
+      height: 59,
+      width: 59,
       decoration: const BoxDecoration(
           boxShadow: [
             BoxShadow(

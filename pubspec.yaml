@@ -141,6 +141,8 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/add_icon.png
+
     - assets/cyborg_girl.jpg
 
     - assets/entrance_next.png
@@ -152,6 +154,7 @@ flutter:
     - assets/logo_ios.png
 
     - assets/rectircle_shape.png
+    - assets/roundangle_half.png
 
     - assets/sachiels_candlestick_logo.png
     - assets/sachiels_signals_logo.png

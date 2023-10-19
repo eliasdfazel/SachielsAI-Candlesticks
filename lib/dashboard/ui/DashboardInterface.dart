@@ -2,7 +2,7 @@
  * Copyright © 2023 By Geeks Empire.
  *
  * Created by Elias Fazel
- * Last modified 10/19/23, 9:37 AM
+ * Last modified 10/19/23, 10:37 AM
  *
  * Licensed Under MIT License.
  * https://opensource.org/licenses/MIT
@@ -233,22 +233,41 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                           )
                       ),
                       /* End - Gradient Background - Golden */
+
+                      /*
+                       * Start - List Background
+                       */
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(7, 137, 7, 7),
+                        child: Opacity(
+                          opacity: 0.73,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(17)),
+                            child: Image(
+                              image: AssetImage("assets/roundangle_half.png"),
+                              width: displayLogicalWidth(context),
+                              fit: BoxFit.fill,
+                            )
+                          )
+                        )
+                      ),
+                      /*
+                       * End - List Background
+                       */
                       /* End - Decorations */
 
                       /*
                        * Start - Content
                        */
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 7),
+                        padding: const EdgeInsets.fromLTRB(0, 137, 0, 7),
                         child: ListView(
                           padding: const EdgeInsets.fromLTRB(0, 0, 0, 37),
                           physics: const BouncingScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           children: [
 
-                            /* Start - Account Information Overview */
-                            accountInformationOverview,
-                            /* End - Account Information Overview */
+
 
                           ],
                         ),
@@ -256,6 +275,38 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                       /*
                        * End - Content
                        */
+
+                      /*
+                       * Start - Add
+                       */
+                      Positioned(
+                        bottom: 37,
+                        left: 19,
+                        right: 19,
+                        child: Center(
+                          child: SizedBox(
+                            height: 49,
+                            width: 239,
+                            child: InkWell(
+                              onTap: () {
+
+
+
+                              },
+                              child: const Image(
+                                image: AssetImage("assets/add_icon.png"),
+                              )
+                            )
+                          )
+                        )
+                      ),
+                      /*
+                       * Start - Add
+                       */
+
+                      /* Start - Account Information Overview */
+                      accountInformationOverview,
+                      /* End - Account Information Overview */
 
                       /* Start - Purchase Plan Picker */
                       const Positioned(
