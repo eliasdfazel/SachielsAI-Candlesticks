@@ -19,6 +19,7 @@ import 'package:candlesticks/utils/ui/display.dart';
 import 'package:candlesticks/utils/ui/system_bars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class DashboardInterface extends StatefulWidget {
 
@@ -30,6 +31,15 @@ class DashboardInterface extends StatefulWidget {
 class _DashboardInterfaceState extends State<DashboardInterface> {
 
   AccountInformationOverview accountInformationOverview = const AccountInformationOverview();
+
+  Widget configuredCandlesticksPlaceholder = Container(
+    alignment: Alignment.center,
+    child: LoadingAnimationWidget.staggeredDotsWave(
+      colorOne: ColorsResources.premiumLight,
+      colorTwo: ColorsResources.primaryColor,
+      size: 73,
+    ),
+  );
 
   ScrollController scrollController = ScrollController();
 
@@ -333,24 +343,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                       /*
                        * Start - List
                        */
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(19, 237, 19, 7),
-                        child: GridView(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: gridColumnCount,
-                            childAspectRatio: 0.61,
-                            mainAxisSpacing: 37.0,
-                            crossAxisSpacing: 19.0,
-                          ),
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 137),
-                          physics: const NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          controller: scrollController,
-                          children: [
-
-                          ],
-                        )
-                      ),
+                      configuredCandlesticksPlaceholder,
                       /*
                        * End - List
                        */

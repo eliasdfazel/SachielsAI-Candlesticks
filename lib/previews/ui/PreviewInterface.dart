@@ -29,7 +29,7 @@ class PreviewInterface extends StatefulWidget {
 }
 class _PreviewInterfaceState extends State<PreviewInterface> {
 
-  List<Widget> allCandlesticksPreviews = [];
+  Widget candlesticksPreviewsPlaceholder = Container();
 
   ScrollController scrollController = ScrollController();
 
@@ -39,12 +39,12 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
 
     changeColor(ColorsResources.black, ColorsResources.black);
 
+    retrieveCandlesticks();
+
   }
 
   @override
   Widget build(BuildContext context) {
-
-    int gridColumnCount = (displayLogicalWidth(context) / 199).round();
 
     return SafeArea(
         child: MaterialApp(
@@ -327,22 +327,7 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
                       /*
                        * Start - List
                        */
-                      Padding(
-                          padding: const EdgeInsets.fromLTRB(19, 237, 19, 7),
-                          child: GridView(
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: gridColumnCount,
-                              childAspectRatio: 0.61,
-                              mainAxisSpacing: 37.0,
-                              crossAxisSpacing: 19.0,
-                            ),
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 137),
-                            physics: const NeverScrollableScrollPhysics(),
-                            scrollDirection: Axis.vertical,
-                            controller: scrollController,
-                            children: allCandlesticksPreviews
-                          )
-                      ),
+                      candlesticksPreviewsPlaceholder,
                       /*
                        * End - List
                        */
@@ -530,22 +515,41 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
 
   void prepareCandlesticks(List<PreviewsDataStructure> previewsDataStructure) async {
 
+    List<Widget> allCandlesticksPreviews = [];
+
     for (var previewCandlestick in previewsDataStructure) {
 
       allCandlesticksPreviews.add(previewItem(previewCandlestick));
 
     }
 
+    int gridColumnCount = (displayLogicalWidth(context) / 199).round();
+
     setState(() {
 
-      allCandlesticksPreviews;
+      candlesticksPreviewsPlaceholder = Padding(
+          padding: const EdgeInsets.fromLTRB(19, 237, 19, 7),
+          child: GridView(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: gridColumnCount,
+                childAspectRatio: 0.79,
+                mainAxisSpacing: 37.0,
+                crossAxisSpacing: 19.0,
+              ),
+              padding: const EdgeInsets.fromLTRB(0, 19, 0, 137),
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              controller: scrollController,
+              children: allCandlesticksPreviews
+          )
+      );
 
     });
 
   }
 
   Widget previewItem(PreviewsDataStructure previewsDataStructure) {
-    debugPrint("Candlestick; ${previewsDataStructure.candlestickImageValue()}");
+    debugPrint("Candlestick; ${previewsDataStructure.candlestickNameValue()}");
 
     return Container(
       color: Colors.deepPurple,
