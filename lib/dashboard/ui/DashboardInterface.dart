@@ -35,8 +35,8 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
   Widget configuredCandlesticksPlaceholder = Container(
     alignment: Alignment.center,
     child: LoadingAnimationWidget.staggeredDotsWave(
-      colorOne: ColorsResources.premiumLight,
-      colorTwo: ColorsResources.primaryColor,
+      colorOne: ColorsResources.premiumLight.withOpacity(0.37),
+      colorTwo: ColorsResources.primaryColor.withOpacity(0.37),
       size: 73,
     ),
   );

@@ -8,6 +8,7 @@
  * https://opensource.org/licenses/MIT
  */
 
+import 'package:blur/blur.dart';
 import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
 import 'package:candlesticks/previews/data/previews_data_structure.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
@@ -559,8 +560,97 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
   Widget previewItem(PreviewsDataStructure previewsDataStructure) {
     debugPrint("Candlestick; ${previewsDataStructure.candlestickNameValue()}");
 
-    return Container(
-      color: Colors.deepPurple,
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(19),
+      child: Material(
+          shadowColor: Colors.transparent,
+          color: Colors.transparent,
+          child: InkWell(
+            splashColor: ColorsResources.lightestYellow.withOpacity(0.31),
+            splashFactory: InkRipple.splashFactory,
+            onTap: () {
+
+
+
+            },
+            child: Container(
+                color: ColorsResources.premiumDark.withOpacity(0.37),
+                child: Stack(
+                    children: [
+
+                      Center(
+                          child: Image(
+                            image: NetworkImage(previewsDataStructure.candlestickImageValue()),
+                            alignment: Alignment.center,
+                            fit: BoxFit.contain,
+                          )
+                      ),
+
+                      Positioned(
+                          bottom: 13,
+                          left: 13,
+                          right: 13,
+                          child: PhysicalModel(
+                              color: Colors.transparent,
+                              elevation: 7,
+                              shadowColor: ColorsResources.black.withOpacity(0.37),
+                              child: Blur(
+                                blur: 13,
+                                borderRadius: BorderRadius.circular(13),
+                                blurColor: ColorsResources.premiumDark,
+                                colorOpacity: 0.37,
+                                overlay: Padding(
+                                    padding: const EdgeInsets.all(7),
+                                    child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+
+                                          Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                  previewsDataStructure.candlestickNameValue(),
+                                                  textAlign: TextAlign.start,
+                                                  maxLines: 1,
+                                                  style: const TextStyle(
+                                                      color: ColorsResources.premiumLight,
+                                                      fontSize: 17,
+                                                      letterSpacing: 1.3,
+                                                      fontWeight: FontWeight.bold
+                                                  )
+                                              )
+                                          ),
+
+                                          Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                  previewsDataStructure.candlestickDirectionValue(),
+                                                  textAlign: TextAlign.end,
+                                                  maxLines: 1,
+                                                  style: const TextStyle(
+                                                      color: ColorsResources.premiumLight,
+                                                      fontSize: 7,
+                                                      letterSpacing: 1.3,
+                                                      fontWeight: FontWeight.normal
+                                                  )
+                                              )
+                                          ),
+
+                                        ]
+                                    )
+                                ),
+                                child: const SizedBox(
+                                  height: 43,
+                                ),
+                              )
+                          )
+                      )
+
+                    ]
+                )
+            )
+        )
+      )
     );
   }
 
