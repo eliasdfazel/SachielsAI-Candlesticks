@@ -9,12 +9,14 @@
  */
 
 import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
+import 'package:candlesticks/previews/data/previews_data_structure.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:candlesticks/utils/ui/display.dart';
 import 'package:candlesticks/utils/ui/system_bars.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_mask/widget_mask.dart';
 
@@ -497,9 +499,46 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
   }
 
   void retrieveCandlesticks() async {
+    debugPrint("Retrieve Candlesticks");
 
+    /* Start - Academy Tutorials */
+    FirebaseFirestore.instance
+      .collection("/Sachiels/Academy/Tutorials")
+      .limit(13)
+      .orderBy("articleTimestamp")
+      .get().then((QuerySnapshot querySnapshot) {
 
+        List<PreviewsDataStructure> previewsDataStructure = [];
 
+        for (QueryDocumentSnapshot queryDocumentSnapshot in querySnapshot.docs) {
+
+          previewsDataStructure.add(PreviewsDataStructure(queryDocumentSnapshot));
+
+        }
+
+        if (previewsDataStructure.isNotEmpty) {
+
+          prepareCandlesticks(previewsDataStructure);
+
+        }
+
+      },
+      onError: (e) => {
+
+      });
+
+  }
+
+  void prepareCandlesticks(List<PreviewsDataStructure> previewsDataStructure) async {
+
+  }
+
+  Widget previewItem(PreviewsDataStructure previewsDataStructure) {
+    debugPrint("Retrieve Candlesticks; ${previewsDataStructure.candlestickImageValue()}");
+
+    return Container(
+      color: Colors.deepPurple,
+    );
   }
 
 }

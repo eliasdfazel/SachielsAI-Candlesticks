@@ -10,7 +10,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class PreviewaDataStructure {
+class PreviewsDataStructure {
 
   static const String index = "index";
 
@@ -22,7 +22,7 @@ class PreviewaDataStructure {
 
   Map<String, dynamic> previewsDocumentData = <String, dynamic>{};
 
-  PreviewaDataStructure(DocumentSnapshot previewsDocument, String postType) {
+  PreviewsDataStructure(DocumentSnapshot previewsDocument) {
 
     previewsDocumentData = previewsDocument.data() as Map<String, dynamic>;
 
@@ -30,27 +30,27 @@ class PreviewaDataStructure {
 
   String indexValue() {
 
-    return previewsDocumentData[PreviewaDataStructure.index].toString();
+    return previewsDocumentData[PreviewsDataStructure.index].toString();
   }
 
   String candlestickNameValue() {
 
-    return previewsDocumentData[PreviewaDataStructure.candlestickName].toString();
+    return previewsDocumentData[PreviewsDataStructure.candlestickName].toString();
   }
 
   String candlestickDescriptionValue() {
 
-    return previewsDocumentData[PreviewaDataStructure.candlestickDescription].toString();
+    return previewsDocumentData[PreviewsDataStructure.candlestickDescription].toString();
   }
 
   String candlestickImageValue() {
 
-    return previewsDocumentData[PreviewaDataStructure.candlestickImage].toString();
+    return previewsDocumentData[PreviewsDataStructure.candlestickImage].toString();
   }
 
   String candlestickDirectionValue() {
 
-    return previewsDocumentData[PreviewaDataStructure.candlestickDirection].toString();
+    return previewsDocumentData[PreviewsDataStructure.candlestickDirection].toString();
   }
 
 }
