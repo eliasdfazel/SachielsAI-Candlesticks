@@ -29,7 +29,7 @@ class PreviewInterface extends StatefulWidget {
 }
 class _PreviewInterfaceState extends State<PreviewInterface> {
 
-  List<Widget> allCandlesticks = [];
+  List<Widget> allCandlesticksPreviews = [];
 
   ScrollController scrollController = ScrollController();
 
@@ -340,7 +340,7 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
                             physics: const NeverScrollableScrollPhysics(),
                             scrollDirection: Axis.vertical,
                             controller: scrollController,
-                            children: allCandlesticks
+                            children: allCandlesticksPreviews
                           )
                       ),
                       /*
@@ -503,9 +503,8 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
 
     /* Start - Academy Tutorials */
     FirebaseFirestore.instance
-      .collection("/Sachiels/Academy/Tutorials")
-      .limit(13)
-      .orderBy("articleTimestamp")
+      .collection("/Sachiels/Candlesticks/Patterns")
+      .orderBy("index")
       .get().then((QuerySnapshot querySnapshot) {
 
         List<PreviewsDataStructure> previewsDataStructure = [];
@@ -531,10 +530,22 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
 
   void prepareCandlesticks(List<PreviewsDataStructure> previewsDataStructure) async {
 
+    for (var previewCandlestick in previewsDataStructure) {
+
+      allCandlesticksPreviews.add(previewItem(previewCandlestick));
+
+    }
+
+    setState(() {
+
+      allCandlesticksPreviews;
+
+    });
+
   }
 
   Widget previewItem(PreviewsDataStructure previewsDataStructure) {
-    debugPrint("Retrieve Candlesticks; ${previewsDataStructure.candlestickImageValue()}");
+    debugPrint("Candlestick; ${previewsDataStructure.candlestickImageValue()}");
 
     return Container(
       color: Colors.deepPurple,
