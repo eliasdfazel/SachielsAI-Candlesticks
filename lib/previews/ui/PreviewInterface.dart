@@ -18,6 +18,7 @@ import 'package:candlesticks/utils/ui/display.dart';
 import 'package:candlesticks/utils/ui/system_bars.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:widget_mask/widget_mask.dart';
 
 class PreviewInterface extends StatefulWidget {
@@ -29,7 +30,14 @@ class PreviewInterface extends StatefulWidget {
 }
 class _PreviewInterfaceState extends State<PreviewInterface> {
 
-  Widget candlesticksPreviewsPlaceholder = Container();
+  Widget candlesticksPreviewsPlaceholder = Container(
+    alignment: Alignment.center,
+    child: LoadingAnimationWidget.staggeredDotsWave(
+      colorOne: ColorsResources.premiumLight,
+      colorTwo: ColorsResources.primaryColor,
+      size: 73,
+    ),
+  );
 
   ScrollController scrollController = ScrollController();
 
