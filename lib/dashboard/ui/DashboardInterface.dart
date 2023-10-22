@@ -335,7 +335,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                        */
                       Padding(
                         padding: const EdgeInsets.fromLTRB(0, 237, 0, 7),
-                        child:GridView(
+                        child: GridView(
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: gridColumnCount,
                             childAspectRatio: 0.61,

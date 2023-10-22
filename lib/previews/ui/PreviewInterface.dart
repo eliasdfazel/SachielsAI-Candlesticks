@@ -8,6 +8,7 @@
  * https://opensource.org/licenses/MIT
  */
 
+import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
@@ -24,6 +25,8 @@ class PreviewInterface extends StatefulWidget {
 }
 class _PreviewInterfaceState extends State<PreviewInterface> {
 
+  ScrollController scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -34,6 +37,8 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
 
   @override
   Widget build(BuildContext context) {
+
+    int gridColumnCount = (displayLogicalWidth(context) / 199).round();
 
     return SafeArea(
         child: MaterialApp(
@@ -245,13 +250,153 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
                        */
                       /* End - Decorations */
 
+                      /*
+                       * Start - Content
+                       */
+                      /*
+                       * Start - Title
+                       */
+                      Padding(
+                          padding: const EdgeInsets.fromLTRB(25, 177, 25, 7),
+                          child: SizedBox(
+                            height: 59,
+                            width: displayLogicalWidth(context),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
 
+                                  Expanded(
+                                    flex: 7,
+                                    child: SizedBox(
+                                        height: 59,
+                                        child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child: Text(
+                                              StringsResources.configuredCandlesticks(),
+                                              style: TextStyle(
+                                                  color: ColorsResources.premiumLight,
+                                                  fontSize: 23,
+                                                  shadows: [
+                                                    Shadow(
+                                                        color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                        blurRadius: 13,
+                                                        offset: const Offset(-3, 3)
+                                                    )
+                                                  ]
+                                              ),
+                                            )
+                                        )
+                                    ),
+                                  ),
+
+                                  Expanded(
+                                    flex: 2,
+                                    child: SizedBox(
+                                      height: 59,
+                                      child: InkWell(
+                                          onTap: () {
+
+                                          },
+                                          child: Container(
+                                              padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),
+                                              alignment: Alignment.centerRight,
+                                              child: const Image(
+                                                image: AssetImage("assets/search_icon.png"),
+                                                height: 43,
+                                              )
+                                          )
+                                      ),
+                                    ),
+                                  )
+
+                                ]
+                            ),
+                          )
+                      ),
+                      /*
+                       * End - Title
+                       */
+
+                      /*
+                       * Start - List
+                       */
+                      Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 237, 0, 7),
+                          child: GridView(
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: gridColumnCount,
+                              childAspectRatio: 0.61,
+                              mainAxisSpacing: 37.0,
+                              crossAxisSpacing: 19.0,
+                            ),
+                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 37),
+                            physics: const NeverScrollableScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            controller: scrollController,
+                            children: [
+
+                            ],
+                          )
+                      ),
+                      /*
+                       * End - List
+                       */
+                      /*
+                       * End - Content
+                       */
+
+                      /*
+                       * Start - Add
+                       */
+                      Positioned(
+                          bottom: 37,
+                          left: 19,
+                          right: 19,
+                          child: Center(
+                              child: SizedBox(
+                                  height: 49,
+                                  width: 239,
+                                  child: InkWell(
+                                      onTap: () {
+
+
+
+                                      },
+                                      child: const Image(
+                                        image: AssetImage("assets/add_icon.png"),
+                                      )
+                                  )
+                              )
+                          )
+                      ),
+                      /*
+                       * Start - Add
+                       */
+
+                      /* Start - Account Information Overview */
+                      Container(),
+                      /* End - Account Information Overview */
+
+                      /* Start - Purchase Plan Picker */
+                      const Positioned(
+                          right: 19,
+                          top: 19,
+                          child: SachielsSignals()
+                      ),
+                      /* End - Purchase Plan Picker */
 
                     ]
                 )
             )
         )
     );
+  }
+
+  void retrieveCandlesticks() async {
+
+
+
   }
 
 }
