@@ -9,6 +9,7 @@
  */
 
 import 'package:blur/blur.dart';
+import 'package:candlesticks/configurations/ui/ConfigurationsInterface.dart';
 import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
 import 'package:candlesticks/previews/data/previews_data_structure.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
@@ -570,7 +571,7 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
             splashFactory: InkRipple.splashFactory,
             onTap: () {
 
-
+              navigateTo(context, const ConfigurationsInterface());
 
             },
             child: Container(
