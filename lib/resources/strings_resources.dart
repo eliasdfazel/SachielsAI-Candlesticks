@@ -15,28 +15,37 @@ class StringsResources {
     return "Sachiels AI; Candlesticks";
   }
 
-  static String configuredCandlesticks() {
-
-    return "Configured Candlesticks";
-  }
 
   static String sachielsAI() {
 
     return "Sachiels AI";
   }
 
+  /*
+   * Start - Titles
+   */
   static String profileTitle() {
 
     return "Profile";
   }
 
-  /*
-   * Start -
-   */
-  static String confirm() {
+  static String previewTitle() {
 
-    return "Confirm";
+    return "Previews";
   }
+
+  static String configuredCandlesticks() {
+
+    return "Configured Candlesticks";
+  }
+
+  static String candlesticks() {
+
+    return "Candlesticks";
+  }
+  /*
+   * Start - Titles
+   */
 
   /*
    * Start - Authentications
@@ -80,6 +89,14 @@ class StringsResources {
    * End - Links
    */
 
+  /*
+   * Start - Notice
+   */
+  static String confirm() {
+
+    return "Confirm";
+  }
+
   static String ok() {
 
     return "OK";
@@ -99,6 +116,9 @@ class StringsResources {
 
     return "Terms Of Services. Agree By Login In...";
   }
+  /*
+   * End - Notice
+   */
 
   /*
    * Start - Warnings

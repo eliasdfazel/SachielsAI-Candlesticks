@@ -143,6 +143,8 @@ flutter:
   assets:
     - assets/add_icon.png
 
+    - assets/back_icon.png
+
     - assets/cyborg_girl.jpg
 
     - assets/entrance_next.png
@@ -155,6 +157,7 @@ flutter:
 
     - assets/rectircle_shape.png
     - assets/roundangle_half.png
+    - assets/request_icon.png
 
     - assets/sachiels_candlestick_logo.png
     - assets/sachiels_signals_logo.png

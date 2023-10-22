@@ -334,7 +334,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                        * Start - List
                        */
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 237, 0, 7),
+                        padding: const EdgeInsets.fromLTRB(19, 237, 19, 7),
                         child: GridView(
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: gridColumnCount,
@@ -342,7 +342,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                             mainAxisSpacing: 37.0,
                             crossAxisSpacing: 19.0,
                           ),
-                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 37),
+                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 137),
                           physics: const NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           controller: scrollController,
@@ -383,7 +383,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                         )
                       ),
                       /*
-                       * Start - Add
+                       * End - Add
                        */
 
                       /* Start - Account Information Overview */
