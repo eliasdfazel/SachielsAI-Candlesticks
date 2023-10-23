@@ -31,6 +31,8 @@ class ConfigurationsInterface extends StatefulWidget {
 
 class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
 
+  Widget configurationOptions = Container();
+
   @override
   void initState() {
     super.initState();
@@ -377,7 +379,7 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                       /*
                        * Start - List
                        */
-                      Container(),
+                      configurationOptions,
                       /*
                        * End - List
                        */
@@ -532,4 +534,10 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
         )
     );
   }
+
+  Widget setupConfigurationOptions() {
+
+    return Container();
+  }
+
 }
