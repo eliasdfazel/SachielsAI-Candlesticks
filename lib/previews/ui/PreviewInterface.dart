@@ -571,7 +571,7 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
             splashFactory: InkRipple.splashFactory,
             onTap: () {
 
-              navigateTo(context, const ConfigurationsInterface());
+              navigateTo(context, ConfigurationsInterface(previewsDataStructure: previewsDataStructure));
 
             },
             child: Container(

@@ -9,6 +9,7 @@
  */
 
 import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
+import 'package:candlesticks/previews/data/previews_data_structure.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
@@ -20,7 +21,9 @@ import 'package:widget_mask/widget_mask.dart';
 
 class ConfigurationsInterface extends StatefulWidget {
 
-  const ConfigurationsInterface({Key? key}) : super(key: key);
+  PreviewsDataStructure previewsDataStructure;
+
+  ConfigurationsInterface({Key? key, required this.previewsDataStructure}) : super(key: key);
 
   @override
   State<ConfigurationsInterface> createState() => _ConfigurationsInterfaceState();
@@ -258,11 +261,11 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                       Padding(
                           padding: const EdgeInsets.fromLTRB(25, 177, 25, 7),
                           child: SizedBox(
-                            height: 59,
+                            height: 159,
                             width: displayLogicalWidth(context),
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
 
                                   Expanded(
@@ -272,7 +275,7 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                                         child: Align(
                                             alignment: Alignment.centerLeft,
                                             child: Text(
-                                              StringsResources.candlesticks(),
+                                              widget.previewsDataStructure.candlestickNameValue(),
                                               style: TextStyle(
                                                   color: ColorsResources.premiumLight,
                                                   fontSize: 23,
@@ -292,20 +295,12 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                                   Expanded(
                                     flex: 2,
                                     child: SizedBox(
-                                      height: 59,
-                                      child: InkWell(
-                                          onTap: () {
-
-                                          },
-                                          child: Container(
-                                              padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),
-                                              alignment: Alignment.centerRight,
-                                              child: const Image(
-                                                image: AssetImage("assets/search_icon.png"),
-                                                height: 43,
-                                              )
-                                          )
-                                      ),
+                                      width: 59,
+                                      child: Container(
+                                          padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),
+                                          alignment: Alignment.centerRight,
+                                          child: const ColoredBox(color: Colors.greenAccent, child: SizedBox(height: 151, width: 51,),)
+                                      )
                                     ),
                                   )
 
@@ -440,7 +435,7 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                                               child: Padding(
                                                   padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
                                                   child: Text(
-                                                      StringsResources.previewTitle(),
+                                                      StringsResources.configuration(),
                                                       maxLines: 1,
                                                       overflow: TextOverflow.ellipsis,
                                                       style: const TextStyle(

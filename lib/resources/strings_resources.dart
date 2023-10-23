@@ -39,6 +39,11 @@ class StringsResources {
     return "Configured Candlesticks";
   }
 
+  static String configuration() {
+
+    return "Configuration";
+  }
+
   static String candlesticks() {
 
     return "Candlesticks";
