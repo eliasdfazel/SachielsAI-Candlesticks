@@ -407,8 +407,8 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                                             toastLength: Toast.LENGTH_LONG,
                                             gravity: ToastGravity.BOTTOM,
                                             timeInSecForIosWeb: 1,
-                                            backgroundColor: ColorsResources.dark,
-                                            textColor: ColorsResources.light,
+                                            backgroundColor: ColorsResources.premiumDark,
+                                            textColor: ColorsResources.premiumLight,
                                             fontSize: 13.0
                                         );
 
