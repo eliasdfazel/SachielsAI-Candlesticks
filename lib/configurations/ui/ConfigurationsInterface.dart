@@ -565,7 +565,13 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
             height: 19,
           ),
 
-          setupTimeframes()
+          setupTimeframes(),
+
+          const Divider(
+            height: 19,
+          ),
+
+          deleteConfiguration()
 
         ]
       )
@@ -861,5 +867,36 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
   /*
    * End - Timeframes
    */
+
+  Widget deleteConfiguration() {
+
+    return Container(
+        height: 57,
+        alignment: Alignment.centerRight,
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(11),
+            child: Material(
+                shadowColor: Colors.transparent,
+                color: Colors.transparent,
+                child: InkWell(
+                    splashColor: ColorsResources.red.withOpacity(0.73),
+                    splashFactory: InkRipple.splashFactory,
+                    onTap: () {
+
+                      Future.delayed(const Duration(milliseconds: 333), () {
+
+
+
+                      });
+
+                    },
+                    child: Image(
+                      image: AssetImage("assets/delete_icon.png"),
+                    )
+                )
+            )
+        )
+    );
+  }
 
 }
