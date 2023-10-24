@@ -29,16 +29,19 @@ class ConfigurationsInterface extends StatefulWidget {
   @override
   State<ConfigurationsInterface> createState() => _ConfigurationsInterfaceState();
 }
-
 class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
 
   Widget configurationOptions = Container();
+
+  Widget marketsItemsPlaceholder = Container();
 
   @override
   void initState() {
     super.initState();
 
     changeColor(ColorsResources.black, ColorsResources.black);
+
+    retrieveMarkets();
 
   }
 
@@ -259,7 +262,7 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                        * Start - Content
                        */
                       /*
-                       * Start - Title
+                       * Start - Candlestick Information
                        */
                       Padding(
                           padding: const EdgeInsets.fromLTRB(25, 177, 25, 7),
@@ -374,13 +377,13 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                           )
                       ),
                       /*
-                       * End - Title
+                       * End - Candlestick Information
                        */
 
                       /*
                        * Start - List
                        */
-                      configurationOptions,
+                      setupConfigurationOptions(),
                       /*
                        * End - List
                        */
@@ -546,7 +549,157 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
 
   Widget setupConfigurationOptions() {
 
-    return Container();
+    return configurationOptions = Padding(
+      padding: const EdgeInsets.fromLTRB(25, 357, 25, 7),
+      child: ListView(
+        padding: const EdgeInsets.only(bottom: 137),
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        children: [
+
+          setupMarkets(),
+
+        ]
+      )
+    );
   }
+
+  /*
+   * Start - Markets
+   */
+  void retrieveMarkets() async {
+
+    // Retrieve Markets
+    // Then setState for marketsItemsPlaceholder
+
+  }
+
+  Widget setupMarkets() {
+
+    return SizedBox(
+        height: 93,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              SizedBox(
+                height: 33,
+                width: displayLogicalWidth(context) / 2,
+                child: Stack(
+                  children: [
+
+                    const Image(
+                      image: AssetImage("assets/option_title_background.png"),
+                    ),
+
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+
+                          Expanded(
+                              flex: 7,
+                              child: Container(
+                                padding: const EdgeInsets.only(left: 13),
+                                child: Text(
+                                  StringsResources.markets(),
+                                  style: const TextStyle(
+                                    color: ColorsResources.premiumLight,
+                                    fontSize: 15,
+                                    letterSpacing: 2.3
+                                  )
+                                )
+                              )
+                          ),
+
+                          Expanded(
+                              flex: 3,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: const Image(
+                                  image: AssetImage("assets/plus_icon.png"),
+                                  height: 19,
+                                )
+                              )
+                          ),
+
+                        ]
+                    )
+
+                  ]
+                )
+              ),
+
+              SizedBox(
+                  width: displayLogicalWidth(context) - 50,
+                  child: Stack(
+                      children: [
+
+                        const Image(
+                          image: AssetImage("assets/option_items_background.png"),
+                        ),
+
+                        // marketsItemsPlaceholder,
+
+                        SizedBox(
+                          height: 53,
+                          child: ListView(
+                              padding: const EdgeInsets.only(left: 13),
+                              physics: const BouncingScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              children: [
+
+
+
+                              ]
+                          )
+                        )
+
+                      ]
+                  )
+              )
+
+            ]
+        )
+    );
+  }
+
+  Widget marketsItems(String marketPair) {
+
+    return Padding(
+      padding: const EdgeInsets.only(right: 13),
+      child: Align(
+        alignment: Alignment.center,
+        child: SizedBox(
+          height: 31,
+          width: 71,
+          child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(7),
+                  border: Border.all(
+                      color: ColorsResources.premiumLight,
+                      width: 1
+                  ),
+                  color: ColorsResources.premiumDark
+              ),
+              height: 33,
+              width: 71,
+              child: Center(
+                  child: Text(
+                    marketPair,
+                    style: const TextStyle(
+                        color: ColorsResources.premiumLight
+                    ),
+                  )
+              )
+          ),
+        ),
+      )
+    );
+  }
+  /*
+   * End - Markets
+   */
 
 }

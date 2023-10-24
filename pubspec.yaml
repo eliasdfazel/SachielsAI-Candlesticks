@@ -157,6 +157,11 @@ flutter:
     - assets/logo_android.png
     - assets/logo_ios.png
 
+    - assets/option_items_background.png
+    - assets/option_title_background.png
+
+    - assets/plus_icon.png
+
     - assets/rectircle_shape.png
     - assets/roundangle_half.png
     - assets/request_icon.png

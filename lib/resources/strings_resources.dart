@@ -120,6 +120,17 @@ class StringsResources {
    */
 
   /*
+   * Start - Title
+   */
+  static String markets() {
+
+    return "Markets";
+  }
+  /*
+   * End - Title
+   */
+
+  /*
    * Start - Notice
    */
   static String comingSoon() {
