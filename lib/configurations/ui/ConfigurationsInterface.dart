@@ -565,7 +565,7 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
         scrollDirection: Axis.vertical,
         children: [
 
-          setupMarkets(),
+          markets.setupMarkets(context),
 
           const Divider(
             height: 19,
