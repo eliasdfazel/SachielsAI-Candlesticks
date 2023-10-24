@@ -97,6 +97,11 @@ class StringsResources {
   /*
    * Start - Notice
    */
+  static String comingSoon() {
+
+    return "Coming Soon...";
+  }
+
   static String confirm() {
 
     return "Confirm";

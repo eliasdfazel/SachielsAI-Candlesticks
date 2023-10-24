@@ -142,9 +142,11 @@ flutter:
 
   assets:
     - assets/add_icon.png
+    - assets/advanced_icon.png
 
     - assets/back_icon.png
 
+    - assets/confirm_icon.png
     - assets/cyborg_girl.jpg
 
     - assets/entrance_next.png

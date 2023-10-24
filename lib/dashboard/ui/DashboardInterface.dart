@@ -34,11 +34,25 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
 
   Widget configuredCandlesticksPlaceholder = Container(
     alignment: Alignment.center,
-    child: LoadingAnimationWidget.staggeredDotsWave(
-      colorOne: ColorsResources.premiumLight.withOpacity(0.37),
-      colorTwo: ColorsResources.primaryColor.withOpacity(0.37),
-      size: 73,
-    ),
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+
+        LoadingAnimationWidget.staggeredDotsWave(
+            colorOne: ColorsResources.premiumLight.withOpacity(0.37),
+            colorTwo: ColorsResources.primaryColor.withOpacity(0.37),
+            size: 73
+        ),
+
+        Center(
+          child: Text(
+            StringsResources.comingSoon()
+          )
+        )
+
+      ]
+    )
   );
 
   ScrollController scrollController = ScrollController();

@@ -17,6 +17,7 @@ import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:candlesticks/utils/ui/display.dart';
 import 'package:candlesticks/utils/ui/system_bars.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:widget_mask/widget_mask.dart';
 
 class ConfigurationsInterface extends StatefulWidget {
@@ -401,11 +402,19 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                                   child: InkWell(
                                       onTap: () {
 
-
+                                        Fluttertoast.showToast(
+                                            msg: StringsResources.comingSoon(),
+                                            toastLength: Toast.LENGTH_LONG,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 1,
+                                            backgroundColor: ColorsResources.dark,
+                                            textColor: ColorsResources.light,
+                                            fontSize: 13.0
+                                        );
 
                                       },
                                       child: const Image(
-                                        image: AssetImage("assets/request_icon.png"),
+                                        image: AssetImage("assets/advanced_icon.png"),
                                       )
                                   )
                               )
