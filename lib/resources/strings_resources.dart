@@ -126,6 +126,11 @@ class StringsResources {
 
     return "Markets";
   }
+
+  static String timeframes() {
+
+    return "Timeframes";
+  }
   /*
    * End - Title
    */
