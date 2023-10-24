@@ -32,28 +32,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
 
   AccountInformationOverview accountInformationOverview = const AccountInformationOverview();
 
-  Widget configuredCandlesticksPlaceholder = Container(
-    alignment: Alignment.center,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-
-        LoadingAnimationWidget.staggeredDotsWave(
-            colorOne: ColorsResources.premiumLight.withOpacity(0.37),
-            colorTwo: ColorsResources.primaryColor.withOpacity(0.37),
-            size: 73
-        ),
-
-        Center(
-          child: Text(
-            StringsResources.comingSoon()
-          )
-        )
-
-      ]
-    )
-  );
+  Widget configuredCandlesticksPlaceholder = Container();
 
   ScrollController scrollController = ScrollController();
 
@@ -62,6 +41,8 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
     super.initState();
 
     changeColor(ColorsResources.black, ColorsResources.black);
+
+    configuredCandlesticksPlaceholder = waiting();
 
   }
 
@@ -408,6 +389,39 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                     ]
                 )
             )
+        )
+    );
+  }
+
+  Widget waiting() {
+
+    return Container(
+        alignment: Alignment.center,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+
+              LoadingAnimationWidget.staggeredDotsWave(
+                  colorOne: ColorsResources.premiumLight.withOpacity(0.37),
+                  colorTwo: ColorsResources.primaryColor.withOpacity(0.37),
+                  size: 73
+              ),
+
+              Center(
+                  child: Padding(
+                      padding: const EdgeInsets.only(left: 19, right: 19, top: 19),
+                      child: Text(
+                        StringsResources.addCandlestick(),
+                        style: const TextStyle(
+                            fontSize: 19,
+                            color: ColorsResources.premiumLightTransparent
+                        ),
+                      )
+                  )
+              )
+
+            ]
         )
     );
   }

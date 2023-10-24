@@ -95,21 +95,15 @@ class StringsResources {
    */
 
   /*
-   * Start - Notice
+   * Start - Action
    */
-  static String comingSoon() {
+  static String addCandlestick() {
 
-    return "Coming Soon...";
+    return "Click On + \nTo Configure Candlesticks";
   }
-
   static String confirm() {
 
     return "Confirm";
-  }
-
-  static String ok() {
-
-    return "OK";
   }
 
   static String agree() {
@@ -120,6 +114,22 @@ class StringsResources {
   static String read() {
 
     return "Read";
+  }
+  /*
+   * End - Action
+   */
+
+  /*
+   * Start - Notice
+   */
+  static String comingSoon() {
+
+    return "Coming Soon...";
+  }
+
+  static String ok() {
+
+    return "OK";
   }
 
   static String termService() {
