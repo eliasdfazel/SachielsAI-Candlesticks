@@ -816,6 +816,16 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
     );
   }
 
+  Widget marketsPickerItemMarket() {
+
+    return Container();
+  }
+
+  Widget marketsPickerItemPair() {
+
+    return Container();
+  }
+
   void showMarketsPicker() {
 
     setState(() {
