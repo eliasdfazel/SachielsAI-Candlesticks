@@ -54,6 +54,8 @@ dependencies:
 
   firebase_auth: ^4.1.2
 
+  firebase_database: ^10.2.7
+
   firebase_remote_config: ^3.0.5
   firebase_messaging: ^14.1.0
   firebase_in_app_messaging: ^0.7.0+5

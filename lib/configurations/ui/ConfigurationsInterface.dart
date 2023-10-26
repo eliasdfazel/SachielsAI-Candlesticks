@@ -15,6 +15,7 @@ import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:candlesticks/utils/ui/display.dart';
 import 'package:candlesticks/utils/ui/system_bars.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:widget_mask/widget_mask.dart';
@@ -29,6 +30,8 @@ class ConfigurationsInterface extends StatefulWidget {
   State<ConfigurationsInterface> createState() => ConfigurationsInterfaceState();
 }
 class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
+
+  DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
 
   Widget configurationOptions = Container();
 
@@ -613,7 +616,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
         scrollDirection: Axis.vertical,
         children: [
 
-          setupMarkets(context),
+          setupConfiguredMarkets(context),
 
           const Divider(
             height: 19,
@@ -638,13 +641,28 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
   void retrieveMarkets() async {
 
     // Retrieve Markets
+    // Visible + Button
+    DataSnapshot marketsDataSnapshot = await databaseReference.child("SachielsSignals/Markets").get();
+    debugPrint("Markets Data Retrieved");
+
+    for (var element in marketsDataSnapshot.children) {
+      debugPrint("Market: ${element.key}");
+
+      for(var marketPair in element.children) {
+        debugPrint("Pair: ${marketPair.value}");
+
+
+
+      }
+
+    }
 
     // Retrieve Selected Markets
     // Then setState for marketsItemsPlaceholder
 
   }
 
-  Widget setupMarkets(BuildContext context) {
+  Widget setupConfiguredMarkets(BuildContext context) {
 
     return SizedBox(
         height: 93,
@@ -756,7 +774,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
     );
   }
 
-  Widget marketsItems(String marketPair) {
+  Widget configuredMarketsItems(String marketPair) {
 
     return Padding(
         padding: const EdgeInsets.only(right: 13),
