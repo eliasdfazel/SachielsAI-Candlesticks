@@ -8,6 +8,7 @@
  * https://opensource.org/licenses/MIT
  */
 
+import 'package:candlesticks/configurations/ui/ConfigurationsInterface.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
 import 'package:candlesticks/utils/ui/display.dart';
@@ -15,8 +16,7 @@ import 'package:flutter/material.dart';
 
 class Markets {
 
-
-  Widget setupMarkets(BuildContext context) {
+  Widget setupMarkets(BuildContext context, ConfigurationsInterfaceState configurationsInterfaceState) {
 
     return SizedBox(
         height: 93,
@@ -28,55 +28,69 @@ class Markets {
               SizedBox(
                   height: 33,
                   width: displayLogicalWidth(context) / 2,
-                  child: InkWell(
-                      onTap: () {
+                  child: Stack(
+                      children: [
 
+                        const Image(
+                          image: AssetImage("assets/option_title_background.png"),
+                        ),
 
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
 
-                      },
-                      child: Stack(
-                          children: [
+                              Expanded(
+                                  flex: 7,
+                                  child: Container(
+                                      padding: const EdgeInsets.only(left: 13),
+                                      child: Text(
+                                          StringsResources.markets(),
+                                          style: const TextStyle(
+                                              color: ColorsResources.premiumLight,
+                                              fontSize: 15,
+                                              letterSpacing: 2.3
+                                          )
+                                      )
+                                  )
+                              ),
 
-                            const Image(
-                              image: AssetImage("assets/option_title_background.png"),
-                            ),
+                              Expanded(
+                                  flex: 3,
+                                  child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        bottomRight: Radius.circular(99),
+                                        bottomLeft: Radius.circular(19),
+                                        topRight: Radius.circular(19),
+                                        topLeft: Radius.circular(19),
+                                      ),
+                                      child: Material(
+                                          shadowColor: Colors.transparent,
+                                          color: Colors.transparent,
+                                          child: InkWell(
+                                              splashColor: ColorsResources.primaryColor.withOpacity(0.51),
+                                              splashFactory: InkRipple.splashFactory,
+                                              onTap: () {
 
-                            Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
+                                                configurationsInterfaceState.showMarketsPicker();
 
-                                  Expanded(
-                                      flex: 7,
-                                      child: Container(
-                                          padding: const EdgeInsets.only(left: 13),
-                                          child: Text(
-                                              StringsResources.markets(),
-                                              style: const TextStyle(
-                                                  color: ColorsResources.premiumLight,
-                                                  fontSize: 15,
-                                                  letterSpacing: 2.3
+                                              },
+                                              child: Container(
+                                                  alignment: Alignment.center,
+                                                  child: const Image(
+                                                    image: AssetImage("assets/plus_icon.png"),
+                                                    height: 19,
+                                                  )
                                               )
                                           )
                                       )
-                                  ),
+                                  )
+                              ),
 
-                                  Expanded(
-                                      flex: 3,
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          child: const Image(
-                                            image: AssetImage("assets/plus_icon.png"),
-                                            height: 19,
-                                          )
-                                      )
-                                  ),
+                            ]
+                        )
 
-                                ]
-                            )
-
-                          ]
-                      )
+                      ]
                   )
               ),
 
@@ -145,6 +159,13 @@ class Markets {
             ),
           ),
         )
+    );
+  }
+
+  Widget marketsPicker() {
+
+    return Container(
+      color: Colors.greenAccent,
     );
   }
 

@@ -28,17 +28,36 @@ class ConfigurationsInterface extends StatefulWidget {
   ConfigurationsInterface({Key? key, required this.previewsDataStructure}) : super(key: key);
 
   @override
-  State<ConfigurationsInterface> createState() => _ConfigurationsInterfaceState();
+  State<ConfigurationsInterface> createState() => ConfigurationsInterfaceState();
 }
-class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
+class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
 
   Widget configurationOptions = Container();
 
+  /*
+   * Start - Markets
+   */
+  bool marketVisibility = false;
+  double marketsOpacity = 0.0;
+
   Markets markets = Markets();
+
   Widget marketsItemsPlaceholder = Container();
+  /*
+   * End - Markets
+   */
+
+  /*
+   * Start - Timeframes
+   */
+  double timeframesOpacity = 0.0;
 
   Timeframes timeframes = Timeframes();
+
   Widget timeframesItemsPlaceholder = Container();
+  /*
+   * End - Timeframes
+   */
 
   @override
   void initState() {
@@ -396,6 +415,28 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                       /*
                        * End - List
                        */
+
+                      /*
+                       * Start - Market Picker
+                       */
+                      Visibility(
+                          visible: marketVisibility,
+                          child: AnimatedOpacity(
+                            opacity: marketsOpacity,
+                            duration: const Duration(milliseconds: 777),
+                            child: InkWell(
+                              onTap: () {
+
+                                hideMarketsPicker();
+
+                              },
+                              child: markets.marketsPicker()
+                            ),
+                          )
+                      ),
+                      /*
+                       * End - Market Picker
+                       */
                       /*
                        * End - Content
                        */
@@ -578,7 +619,7 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
         scrollDirection: Axis.vertical,
         children: [
 
-          markets.setupMarkets(context),
+          markets.setupMarkets(context, this),
 
           const Divider(
             height: 19,
@@ -604,6 +645,46 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
 
     // Retrieve Markets
     // Then setState for marketsItemsPlaceholder
+
+  }
+
+  void showMarketsPicker() {
+
+    setState(() {
+
+      marketVisibility = true;
+
+    });
+
+    Future.delayed(const Duration(milliseconds: 137), () {
+
+      setState(() {
+
+        marketsOpacity = 1.0;
+
+      });
+
+    });
+
+  }
+
+  void hideMarketsPicker() {
+
+    setState(() {
+
+      marketsOpacity = 0.0;
+
+    });
+
+    Future.delayed(const Duration(milliseconds: 777), () {
+
+      setState(() {
+
+        marketVisibility = false;
+
+      });
+
+    });
 
   }
   /*

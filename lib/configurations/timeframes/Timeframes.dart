@@ -65,11 +65,32 @@ class Timeframes {
 
                                   Expanded(
                                       flex: 3,
-                                      child: Container(
-                                          alignment: Alignment.center,
-                                          child: const Image(
-                                            image: AssetImage("assets/plus_icon.png"),
-                                            height: 19,
+                                      child: ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                            bottomRight: Radius.circular(99),
+                                            bottomLeft: Radius.circular(19),
+                                            topRight: Radius.circular(19),
+                                            topLeft: Radius.circular(19),
+                                          ),
+                                          child: Material(
+                                              shadowColor: Colors.transparent,
+                                              color: Colors.transparent,
+                                              child: InkWell(
+                                                  splashColor: ColorsResources.primaryColor.withOpacity(0.51),
+                                                  splashFactory: InkRipple.splashFactory,
+                                                  onTap: () {
+
+
+
+                                                  },
+                                                  child: Container(
+                                                      alignment: Alignment.center,
+                                                      child: const Image(
+                                                        image: AssetImage("assets/plus_icon.png"),
+                                                        height: 19,
+                                                      )
+                                                  )
+                                              )
                                           )
                                       )
                                   ),
