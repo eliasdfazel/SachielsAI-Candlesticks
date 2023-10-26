@@ -645,6 +645,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
     DataSnapshot marketsDataSnapshot = await databaseReference.child("SachielsSignals/Markets").get();
     debugPrint("Markets Data Retrieved");
 
+    // one listView different item widget
     for (var element in marketsDataSnapshot.children) {
       debugPrint("Market: ${element.key}");
 
