@@ -160,7 +160,9 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                             ),
                           )
                       ),
-                      /* End - Gradient Background - Golden *//* Start - Gradient Background - Dark */
+                      /* End - Gradient Background - Golden */
+
+                      /* Start - Gradient Background - Dark */
                       Container(
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(

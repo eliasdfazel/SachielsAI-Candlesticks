@@ -284,101 +284,101 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                                 children: [
 
                                   Expanded(
-                                    flex: 7,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
+                                      flex: 7,
+                                      child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
 
-                                        SizedBox(
-                                            height: 29,
-                                            child: Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  widget.previewsDataStructure.candlestickNameValue(),
-                                                  style: TextStyle(
-                                                      color: ColorsResources.premiumLight,
-                                                      fontSize: 23,
-                                                      fontWeight: FontWeight.bold,
-                                                      letterSpacing: 1.37,
-                                                      shadows: [
-                                                        Shadow(
-                                                            color: ColorsResources.primaryColorLighter.withOpacity(0.19),
-                                                            blurRadius: 13,
-                                                            offset: const Offset(-3, 3)
-                                                        )
-                                                      ]
-                                                  ),
+                                            SizedBox(
+                                                height: 29,
+                                                child: Align(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: Text(
+                                                      widget.previewsDataStructure.candlestickNameValue(),
+                                                      style: TextStyle(
+                                                          color: ColorsResources.premiumLight,
+                                                          fontSize: 23,
+                                                          fontWeight: FontWeight.bold,
+                                                          letterSpacing: 1.37,
+                                                          shadows: [
+                                                            Shadow(
+                                                                color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                                blurRadius: 13,
+                                                                offset: const Offset(-3, 3)
+                                                            )
+                                                          ]
+                                                      ),
+                                                    )
                                                 )
-                                            )
-                                        ),
+                                            ),
 
-                                        SizedBox(
-                                            height: 19,
-                                            child: Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  "(${widget.previewsDataStructure.candlestickDirectionValue()})",
-                                                  style: TextStyle(
-                                                      color: ColorsResources.premiumLight,
-                                                      fontSize: 13,
-                                                      fontWeight: FontWeight.normal,
-                                                      letterSpacing: 1.37,
-                                                      shadows: [
-                                                        Shadow(
-                                                            color: ColorsResources.primaryColorLighter.withOpacity(0.19),
-                                                            blurRadius: 13,
-                                                            offset: const Offset(-3, 3)
-                                                        )
-                                                      ]
-                                                  ),
+                                            SizedBox(
+                                                height: 19,
+                                                child: Align(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: Text(
+                                                      "(${widget.previewsDataStructure.candlestickDirectionValue()})",
+                                                      style: TextStyle(
+                                                          color: ColorsResources.premiumLight,
+                                                          fontSize: 13,
+                                                          fontWeight: FontWeight.normal,
+                                                          letterSpacing: 1.37,
+                                                          shadows: [
+                                                            Shadow(
+                                                                color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                                blurRadius: 13,
+                                                                offset: const Offset(-3, 3)
+                                                            )
+                                                          ]
+                                                      ),
+                                                    )
                                                 )
-                                            )
-                                        ),
+                                            ),
 
-                                        SizedBox(
-                                            height: 111,
-                                            child: Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: Text(
-                                                  widget.previewsDataStructure.candlestickDescriptionValue(),
-                                                  maxLines: 7,
-                                                  textAlign: TextAlign.justify,
-                                                  style: TextStyle(
-                                                      color: ColorsResources.premiumLightTransparent,
-                                                      fontSize: 11,
-                                                      fontWeight: FontWeight.normal,
-                                                      letterSpacing: 1.37,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      shadows: [
-                                                        Shadow(
-                                                            color: ColorsResources.primaryColorLighter.withOpacity(0.19),
-                                                            blurRadius: 13,
-                                                            offset: const Offset(-3, 3)
-                                                        )
-                                                      ]
-                                                  ),
+                                            SizedBox(
+                                                height: 111,
+                                                child: Align(
+                                                    alignment: Alignment.centerLeft,
+                                                    child: Text(
+                                                      widget.previewsDataStructure.candlestickDescriptionValue(),
+                                                      maxLines: 7,
+                                                      textAlign: TextAlign.justify,
+                                                      style: TextStyle(
+                                                          color: ColorsResources.premiumLightTransparent,
+                                                          fontSize: 11,
+                                                          fontWeight: FontWeight.normal,
+                                                          letterSpacing: 1.37,
+                                                          overflow: TextOverflow.ellipsis,
+                                                          shadows: [
+                                                            Shadow(
+                                                                color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                                blurRadius: 13,
+                                                                offset: const Offset(-3, 3)
+                                                            )
+                                                          ]
+                                                      ),
+                                                    )
                                                 )
-                                            )
-                                        ),
+                                            ),
 
-                                      ]
-                                    )
+                                          ]
+                                      )
                                   ),
 
                                   Expanded(
-                                    flex: 3,
-                                    child: Container(
-                                        padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                        alignment: Alignment.centerRight,
-                                        child: Transform.scale(
-                                          scale: 1.73,
-                                          child: Image(
-                                            image: NetworkImage(widget.previewsDataStructure.candlestickImageValue()),
-                                            fit: BoxFit.fill,
-                                            alignment: Alignment.center,
+                                      flex: 3,
+                                      child: Container(
+                                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+                                          alignment: Alignment.centerRight,
+                                          child: Transform.scale(
+                                              scale: 1.73,
+                                              child: Image(
+                                                image: NetworkImage(widget.previewsDataStructure.candlestickImageValue()),
+                                                fit: BoxFit.fill,
+                                                alignment: Alignment.center,
+                                              )
                                           )
-                                        )
-                                    )
+                                      )
                                   )
 
                                 ]
@@ -401,7 +401,7 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                        */
 
                       /*
-                       * Start - Request
+                       * Start - Confirm
                        */
                       Positioned(
                           bottom: 37,
@@ -425,7 +425,7 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                           )
                       ),
                       /*
-                       * End - Request
+                       * End - Confirm
                        */
 
                       /* Start - Back */
@@ -533,30 +533,30 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                       ),
                       /* End - Back */
 
-                      /* Start - Advanced*/
+                      /* Start - Advanced */
                       Positioned(
                           right: 9,
                           top: 19,
                           child: SizedBox(
-                            width: 80,
-                            child: InkWell(
-                              onTap: () {
+                              width: 80,
+                              child: InkWell(
+                                  onTap: () {
 
-                                Fluttertoast.showToast(
-                                    msg: StringsResources.comingSoon(),
-                                    toastLength: Toast.LENGTH_LONG,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1,
-                                    backgroundColor: ColorsResources.premiumDark,
-                                    textColor: ColorsResources.premiumLight,
-                                    fontSize: 13.0
-                                );
+                                    Fluttertoast.showToast(
+                                        msg: StringsResources.comingSoon(),
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: ColorsResources.premiumDark,
+                                        textColor: ColorsResources.premiumLight,
+                                        fontSize: 13.0
+                                    );
 
-                              },
-                              child: const Image(
-                                image: AssetImage("assets/advanced_icon.png"),
+                                  },
+                                  child: const Image(
+                                    image: AssetImage("assets/advanced_icon.png"),
+                                  )
                               )
-                            )
                           )
                       ),
                       /* End - Advanced */
