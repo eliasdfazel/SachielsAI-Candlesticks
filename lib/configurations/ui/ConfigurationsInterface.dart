@@ -8,8 +8,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import 'package:candlesticks/configurations/markets/Markets.dart';
-import 'package:candlesticks/configurations/timeframes/Timeframes.dart';
 import 'package:candlesticks/previews/data/previews_data_structure.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
@@ -40,8 +38,6 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
   bool marketVisibility = false;
   double marketsOpacity = 0.0;
 
-  Markets markets = Markets();
-
   Widget marketsItemsPlaceholder = Container();
   /*
    * End - Markets
@@ -51,8 +47,6 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
    * Start - Timeframes
    */
   double timeframesOpacity = 0.0;
-
-  Timeframes timeframes = Timeframes();
 
   Widget timeframesItemsPlaceholder = Container();
   /*
@@ -430,7 +424,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                                 hideMarketsPicker();
 
                               },
-                              child: markets.marketsPicker()
+                              child: marketsPicker()
                             ),
                           )
                       ),
@@ -619,13 +613,13 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
         scrollDirection: Axis.vertical,
         children: [
 
-          markets.setupMarkets(context, this),
+          setupMarkets(context),
 
           const Divider(
             height: 19,
           ),
 
-          timeframes.setupTimeframes(context),
+          setupTimeframes(context),
 
           const Divider(
             height: 19,
@@ -644,8 +638,163 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
   void retrieveMarkets() async {
 
     // Retrieve Markets
+
+    // Retrieve Selected Markets
     // Then setState for marketsItemsPlaceholder
 
+  }
+
+  Widget setupMarkets(BuildContext context) {
+
+    return SizedBox(
+        height: 93,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              SizedBox(
+                  height: 33,
+                  width: displayLogicalWidth(context) / 2,
+                  child: Stack(
+                      children: [
+
+                        const Image(
+                          image: AssetImage("assets/option_title_background.png"),
+                        ),
+
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+
+                              Expanded(
+                                  flex: 7,
+                                  child: Container(
+                                      padding: const EdgeInsets.only(left: 13),
+                                      child: Text(
+                                          StringsResources.markets(),
+                                          style: const TextStyle(
+                                              color: ColorsResources.premiumLight,
+                                              fontSize: 15,
+                                              letterSpacing: 2.3
+                                          )
+                                      )
+                                  )
+                              ),
+
+                              Expanded(
+                                  flex: 3,
+                                  child: ClipRRect(
+                                      borderRadius: const BorderRadius.only(
+                                        bottomRight: Radius.circular(99),
+                                        bottomLeft: Radius.circular(19),
+                                        topRight: Radius.circular(19),
+                                        topLeft: Radius.circular(19),
+                                      ),
+                                      child: Material(
+                                          shadowColor: Colors.transparent,
+                                          color: Colors.transparent,
+                                          child: InkWell(
+                                              splashColor: ColorsResources.primaryColor.withOpacity(0.51),
+                                              splashFactory: InkRipple.splashFactory,
+                                              onTap: () {
+
+                                                showMarketsPicker();
+
+                                              },
+                                              child: Container(
+                                                  alignment: Alignment.center,
+                                                  child: const Image(
+                                                    image: AssetImage("assets/plus_icon.png"),
+                                                    height: 19,
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  )
+                              ),
+
+                            ]
+                        )
+
+                      ]
+                  )
+              ),
+
+              SizedBox(
+                  width: displayLogicalWidth(context) - 50,
+                  child: Stack(
+                      children: [
+
+                        const Image(
+                          image: AssetImage("assets/option_items_background.png"),
+                        ),
+
+                        // marketsItemsPlaceholder,
+
+                        SizedBox(
+                            height: 53,
+                            child: ListView(
+                                padding: const EdgeInsets.only(left: 13),
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                children: [
+
+
+
+                                ]
+                            )
+                        )
+
+                      ]
+                  )
+              )
+
+            ]
+        )
+    );
+  }
+
+  Widget marketsItems(String marketPair) {
+
+    return Padding(
+        padding: const EdgeInsets.only(right: 13),
+        child: Align(
+          alignment: Alignment.center,
+          child: SizedBox(
+            height: 31,
+            width: 71,
+            child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    border: Border.all(
+                        color: ColorsResources.premiumLight,
+                        width: 1
+                    ),
+                    color: ColorsResources.premiumDark
+                ),
+                height: 33,
+                width: 71,
+                child: Center(
+                    child: Text(
+                      marketPair,
+                      style: const TextStyle(
+                          color: ColorsResources.premiumLight
+                      ),
+                    )
+                )
+            ),
+          ),
+        )
+    );
+  }
+
+  Widget marketsPicker() {
+
+    return Container(
+      color: Colors.greenAccent,
+    );
   }
 
   void showMarketsPicker() {
@@ -699,6 +848,159 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
     // Retrieve Markets
     // Then setState for marketsItemsPlaceholder
 
+  }
+
+  Widget setupTimeframes(BuildContext context) {
+
+    return SizedBox(
+        height: 93,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              SizedBox(
+                  height: 33,
+                  width: displayLogicalWidth(context) / 2,
+                  child: InkWell(
+                      onTap: () {
+
+
+
+                      },
+                      child: Stack(
+                          children: [
+
+                            const Image(
+                              image: AssetImage("assets/option_title_background.png"),
+                            ),
+
+                            Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+
+                                  Expanded(
+                                      flex: 7,
+                                      child: Container(
+                                          padding: const EdgeInsets.only(left: 13),
+                                          child: Text(
+                                              StringsResources.timeframes(),
+                                              style: const TextStyle(
+                                                  color: ColorsResources.premiumLight,
+                                                  fontSize: 15,
+                                                  letterSpacing: 2.3
+                                              )
+                                          )
+                                      )
+                                  ),
+
+                                  Expanded(
+                                      flex: 3,
+                                      child: ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                            bottomRight: Radius.circular(99),
+                                            bottomLeft: Radius.circular(19),
+                                            topRight: Radius.circular(19),
+                                            topLeft: Radius.circular(19),
+                                          ),
+                                          child: Material(
+                                              shadowColor: Colors.transparent,
+                                              color: Colors.transparent,
+                                              child: InkWell(
+                                                  splashColor: ColorsResources.primaryColor.withOpacity(0.51),
+                                                  splashFactory: InkRipple.splashFactory,
+                                                  onTap: () {
+
+
+
+                                                  },
+                                                  child: Container(
+                                                      alignment: Alignment.center,
+                                                      child: const Image(
+                                                        image: AssetImage("assets/plus_icon.png"),
+                                                        height: 19,
+                                                      )
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  ),
+
+                                ]
+                            )
+
+                          ]
+                      )
+                  )
+              ),
+
+              SizedBox(
+                  width: displayLogicalWidth(context) - 50,
+                  child: Stack(
+                      children: [
+
+                        const Image(
+                          image: AssetImage("assets/option_items_background.png"),
+                        ),
+
+                        // marketsItemsPlaceholder,
+
+                        SizedBox(
+                            height: 53,
+                            child: ListView(
+                                padding: const EdgeInsets.only(left: 13),
+                                physics: const BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                children: [
+
+
+
+                                ]
+                            )
+                        )
+
+                      ]
+                  )
+              )
+
+            ]
+        )
+    );
+  }
+
+  Widget timeframesItems(String timeframe) {
+
+    return Padding(
+        padding: const EdgeInsets.only(right: 13),
+        child: Align(
+          alignment: Alignment.center,
+          child: SizedBox(
+            height: 31,
+            width: 71,
+            child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    border: Border.all(
+                        color: ColorsResources.premiumLight,
+                        width: 1
+                    ),
+                    color: ColorsResources.premiumDark
+                ),
+                height: 33,
+                width: 71,
+                child: Center(
+                    child: Text(
+                      timeframe,
+                      style: const TextStyle(
+                          color: ColorsResources.premiumLight
+                      ),
+                    )
+                )
+            ),
+          ),
+        )
+    );
   }
   /*
    * End - Timeframes
