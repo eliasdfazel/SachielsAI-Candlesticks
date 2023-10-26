@@ -65,8 +65,8 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
               fontFamily: 'Ubuntu',
               colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ColorsResources.primaryColor),
               pageTransitionsTheme: const PageTransitionsTheme(builders: {
-                TargetPlatform.android: ZoomPageTransitionsBuilder(),
-                TargetPlatform.iOS: ZoomPageTransitionsBuilder(),
+                TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+                TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
               }),
             ),
             home: Scaffold(
@@ -159,7 +159,9 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
                             ),
                           )
                       ),
-                      /* End - Gradient Background - Golden *//* Start - Gradient Background - Dark */
+                      /* End - Gradient Background - Golden */
+
+                      /* Start - Gradient Background - Dark */
                       Container(
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
