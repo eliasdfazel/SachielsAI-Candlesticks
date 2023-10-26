@@ -10,7 +10,6 @@
 
 import 'package:candlesticks/configurations/markets/Markets.dart';
 import 'package:candlesticks/configurations/timeframes/Timeframes.dart';
-import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
 import 'package:candlesticks/previews/data/previews_data_structure.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
@@ -159,7 +158,9 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                             ),
                           )
                       ),
-                      /* End - Gradient Background - Golden *//* Start - Gradient Background - Dark */
+                      /* End - Gradient Background - Golden */
+
+                      /* Start - Gradient Background - Dark */
                       Container(
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -413,19 +414,11 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                                   child: InkWell(
                                       onTap: () {
 
-                                        Fluttertoast.showToast(
-                                            msg: StringsResources.comingSoon(),
-                                            toastLength: Toast.LENGTH_LONG,
-                                            gravity: ToastGravity.BOTTOM,
-                                            timeInSecForIosWeb: 1,
-                                            backgroundColor: ColorsResources.premiumDark,
-                                            textColor: ColorsResources.premiumLight,
-                                            fontSize: 13.0
-                                        );
+
 
                                       },
                                       child: const Image(
-                                        image: AssetImage("assets/advanced_icon.png"),
+                                        image: AssetImage("assets/confirm_icon.png"),
                                       )
                                   )
                               )
@@ -540,13 +533,33 @@ class _ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                       ),
                       /* End - Back */
 
-                      /* Start - Purchase Plan Picker */
-                      const Positioned(
-                          right: 19,
+                      /* Start - Advanced*/
+                      Positioned(
+                          right: 9,
                           top: 19,
-                          child: SachielsSignals()
+                          child: SizedBox(
+                            width: 80,
+                            child: InkWell(
+                              onTap: () {
+
+                                Fluttertoast.showToast(
+                                    msg: StringsResources.comingSoon(),
+                                    toastLength: Toast.LENGTH_LONG,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1,
+                                    backgroundColor: ColorsResources.premiumDark,
+                                    textColor: ColorsResources.premiumLight,
+                                    fontSize: 13.0
+                                );
+
+                              },
+                              child: const Image(
+                                image: AssetImage("assets/advanced_icon.png"),
+                              )
+                            )
+                          )
                       ),
-                      /* End - Purchase Plan Picker */
+                      /* End - Advanced */
 
                     ]
                 )
