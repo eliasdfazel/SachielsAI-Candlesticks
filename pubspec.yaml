@@ -145,6 +145,7 @@ flutter:
   assets:
     - assets/add_icon.png
     - assets/advanced_icon.png
+    - assets/advanced_text.png
 
     - assets/back_icon.png
 

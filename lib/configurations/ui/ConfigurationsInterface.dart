@@ -573,10 +573,11 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
 
                       /* Start - Advanced */
                       Positioned(
-                          right: 9,
+                          right: 19,
                           top: 19,
                           child: SizedBox(
-                              width: 80,
+                              height: 59,
+                              width: 59,
                               child: InkWell(
                                   onTap: () {
 
@@ -593,6 +594,32 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                                   },
                                   child: const Image(
                                     image: AssetImage("assets/advanced_icon.png"),
+                                  )
+                              )
+                          )
+                      ),
+
+                      Positioned(
+                          right: 0,
+                          top: 79,
+                          child: SizedBox(
+                              width: 99,
+                              child: InkWell(
+                                  onTap: () {
+
+                                    Fluttertoast.showToast(
+                                        msg: StringsResources.comingSoon(),
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.BOTTOM,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: ColorsResources.premiumDark,
+                                        textColor: ColorsResources.premiumLight,
+                                        fontSize: 13.0
+                                    );
+
+                                  },
+                                  child: const Image(
+                                    image: AssetImage("assets/advanced_text.png"),
                                   )
                               )
                           )
