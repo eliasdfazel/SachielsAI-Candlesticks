@@ -38,12 +38,17 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
   /*
    * Start - Markets
    */
+  DataSnapshot? marketsDataSnapshot;
+
   bool marketVisibility = false;
   double marketsOpacity = 0.0;
 
   bool addMarketsVisibility = false;
 
   Widget marketsItemsPlaceholder = Container();
+
+  String configuredMarkets = "ETHUSD,USDJPY";
+  Color configuredColor = ColorsResources.dark;
   /*
    * End - Markets
    */
@@ -669,38 +674,44 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
    */
   void retrieveMarkets() async {
 
-    List<Widget> allMarketsItems = [];
-
-    // Retrieve Markets
-    // Visible + Button
-    DataSnapshot marketsDataSnapshot = await databaseReference.child("SachielsSignals/Markets").get();
+    marketsDataSnapshot = await databaseReference.child("SachielsSignals/Markets").get();
     debugPrint("Markets Data Retrieved");
 
-    // one listView different item widget
-    for (var element in marketsDataSnapshot.children) {
-      debugPrint("Market: ${element.key}");
+    updateMarketsList();
 
-      allMarketsItems.add(const Divider(height: 19, color: Colors.transparent,));
-      allMarketsItems.add(marketsPickerItemMarket(element.key.toString()));
+  }
 
-      for(var marketPair in element.children) {
-        debugPrint("Pair: ${marketPair.value}");
+  void updateMarketsList() async {
 
-        allMarketsItems.add(marketsPickerItemPair(marketPair.key.toString(), marketPair.value.toString()));
+    if (marketsDataSnapshot != null) {
+      debugPrint("Updating Markets List");
+
+      List<Widget> allMarketsItems = [];
+
+      for (var element in marketsDataSnapshot!.children) {
+        debugPrint("Market: ${element.key}");
+
+        allMarketsItems.add(const Divider(height: 19, color: Colors.transparent));
+        allMarketsItems.add(marketsPickerItemMarket(element.key.toString()));
+
+        for(var marketPair in element.children) {
+          debugPrint("Pair: ${marketPair.value}");
+
+          allMarketsItems.add(marketsPickerItemPair(marketPair.key.toString(), marketPair.value.toString()));
+
+        }
 
       }
 
+      setState(() {
+
+        marketsItemsPlaceholder = marketsPickerWrapper(allMarketsItems);
+
+        addMarketsVisibility = true;
+
+      });
+
     }
-
-    // Retrieve Selected Markets
-    // Then setState for marketsItemsPlaceholder
-    setState(() {
-
-      marketsItemsPlaceholder = marketsPickerWrapper(allMarketsItems);
-
-      addMarketsVisibility = true;
-
-    });
 
   }
 
@@ -803,7 +814,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                                 padding: const EdgeInsets.only(left: 13),
                                 physics: const BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
-                                children: [
+                                children: const [
 
 
 
@@ -915,11 +926,21 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
 
   Widget marketsPickerItemPair(String marketLabel, String marketPair) {
 
+    if (configuredMarkets.contains(marketLabel)) {
+
+      configuredColor = ColorsResources.primaryColorLighter;
+
+    } else {
+
+      configuredColor = ColorsResources.dark;
+
+    }
+
     return Padding(
       padding: const EdgeInsets.only(top: 3, bottom: 5),
       child: Container(
-        decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(17),
                   topRight: Radius.circular(17),
                   bottomLeft: Radius.circular(17),
@@ -927,13 +948,13 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
               ),
               gradient: LinearGradient(
                   colors: [
-                    ColorsResources.dark,
+                    configuredColor,
                     ColorsResources.black,
                   ],
-                  begin: FractionalOffset(0.0, 0.0),
-                  end: FractionalOffset(1.0, 0.0),
-                  stops: [0.13, 1.0],
-                  transform: GradientRotation(45),
+                  begin: const FractionalOffset(0.0, 0.0),
+                  end: const FractionalOffset(1.0, 0.0),
+                  stops: const [0.13, 1.0],
+                  transform: const GradientRotation(45),
                   tileMode: TileMode.clamp
               )
           ),
@@ -947,7 +968,9 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                     splashFactory: InkRipple.splashFactory,
                     onTap: () {
 
+                      configuredMarkets += ",$marketLabel";
 
+                      updateMarketsList();
 
                     },
                     child: SizedBox(
@@ -1073,7 +1096,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                       });
 
                     },
-                    child: Image(
+                    child: const Image(
                       image: AssetImage("assets/delete_icon.png"),
                     )
                 )
