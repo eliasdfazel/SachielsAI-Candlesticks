@@ -90,7 +90,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
    */
   Widget configuredTimeframesList = Container();
 
-  String configuredTimeframes = "Daily,FourHourly,";
+  String configuredTimeframes = "";
   Color configuredTimeframesColor = ColorsResources.dark;
   /*
    * End - Configured Timeframes
