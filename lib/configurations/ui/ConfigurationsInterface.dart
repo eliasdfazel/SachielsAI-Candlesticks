@@ -680,12 +680,13 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
     for (var element in marketsDataSnapshot.children) {
       debugPrint("Market: ${element.key}");
 
-      allMarketsItems.add(marketsPickerItemMarket());
+      allMarketsItems.add(const Divider(height: 19, color: Colors.transparent,));
+      allMarketsItems.add(marketsPickerItemMarket(element.key.toString()));
 
       for(var marketPair in element.children) {
         debugPrint("Pair: ${marketPair.value}");
 
-        allMarketsItems.add(marketsPickerItemPair());
+        allMarketsItems.add(marketsPickerItemPair(marketPair.key.toString(), marketPair.value.toString()));
 
       }
 
@@ -873,11 +874,14 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
               height: 357,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(17),
-                child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    padding: const EdgeInsets.fromLTRB(0, 19, 0, 19),
-                    children: allMarketsItems
+                child: ColoredBox(
+                  color: ColorsResources.black,
+                  child: ListView(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      padding: const EdgeInsets.fromLTRB(13, 3, 13, 19),
+                      children: allMarketsItems
+                  )
                 )
               )
           )
@@ -886,19 +890,111 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
     );
   }
 
-  Widget marketsPickerItemMarket() {
+  Widget marketsPickerItemMarket(String marketTitle) {
 
-    return Container(
-      height: 37,
-      color: Colors.greenAccent,
+    return SizedBox(
+        height: 37,
+        child: Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+                padding: const EdgeInsets.only(left: 13),
+                child: Text(
+                    marketTitle,
+                    maxLines: 1,
+                    style: const TextStyle(
+                        color: ColorsResources.primaryColorLightest,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.51
+                    )
+                )
+            )
+        )
     );
   }
 
-  Widget marketsPickerItemPair() {
+  Widget marketsPickerItemPair(String marketLabel, String marketPair) {
 
-    return Container(
-      height: 37,
-      color: Colors.redAccent,
+    return Padding(
+      padding: const EdgeInsets.only(top: 3, bottom: 5),
+      child: Container(
+        decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(17),
+                  topRight: Radius.circular(17),
+                  bottomLeft: Radius.circular(17),
+                  bottomRight: Radius.circular(17)
+              ),
+              gradient: LinearGradient(
+                  colors: [
+                    ColorsResources.dark,
+                    ColorsResources.black,
+                  ],
+                  begin: FractionalOffset(0.0, 0.0),
+                  end: FractionalOffset(1.0, 0.0),
+                  stops: [0.0, 1.0],
+                  transform: GradientRotation(45),
+                  tileMode: TileMode.clamp
+              )
+          ),
+        child: ClipRRect(
+            borderRadius: BorderRadius.circular(17),
+            child: Material(
+                shadowColor: Colors.transparent,
+                color: Colors.transparent,
+                child: InkWell(
+                    splashColor: ColorsResources.lightestYellow.withOpacity(0.31),
+                    splashFactory: InkRipple.splashFactory,
+                    onTap: () {
+
+                    },
+                    child: SizedBox(
+                        height: 57,
+                        child: Padding(
+                            padding: const EdgeInsets.only(left: 7, right: 7),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+
+                                  Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                          "$marketLabel | ",
+                                          maxLines: 1,
+                                          style: const TextStyle(
+                                              color: ColorsResources.premiumLight,
+                                              fontSize: 23,
+                                              fontWeight: FontWeight.normal,
+                                              overflow: TextOverflow.fade
+                                          )
+                                      )
+                                  ),
+
+                                  Expanded(
+                                    child: Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                            marketPair,
+                                            maxLines: 1,
+                                            style: const TextStyle(
+                                                color: ColorsResources.premiumLight,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.normal,
+                                                overflow: TextOverflow.fade
+                                            )
+                                        )
+                                    )
+                                  )
+
+                                ]
+                            )
+                        )
+                    )
+                )
+            )
+        )
+      )
     );
   }
 

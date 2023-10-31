@@ -405,8 +405,8 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
             children: [
 
               LoadingAnimationWidget.staggeredDotsWave(
-                  colorOne: ColorsResources.premiumLight.withOpacity(0.37),
-                  colorTwo: ColorsResources.primaryColor.withOpacity(0.37),
+                  colorOne: ColorsResources.premiumLight,
+                  colorTwo: ColorsResources.primaryColor,
                   size: 73
               ),
 
