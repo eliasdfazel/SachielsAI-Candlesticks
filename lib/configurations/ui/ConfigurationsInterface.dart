@@ -21,7 +21,6 @@ import 'package:candlesticks/utils/ui/system_bars.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:widget_mask/widget_mask.dart';
@@ -52,7 +51,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
    */
   DataSnapshot? marketsDataSnapshot;
 
-  bool marketVisibility = false;
+  bool marketsVisibility = false;
   double marketsOpacity = 0.0;
 
   bool addMarketsVisibility = false;
@@ -101,7 +100,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
   bool aInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
 
-    if (marketVisibility) {
+    if (marketsVisibility) {
 
       hideMarketsPicker();
 
@@ -145,7 +144,9 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
     retrieveConfiguredMarkets();
 
-    //
+    retrieveTimeframes();
+
+    retrieveConfiguredMarkets();
 
   }
 
@@ -498,7 +499,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                        * Start - Market Picker
                        */
                       Visibility(
-                          visible: marketVisibility,
+                          visible: marketsVisibility,
                           child: AnimatedOpacity(
                             opacity: marketsOpacity,
                             duration: const Duration(milliseconds: 777),
@@ -509,6 +510,28 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
                               },
                               child: marketsItemsPlaceholder
+                            ),
+                          )
+                      ),
+                      /*
+                       * End - Market Picker
+                       */
+
+                      /*
+                       * Start - Market Picker
+                       */
+                      Visibility(
+                          visible: timeframesVisibility,
+                          child: AnimatedOpacity(
+                            opacity: timeframesOpacity,
+                            duration: const Duration(milliseconds: 777),
+                            child: InkWell(
+                                onTap: () {
+
+                                  hideTimeframesPicker();
+
+                                },
+                                child: timeframesItemsPlaceholder
                             ),
                           )
                       ),
@@ -533,7 +556,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                                   child: InkWell(
                                       onTap: () {
 
-                                        if (marketVisibility) {
+                                        if (marketsVisibility) {
 
                                           updateConfiguredMarkets();
 
@@ -736,13 +759,13 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
         scrollDirection: Axis.vertical,
         children: [
 
-          setupConfiguredMarkets(configuredMarkets),
+          setupConfiguredMarkets(),
 
           const Divider(
             height: 19,
           ),
 
-          //
+          setupConfiguredTimeframes(),
 
           const Divider(
             height: 19,
@@ -806,7 +829,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
   }
 
-  Widget setupConfiguredMarkets(String allConfiguredMarkets) {
+  Widget setupConfiguredMarkets() {
 
     return SizedBox(
         height: 93,
@@ -1156,7 +1179,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
     setState(() {
 
-      marketVisibility = true;
+      marketsVisibility = true;
 
     });
 
@@ -1189,7 +1212,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
       setState(() {
 
-        marketVisibility = false;
+        marketsVisibility = false;
 
       });
 
@@ -1203,7 +1226,373 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   /*
    * Start - Timeframes
    */
+  /*
+   * Start - Configured Timeframes
+   */
+  void retrieveConfiguredTimeframes() async {
 
+    String firestorePath = "Sachiels/Candlesticks/Profiles/${firebaseUser.email}/${widget.previewsDataStructure.candlestickNameValue()}/Configurations";
+
+    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance.doc(firestorePath).get();
+
+    ConfigurationsDataStructure configurationsDataStructure = ConfigurationsDataStructure(documentSnapshot);
+
+    configuredTimeframes = configurationsDataStructure.configuredTimeframesValue();
+
+    updateConfiguredTimeframes();
+
+  }
+
+  void updateConfiguredTimeframes() {
+
+    if (configuredTimeframes.isNotEmpty) {
+
+      List<Widget> configuredItems = [];
+
+      configuredTimeframes.split(",").forEach((element) {
+
+        if (element.isNotEmpty) {
+
+          configuredItems.add(configuredTimeframesItems(element));
+
+        }
+
+      });
+
+      setState(() {
+
+        configuredTimeframesList = ListView(
+            padding: const EdgeInsets.only(left: 13),
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            children: configuredItems
+        );
+
+      });
+
+    }
+
+  }
+
+  Widget setupConfiguredTimeframes() {
+
+    return SizedBox(
+        height: 93,
+        child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              SizedBox(
+                  height: 33,
+                  width: displayLogicalWidth(context) / 2,
+                  child: Stack(
+                      children: [
+
+                        const Image(
+                          image: AssetImage("assets/option_title_background.png"),
+                        ),
+
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+
+                              Expanded(
+                                  flex: 7,
+                                  child: Container(
+                                      padding: const EdgeInsets.only(left: 13),
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                          StringsResources.timeframes(),
+                                          style: const TextStyle(
+                                              color: ColorsResources.premiumLight,
+                                              fontSize: 15,
+                                              letterSpacing: 2.3
+                                          )
+                                      )
+                                  )
+                              ),
+
+                              Expanded(
+                                  flex: 3,
+                                  child: Visibility(
+                                      visible: addTimeframesVisibility,
+                                      child: ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                            bottomRight: Radius.circular(99),
+                                            bottomLeft: Radius.circular(19),
+                                            topRight: Radius.circular(19),
+                                            topLeft: Radius.circular(19),
+                                          ),
+                                          child: Material(
+                                              shadowColor: Colors.transparent,
+                                              color: Colors.transparent,
+                                              child: InkWell(
+                                                  splashColor: ColorsResources.primaryColor.withOpacity(0.51),
+                                                  splashFactory: InkRipple.splashFactory,
+                                                  onTap: () {
+
+                                                    showTimeframesPicker();
+
+                                                  },
+                                                  child: Container(
+                                                      alignment: Alignment.center,
+                                                      child: const Image(
+                                                        image: AssetImage("assets/plus_icon.png"),
+                                                        height: 19,
+                                                      )
+                                                  )
+                                              )
+                                          )
+                                      )
+                                  )
+                              ),
+
+                            ]
+                        )
+
+                      ]
+                  )
+              ),
+
+              SizedBox(
+                  width: displayLogicalWidth(context) - 50,
+                  child: Stack(
+                      children: [
+
+                        const Image(
+                          image: AssetImage("assets/option_items_background.png"),
+                        ),
+
+                        SizedBox(
+                            height: 53,
+                            child: configuredTimeframesList
+                        )
+
+                      ]
+                  )
+              )
+
+            ]
+        )
+    );
+  }
+
+  Widget configuredTimeframesItems(String timeframe) {
+
+    return Padding(
+        padding: const EdgeInsets.only(right: 13),
+        child: Align(
+          alignment: Alignment.center,
+          child: SizedBox(
+            height: 31,
+            width: 71,
+            child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    border: Border.all(
+                        color: ColorsResources.premiumLight,
+                        width: 1
+                    ),
+                    color: ColorsResources.premiumDark
+                ),
+                height: 33,
+                width: 71,
+                child: Center(
+                    child: Text(
+                      timeframe,
+                      style: const TextStyle(
+                          color: ColorsResources.premiumLight
+                      ),
+                    )
+                )
+            ),
+          ),
+        )
+    );
+  }
+  /*
+   * End - Configured Timeframes
+   */
+  void retrieveTimeframes() async {
+
+    timeframesDataSnapshot = await databaseReference.child("Candlesticks/Timeframes").get();
+    debugPrint("Markets Data Retrieved");
+
+    updateTimeframesList();
+
+  }
+
+  void updateTimeframesList() async {
+
+    if (timeframesDataSnapshot != null) {
+      debugPrint("Updating Timeframes List");
+
+      List<Widget> allTimeframesItems = [];
+
+      for (var element in timeframesDataSnapshot!.children) {
+        debugPrint("Timeframe: ${element.key}");
+
+        allTimeframesItems.add(timeframesPickerItemPair(element.key.toString(), element.value.toString()));
+
+      }
+
+      setState(() {
+
+        timeframesItemsPlaceholder = marketsPickerWrapper(allTimeframesItems);
+
+        addTimeframesVisibility = true;
+
+      });
+
+    }
+
+  }
+
+  Widget timeframesPickerItemPair(String timeframe, String description) {
+
+    if (configuredTimeframes.contains(timeframe)) {
+
+      configuredTimeframesColor = ColorsResources.primaryColorLighter;
+
+    } else {
+
+      configuredTimeframesColor = ColorsResources.dark;
+
+    }
+
+    return Padding(
+        padding: const EdgeInsets.only(top: 3, bottom: 5),
+        child: Container(
+            decoration: BoxDecoration(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(17),
+                    topRight: Radius.circular(17),
+                    bottomLeft: Radius.circular(17),
+                    bottomRight: Radius.circular(17)
+                ),
+                gradient: LinearGradient(
+                    colors: [
+                      configuredTimeframesColor,
+                      ColorsResources.black,
+                    ],
+                    begin: const FractionalOffset(0.0, 0.0),
+                    end: const FractionalOffset(1.0, 0.0),
+                    stops: const [0.13, 1.0],
+                    transform: const GradientRotation(45),
+                    tileMode: TileMode.clamp
+                )
+            ),
+            child: ClipRRect(
+                borderRadius: BorderRadius.circular(17),
+                child: Material(
+                    shadowColor: Colors.transparent,
+                    color: Colors.transparent,
+                    child: InkWell(
+                        splashColor: ColorsResources.lightestYellow.withOpacity(0.31),
+                        splashFactory: InkRipple.splashFactory,
+                        onTap: () {
+
+                          configuredTimeframes += "$timeframe,";
+
+                          updateTimeframesList();
+
+                        },
+                        child: SizedBox(
+                            height: 57,
+                            child: Padding(
+                                padding: const EdgeInsets.only(left: 7, right: 7),
+                                child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+
+                                      Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                              "$timeframe | ",
+                                              maxLines: 1,
+                                              style: const TextStyle(
+                                                  color: ColorsResources.premiumLight,
+                                                  fontSize: 23,
+                                                  fontWeight: FontWeight.normal,
+                                                  overflow: TextOverflow.fade
+                                              )
+                                          )
+                                      ),
+
+                                      Expanded(
+                                          child: Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Text(
+                                                  description,
+                                                  maxLines: 1,
+                                                  style: const TextStyle(
+                                                      color: ColorsResources.premiumLight,
+                                                      fontSize: 17,
+                                                      fontWeight: FontWeight.normal,
+                                                      overflow: TextOverflow.fade
+                                                  )
+                                              )
+                                          )
+                                      )
+
+                                    ]
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    );
+  }
+
+  void showTimeframesPicker() {
+
+    setState(() {
+
+      timeframesVisibility = true;
+
+    });
+
+    Future.delayed(const Duration(milliseconds: 137), () {
+
+      animationController.forward();
+
+
+      setState(() {
+
+        timeframesOpacity = 1.0;
+
+      });
+
+    });
+
+  }
+
+  void hideTimeframesPicker() {
+
+    animationController.reverse();
+
+    setState(() {
+
+      timeframesOpacity = 0.0;
+
+    });
+
+    Future.delayed(const Duration(milliseconds: 777), () {
+
+      setState(() {
+
+        timeframesVisibility = false;
+
+      });
+
+    });
+
+  }
   /*
    * End - Timeframes
    */
@@ -1263,7 +1652,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
         for (var timeframe in listOfConfiguredTimeframes) {
           debugPrint("Notification Topic: ${notificationTopic(widget.previewsDataStructure.candlestickNameValue(), timeframe, market)}");
 
-          FirebaseMessaging.instance.subscribeToTopic(notificationTopic(widget.previewsDataStructure.candlestickNameValue(), timeframe, market));
+          // FirebaseMessaging.instance.subscribeToTopic(notificationTopic(widget.previewsDataStructure.candlestickNameValue(), timeframe, market));
 
         }
 
