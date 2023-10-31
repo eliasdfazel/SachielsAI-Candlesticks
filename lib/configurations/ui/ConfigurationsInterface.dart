@@ -9,6 +9,7 @@
  */
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:candlesticks/configurations/data/ConfigurationsDataStructure.dart';
 import 'package:candlesticks/previews/data/previews_data_structure.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
@@ -62,21 +63,36 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   Widget configuredMarketsList = Container();
 
   String configuredMarkets = "";
-  Color configuredColor = ColorsResources.dark;
+  Color configuredMarketsColor = ColorsResources.dark;
   /*
    * End - Configured Markets
-   */  /*
+   */
+  /*
    * End - Markets
    */
 
   /*
    * Start - Timeframes
    */
+  DataSnapshot? timeframesDataSnapshot;
 
   bool timeframesVisibility = false;
+  double timeframesOpacity = 0.0;
+
+  bool addTimeframesVisibility = false;
+
+  Widget timeframesItemsPlaceholder = Container();
+
+  /*
+   * Start - Configured Timeframes
+   */
+  Widget configuredTimeframesList = Container();
 
   String configuredTimeframes = "";
-
+  Color configuredTimeframesColor = ColorsResources.dark;
+  /*
+   * End - Configured Timeframes
+   */
   /*
    * End - Timeframes
    */
@@ -743,16 +759,15 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   /*
    * Start - Configured Markets
    */
-  void retrieveConfiguredMarkets() {
+  void retrieveConfiguredMarkets() async {
 
-    // Get Firestore
-    // /Sachiels/Candlesticks/Profiles/[UID]/[CandlesticksName]/Configurations
-    /*
-    Document {
-      configuredMarkets:
-      configuredTimeframes:
-    }
-    */
+    String firestorePath = "Sachiels/Candlesticks/Profiles/${firebaseUser.email}/${widget.previewsDataStructure.candlestickNameValue()}/Configurations";
+
+    DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance.doc(firestorePath).get();
+
+    ConfigurationsDataStructure configurationsDataStructure = ConfigurationsDataStructure(documentSnapshot);
+
+    configuredMarkets = configurationsDataStructure.configuredMarketsValue();
 
     updateConfiguredMarkets();
 
@@ -1040,11 +1055,11 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
     if (configuredMarkets.contains(marketLabel)) {
 
-      configuredColor = ColorsResources.primaryColorLighter;
+      configuredMarketsColor = ColorsResources.primaryColorLighter;
 
     } else {
 
-      configuredColor = ColorsResources.dark;
+      configuredMarketsColor = ColorsResources.dark;
 
     }
 
@@ -1060,7 +1075,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
               ),
               gradient: LinearGradient(
                   colors: [
-                    configuredColor,
+                    configuredMarketsColor,
                     ColorsResources.black,
                   ],
                   begin: const FractionalOffset(0.0, 0.0),
@@ -1194,27 +1209,36 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   /*
    * Start - Update Firestore Candlestick
    */
-
-  /*
-   * End - Update Firestore Candlestick
-   */
-
   void configureIt() async {
 
-    if (configuredMarkets.isNotEmpty && configuredTimeframes.isNotEmpty) {
+    if (configuredMarkets.isNotEmpty
+        /*&& configuredTimeframes.isNotEmpty*/) {
 
       String firestorePath = "Sachiels/Candlesticks/Profiles/${firebaseUser.email}/${widget.previewsDataStructure.candlestickNameValue()}/Configurations";
 
       FirebaseFirestore.instance
-        .doc(firestorePath)
-        .update({
-          "configuredMarkets": configuredMarkets,
-          "configuredTimeframes": configuredTimeframes,
-        });
+          .doc(firestorePath)
+          .set({
+            "candlestickImage": widget.previewsDataStructure.candlestickImageValue(),
+            "configuredMarkets": configuredMarkets,
+            "configuredTimeframes": configuredTimeframes,
+          });
+
+      List listOfConfiguredMarkets = configuredMarkets.split(",");
+      listOfConfiguredMarkets.removeLast();
+
+      FirebaseFirestore.instance
+          .doc("Sachiels/Candlesticks/Profiles/${firebaseUser.email}")
+          .set({
+            "ConfiguredCandlesticks": listOfConfiguredMarkets
+          });
 
     }
 
   }
+  /*
+   * End - Update Firestore Candlestick
+   */
 
   Widget deleteConfiguration() {
 
