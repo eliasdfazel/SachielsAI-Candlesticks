@@ -21,6 +21,8 @@ import 'package:candlesticks/utils/ui/system_bars.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:widget_mask/widget_mask.dart';
@@ -1696,7 +1698,11 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
         for (var timeframe in listOfConfiguredTimeframes) {
           debugPrint("Notification Topic: ${notificationTopic(widget.previewsDataStructure.candlestickNameValue(), timeframe, market)}");
 
-          // FirebaseMessaging.instance.subscribeToTopic(notificationTopic(widget.previewsDataStructure.candlestickNameValue(), timeframe, market));
+          if (!kDebugMode) {
+
+            FirebaseMessaging.instance.subscribeToTopic(notificationTopic(widget.previewsDataStructure.candlestickNameValue(), timeframe, market));
+
+          }
 
         }
 
