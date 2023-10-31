@@ -932,7 +932,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                   ],
                   begin: FractionalOffset(0.0, 0.0),
                   end: FractionalOffset(1.0, 0.0),
-                  stops: [0.0, 1.0],
+                  stops: [0.13, 1.0],
                   transform: GradientRotation(45),
                   tileMode: TileMode.clamp
               )
