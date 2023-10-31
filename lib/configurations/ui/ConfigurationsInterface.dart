@@ -564,6 +564,10 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
                                         } else if (timeframesVisibility) {
 
+                                          updateConfiguredTimeframes();
+
+                                          hideTimeframesPicker();
+
                                         } else {
 
                                           configureIt();
@@ -1415,6 +1419,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   /*
    * End - Configured Timeframes
    */
+
   void retrieveTimeframes() async {
 
     timeframesDataSnapshot = await databaseReference.child("Candlesticks/Timeframes").get();
@@ -1434,13 +1439,13 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
       for (var element in timeframesDataSnapshot!.children) {
         debugPrint("Timeframe: ${element.key}");
 
-        allTimeframesItems.add(timeframesPickerItemPair(element.key.toString(), element.value.toString()));
+        allTimeframesItems.add(timeframesPickerItem(element.key.toString(), element.value.toString()));
 
       }
 
       setState(() {
 
-        timeframesItemsPlaceholder = marketsPickerWrapper(allTimeframesItems);
+        timeframesItemsPlaceholder = timeframesPickerWrapper(allTimeframesItems);
 
         addTimeframesVisibility = true;
 
@@ -1450,7 +1455,46 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
   }
 
-  Widget timeframesPickerItemPair(String timeframe, String description) {
+  Widget timeframesPickerWrapper(List<Widget> allTimeframesItems) {
+
+    return Container(
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(17),
+              topRight: Radius.circular(17),
+              bottomLeft: Radius.circular(17),
+              bottomRight: Radius.circular(17)
+          ),
+          color: ColorsResources.premiumDark.withOpacity(0.73),
+        ),
+        child: Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+                padding: const EdgeInsets.fromLTRB(19, 0, 19, 107),
+                child: SlideTransition(
+                    position: offsetAnimation,
+                    child: SizedBox(
+                        height: 357,
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(17),
+                            child: ColoredBox(
+                                color: ColorsResources.black,
+                                child: ListView(
+                                    physics: const BouncingScrollPhysics(),
+                                    scrollDirection: Axis.vertical,
+                                    padding: const EdgeInsets.fromLTRB(13, 19, 13, 19),
+                                    children: allTimeframesItems
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    );
+  }
+
+  Widget timeframesPickerItem(String timeframe, String description) {
 
     if (configuredTimeframes.contains(timeframe)) {
 

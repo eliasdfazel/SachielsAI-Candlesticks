@@ -11,8 +11,7 @@
 /// [a-z A-Z 0-9 -_.~%] {1,900}
 String notificationTopic(String candlestickName, String timeframe, String market) {
 
-
-  String notificationTopic = "${candlestickName.replaceAll(" ", "")}$timeframe$market";
+  String notificationTopic = "${candlestickName.replaceAll(" ", "")}${timeframe.replaceAll(" ", "")}${market.replaceAll(" ", "")}";
 
   return notificationTopic;
 }
