@@ -1240,7 +1240,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
             if (documentSnapshot.exists) {
 
               var listOfCandlesticks = documentSnapshot.get("ConfiguredCandlesticks") as List;
-              debugPrint("Configured Candlesticks: ${listOfCandlesticks}");
+              debugPrint("Configured Candlesticks: $listOfCandlesticks");
 
               if (!listOfCandlesticks.contains(widget.previewsDataStructure.candlestickNameValue())) {
 
