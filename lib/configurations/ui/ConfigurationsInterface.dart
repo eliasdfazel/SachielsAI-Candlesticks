@@ -732,6 +732,13 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   void retrieveConfiguredMarkets() {
 
     // Get Firestore
+    // /Sachiels/Candlesticks/Profiles/[UID]/[CandlesticksName]/Configurations
+    /*
+    Document {
+      configuredMarkets:
+      configuredTimeframes:
+    }
+    */
 
     updateConfiguredMarkets();
 
@@ -763,8 +770,6 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
         );
 
       });
-
-      // Update Firestore
 
     }
 
@@ -914,7 +919,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
   void retrieveMarkets() async {
 
-    marketsDataSnapshot = await databaseReference.child("SachielsSignals/Markets").get();
+    marketsDataSnapshot = await databaseReference.child("Candlesticks/Markets").get();
     debugPrint("Markets Data Retrieved");
 
     updateMarketsList();
@@ -1170,6 +1175,14 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
   /*
    * End - Timeframes
+   */
+
+  /*
+   * Start - Update Firestore Candlestick
+   */
+
+  /*
+   * End - Update Firestore Candlestick
    */
 
   Widget deleteConfiguration() {
