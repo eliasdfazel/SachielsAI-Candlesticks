@@ -8,6 +8,7 @@
  * https://opensource.org/licenses/MIT
  */
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:candlesticks/previews/data/previews_data_structure.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
@@ -63,9 +64,34 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
    * End - Timeframes
    */
 
+  bool aInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+
+    if (marketVisibility) {
+
+      hideMarketsPicker();
+
+    } else {
+
+      navigatePop(context);
+
+    }
+
+    return true;
+  }
+
+  @override
+  void dispose() {
+
+    BackButtonInterceptor.remove(aInterceptor);
+
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
+
+    BackButtonInterceptor.add(aInterceptor);
 
     changeColor(ColorsResources.black, ColorsResources.black);
 
