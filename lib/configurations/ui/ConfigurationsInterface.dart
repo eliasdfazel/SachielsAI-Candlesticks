@@ -20,6 +20,7 @@ import 'package:candlesticks/utils/ui/system_bars.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:widget_mask/widget_mask.dart';
@@ -1212,7 +1213,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   void configureIt() async {
 
     if (configuredMarkets.isNotEmpty
-        /*&& configuredTimeframes.isNotEmpty*/) {
+        && configuredTimeframes.isNotEmpty) {
 
       String firestorePath = "Sachiels/Candlesticks/Profiles/${firebaseUser.email}/${widget.previewsDataStructure.candlestickNameValue()}/Configurations";
 
@@ -1232,6 +1233,8 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
           .set({
             "ConfiguredCandlesticks": listOfConfiguredMarkets
           });
+
+      FirebaseMessaging.instance.subscribeToTopic("");
 
     }
 
