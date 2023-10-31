@@ -10,6 +10,7 @@
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:candlesticks/configurations/data/ConfigurationsDataStructure.dart';
+import 'package:candlesticks/configurations/utils/Utils.dart';
 import 'package:candlesticks/previews/data/previews_data_structure.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
@@ -89,7 +90,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
    */
   Widget configuredTimeframesList = Container();
 
-  String configuredTimeframes = "";
+  String configuredTimeframes = "Daily,FourHourly,";
   Color configuredTimeframesColor = ColorsResources.dark;
   /*
    * End - Configured Timeframes
@@ -1214,6 +1215,13 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
     if (configuredMarkets.isNotEmpty
         && configuredTimeframes.isNotEmpty) {
+      debugPrint("Configuring ${widget.previewsDataStructure.candlestickNameValue()} Notifications");
+
+      List listOfConfiguredMarkets = configuredMarkets.split(",");
+      listOfConfiguredMarkets.removeLast();
+
+      List listOfConfiguredTimeframes = configuredTimeframes.split(",");
+      listOfConfiguredTimeframes.removeLast();
 
       String firestorePath = "Sachiels/Candlesticks/Profiles/${firebaseUser.email}/${widget.previewsDataStructure.candlestickNameValue()}/Configurations";
 
@@ -1225,16 +1233,22 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
             "configuredTimeframes": configuredTimeframes,
           });
 
-      List listOfConfiguredMarkets = configuredMarkets.split(",");
-      listOfConfiguredMarkets.removeLast();
-
       FirebaseFirestore.instance
           .doc("Sachiels/Candlesticks/Profiles/${firebaseUser.email}")
           .set({
             "ConfiguredCandlesticks": listOfConfiguredMarkets
           });
 
-      FirebaseMessaging.instance.subscribeToTopic("");
+      for (var market in listOfConfiguredMarkets) {
+
+        for (var timeframe in listOfConfiguredTimeframes) {
+          debugPrint("Notification Topic: ${notificationTopic(widget.previewsDataStructure.candlestickNameValue(), timeframe, market)}");
+
+          FirebaseMessaging.instance.subscribeToTopic(notificationTopic(widget.previewsDataStructure.candlestickNameValue(), timeframe, market));
+
+        }
+
+      }
 
     }
 
