@@ -30,11 +30,15 @@ class ConfigurationsInterface extends StatefulWidget {
   @override
   State<ConfigurationsInterface> createState() => ConfigurationsInterfaceState();
 }
-class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
+class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with TickerProviderStateMixin {
 
   DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
 
   Widget configurationOptions = Container();
+
+  late AnimationController animationController;
+
+  late Animation<Offset> offsetAnimation;
 
   /*
    * Start - Markets
@@ -57,9 +61,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
   /*
    * Start - Timeframes
    */
-  double timeframesOpacity = 0.0;
 
-  Widget timeframesItemsPlaceholder = Container();
   /*
    * End - Timeframes
    */
@@ -94,6 +96,17 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
     BackButtonInterceptor.add(aInterceptor);
 
     changeColor(ColorsResources.black, ColorsResources.black);
+
+    animationController = AnimationController(vsync: this,
+        duration: const Duration(milliseconds: 777),
+        reverseDuration: const Duration(milliseconds: 555),
+        animationBehavior: AnimationBehavior.preserve);
+
+    offsetAnimation = Tween<Offset>(begin: const Offset(0, 1), end: const Offset(0, 0))
+        .animate(CurvedAnimation(
+        parent: animationController,
+        curve: Curves.easeIn
+    ));
 
     retrieveMarkets();
 
@@ -698,49 +711,6 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
   /*
    * Start - Markets
    */
-  void retrieveMarkets() async {
-
-    marketsDataSnapshot = await databaseReference.child("SachielsSignals/Markets").get();
-    debugPrint("Markets Data Retrieved");
-
-    updateMarketsList();
-
-  }
-
-  void updateMarketsList() async {
-
-    if (marketsDataSnapshot != null) {
-      debugPrint("Updating Markets List");
-
-      List<Widget> allMarketsItems = [];
-
-      for (var element in marketsDataSnapshot!.children) {
-        debugPrint("Market: ${element.key}");
-
-        allMarketsItems.add(const Divider(height: 19, color: Colors.transparent));
-        allMarketsItems.add(marketsPickerItemMarket(element.key.toString()));
-
-        for(var marketPair in element.children) {
-          debugPrint("Pair: ${marketPair.value}");
-
-          allMarketsItems.add(marketsPickerItemPair(marketPair.key.toString(), marketPair.value.toString()));
-
-        }
-
-      }
-
-      setState(() {
-
-        marketsItemsPlaceholder = marketsPickerWrapper(allMarketsItems);
-
-        addMarketsVisibility = true;
-
-      });
-
-    }
-
-  }
-
   Widget setupConfiguredMarkets() {
 
     return SizedBox(
@@ -784,35 +754,35 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                               Expanded(
                                   flex: 3,
                                   child: Visibility(
-                                    visible: addMarketsVisibility,
-                                    child: ClipRRect(
-                                        borderRadius: const BorderRadius.only(
-                                          bottomRight: Radius.circular(99),
-                                          bottomLeft: Radius.circular(19),
-                                          topRight: Radius.circular(19),
-                                          topLeft: Radius.circular(19),
-                                        ),
-                                        child: Material(
-                                            shadowColor: Colors.transparent,
-                                            color: Colors.transparent,
-                                            child: InkWell(
-                                                splashColor: ColorsResources.primaryColor.withOpacity(0.51),
-                                                splashFactory: InkRipple.splashFactory,
-                                                onTap: () {
+                                      visible: addMarketsVisibility,
+                                      child: ClipRRect(
+                                          borderRadius: const BorderRadius.only(
+                                            bottomRight: Radius.circular(99),
+                                            bottomLeft: Radius.circular(19),
+                                            topRight: Radius.circular(19),
+                                            topLeft: Radius.circular(19),
+                                          ),
+                                          child: Material(
+                                              shadowColor: Colors.transparent,
+                                              color: Colors.transparent,
+                                              child: InkWell(
+                                                  splashColor: ColorsResources.primaryColor.withOpacity(0.51),
+                                                  splashFactory: InkRipple.splashFactory,
+                                                  onTap: () {
 
-                                                  showMarketsPicker();
+                                                    showMarketsPicker();
 
-                                                },
-                                                child: Container(
-                                                    alignment: Alignment.center,
-                                                    child: const Image(
-                                                      image: AssetImage("assets/plus_icon.png"),
-                                                      height: 19,
-                                                    )
-                                                )
-                                            )
-                                        )
-                                    )
+                                                  },
+                                                  child: Container(
+                                                      alignment: Alignment.center,
+                                                      child: const Image(
+                                                        image: AssetImage("assets/plus_icon.png"),
+                                                        height: 19,
+                                                      )
+                                                  )
+                                              )
+                                          )
+                                      )
                                   )
                               ),
 
@@ -891,6 +861,49 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
     );
   }
 
+  void retrieveMarkets() async {
+
+    marketsDataSnapshot = await databaseReference.child("SachielsSignals/Markets").get();
+    debugPrint("Markets Data Retrieved");
+
+    updateMarketsList();
+
+  }
+
+  void updateMarketsList() async {
+
+    if (marketsDataSnapshot != null) {
+      debugPrint("Updating Markets List");
+
+      List<Widget> allMarketsItems = [];
+
+      for (var element in marketsDataSnapshot!.children) {
+        debugPrint("Market: ${element.key}");
+
+        allMarketsItems.add(const Divider(height: 19, color: Colors.transparent));
+        allMarketsItems.add(marketsPickerItemMarket(element.key.toString()));
+
+        for(var marketPair in element.children) {
+          debugPrint("Pair: ${marketPair.value}");
+
+          allMarketsItems.add(marketsPickerItemPair(marketPair.key.toString(), marketPair.value.toString()));
+
+        }
+
+      }
+
+      setState(() {
+
+        marketsItemsPlaceholder = marketsPickerWrapper(allMarketsItems);
+
+        addMarketsVisibility = true;
+
+      });
+
+    }
+
+  }
+
   Widget marketsPickerWrapper(List<Widget> allMarketsItems) {
 
     return Container(
@@ -907,20 +920,23 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
         alignment: Alignment.bottomCenter,
         child: Padding(
           padding: const EdgeInsets.fromLTRB(19, 0, 19, 107),
-          child: SizedBox(
-              height: 357,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(17),
-                child: ColoredBox(
-                  color: ColorsResources.black,
-                  child: ListView(
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      padding: const EdgeInsets.fromLTRB(13, 3, 13, 19),
-                      children: allMarketsItems
-                  )
+          child: SlideTransition(
+            position: offsetAnimation,
+            child: SizedBox(
+                height: 357,
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(17),
+                    child: ColoredBox(
+                        color: ColorsResources.black,
+                        child: ListView(
+                            physics: const BouncingScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            padding: const EdgeInsets.fromLTRB(13, 3, 13, 19),
+                            children: allMarketsItems
+                        )
+                    )
                 )
-              )
+            )
           )
         )
       )
@@ -1059,6 +1075,9 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
 
     Future.delayed(const Duration(milliseconds: 137), () {
 
+      animationController.forward();
+
+
       setState(() {
 
         marketsOpacity = 1.0;
@@ -1070,6 +1089,8 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
   }
 
   void hideMarketsPicker() {
+
+    animationController.reverse();
 
     setState(() {
 
