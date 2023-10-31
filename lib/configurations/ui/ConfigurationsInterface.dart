@@ -16,6 +16,8 @@ import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:candlesticks/utils/ui/display.dart';
 import 'package:candlesticks/utils/ui/system_bars.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -31,6 +33,8 @@ class ConfigurationsInterface extends StatefulWidget {
   State<ConfigurationsInterface> createState() => ConfigurationsInterfaceState();
 }
 class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with TickerProviderStateMixin {
+
+  User firebaseUser = FirebaseAuth.instance.currentUser!;
 
   DatabaseReference databaseReference = FirebaseDatabase.instance.ref();
 
@@ -68,6 +72,10 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   /*
    * Start - Timeframes
    */
+
+  bool timeframesVisibility = false;
+
+  String configuredTimeframes = "";
 
   /*
    * End - Timeframes
@@ -512,6 +520,12 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                                           updateConfiguredMarkets();
 
                                           hideMarketsPicker();
+
+                                        } else if (timeframesVisibility) {
+
+                                        } else {
+
+                                          configureIt();
 
                                         }
 
@@ -1184,6 +1198,23 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   /*
    * End - Update Firestore Candlestick
    */
+
+  void configureIt() async {
+
+    if (configuredMarkets.isNotEmpty && configuredTimeframes.isNotEmpty) {
+
+      String firestorePath = "Sachiels/Candlesticks/Profiles/${firebaseUser.email}/${widget.previewsDataStructure.candlestickNameValue()}/Configurations";
+
+      FirebaseFirestore.instance
+        .doc(firestorePath)
+        .update({
+          "configuredMarkets": configuredMarkets,
+          "configuredTimeframes": configuredTimeframes,
+        });
+
+    }
+
+  }
 
   Widget deleteConfiguration() {
 
