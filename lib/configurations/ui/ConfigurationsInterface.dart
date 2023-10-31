@@ -1214,7 +1214,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   void configureIt() async {
 
     if (configuredMarkets.isNotEmpty
-        && configuredTimeframes.isNotEmpty) {
+        /*&& configuredTimeframes.isNotEmpty*/) {
       debugPrint("Configuring ${widget.previewsDataStructure.candlestickNameValue()} Notifications");
 
       List listOfConfiguredMarkets = configuredMarkets.split(",");
@@ -1235,8 +1235,27 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
       FirebaseFirestore.instance
           .doc("Sachiels/Candlesticks/Profiles/${firebaseUser.email}")
-          .set({
-            "ConfiguredCandlesticks": listOfConfiguredMarkets
+          .get().then((DocumentSnapshot documentSnapshot) {
+
+            if (documentSnapshot.exists) {
+
+              var listOfCandlesticks = documentSnapshot.get("ConfiguredCandlesticks") as List;
+              debugPrint("Configured Candlesticks: ${listOfCandlesticks}");
+
+              if (!listOfCandlesticks.contains(widget.previewsDataStructure.candlestickNameValue())) {
+
+                listOfCandlesticks.add(widget.previewsDataStructure.candlestickNameValue());
+
+                FirebaseFirestore.instance
+                    .doc("Sachiels/Candlesticks/Profiles/${firebaseUser.email}")
+                    .set({
+                      "ConfiguredCandlesticks": listOfCandlesticks
+                    });
+
+              }
+
+            }
+
           });
 
       for (var market in listOfConfiguredMarkets) {
