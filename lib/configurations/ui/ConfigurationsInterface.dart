@@ -947,6 +947,8 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> {
                     splashFactory: InkRipple.splashFactory,
                     onTap: () {
 
+
+
                     },
                     child: SizedBox(
                         height: 57,
