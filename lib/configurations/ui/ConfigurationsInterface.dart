@@ -52,9 +52,16 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
   Widget marketsItemsPlaceholder = Container();
 
-  String configuredMarkets = "ETHUSD,USDJPY";
+  /*
+   * Start - Configured Markets
+   */
+  Widget configuredMarketsList = Container();
+
+  String configuredMarkets = "";
   Color configuredColor = ColorsResources.dark;
   /*
+   * End - Configured Markets
+   */  /*
    * End - Markets
    */
 
@@ -109,6 +116,8 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
     ));
 
     retrieveMarkets();
+
+    retrieveConfiguredMarkets();
 
     //
 
@@ -498,7 +507,13 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                                   child: InkWell(
                                       onTap: () {
 
+                                        if (marketVisibility) {
 
+                                          updateConfiguredMarkets();
+
+                                          hideMarketsPicker();
+
+                                        }
 
                                       },
                                       child: const Image(
@@ -689,7 +704,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
         scrollDirection: Axis.vertical,
         children: [
 
-          setupConfiguredMarkets(),
+          setupConfiguredMarkets(configuredMarkets),
 
           const Divider(
             height: 19,
@@ -711,7 +726,51 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   /*
    * Start - Markets
    */
-  Widget setupConfiguredMarkets() {
+  /*
+   * Start - Configured Markets
+   */
+  void retrieveConfiguredMarkets() {
+
+    // Get Firestore
+
+    updateConfiguredMarkets();
+
+  }
+
+  void updateConfiguredMarkets() {
+
+    if (configuredMarkets.isNotEmpty) {
+
+      List<Widget> configuredItems = [];
+
+      configuredMarkets.split(",").forEach((element) {
+
+        if (element.isNotEmpty) {
+
+          configuredItems.add(configuredMarketsItems(element));
+
+        }
+
+      });
+
+      setState(() {
+
+        configuredMarketsList = ListView(
+            padding: const EdgeInsets.only(left: 13),
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            children: configuredItems
+        );
+
+      });
+
+      // Update Firestore
+
+    }
+
+  }
+
+  Widget setupConfiguredMarkets(String allConfiguredMarkets) {
 
     return SizedBox(
         height: 93,
@@ -802,20 +861,9 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                           image: AssetImage("assets/option_items_background.png"),
                         ),
 
-                        // marketsItemsPlaceholder,
-
                         SizedBox(
                             height: 53,
-                            child: ListView(
-                                padding: const EdgeInsets.only(left: 13),
-                                physics: const BouncingScrollPhysics(),
-                                scrollDirection: Axis.horizontal,
-                                children: const [
-
-
-
-                                ]
-                            )
+                            child: configuredMarketsList
                         )
 
                       ]
@@ -860,6 +908,9 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
         )
     );
   }
+  /*
+   * End - Configured Markets
+   */
 
   void retrieveMarkets() async {
 
@@ -1010,7 +1061,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                     splashFactory: InkRipple.splashFactory,
                     onTap: () {
 
-                      configuredMarkets += ",$marketLabel";
+                      configuredMarkets += "$marketLabel,";
 
                       updateMarketsList();
 
