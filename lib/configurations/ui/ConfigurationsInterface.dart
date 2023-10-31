@@ -1214,7 +1214,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   void configureIt() async {
 
     if (configuredMarkets.isNotEmpty
-        /*&& configuredTimeframes.isNotEmpty*/) {
+        && configuredTimeframes.isNotEmpty) {
       debugPrint("Configuring ${widget.previewsDataStructure.candlestickNameValue()} Notifications");
 
       List listOfConfiguredMarkets = configuredMarkets.split(",");
