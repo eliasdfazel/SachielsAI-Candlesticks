@@ -24,6 +24,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:widget_mask/widget_mask.dart';
 
@@ -1653,6 +1654,8 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
         && configuredTimeframes.isNotEmpty) {
       debugPrint("Configuring ${widget.previewsDataStructure.candlestickNameValue()} Notifications");
 
+      startDone();
+
       List listOfConfiguredMarkets = configuredMarkets.split(",");
       listOfConfiguredMarkets.removeLast();
 
@@ -1663,7 +1666,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
       if (!kDebugMode) {
 
-        FirebaseFirestore.instance
+        await FirebaseFirestore.instance
             .doc(firestorePath)
             .set(candlestickDocument(
             widget.previewsDataStructure.candlestickNameValue(),
@@ -1725,7 +1728,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                             .doc(configurationsDocumentPath(firebaseUser.email!, widget.previewsDataStructure.candlestickNameValue()))
                             .delete().then((value) => {
 
-                              Future.delayed(Duration.zero, () {
+                              Future.delayed(const Duration(milliseconds: 111), () {
 
                                 candlestickAdded = true;
 
@@ -1753,7 +1756,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   /*
    * Start - Done Animation
    */
-  void done() {
+  void startDone() {
 
     setState(() {
 
@@ -1770,9 +1773,14 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
               height: 49,
               width: 49,
               child: Container(
-                color: Colors.red,
+                alignment: Alignment.center,
+                child: LoadingAnimationWidget.staggeredDotsWave(
+                  colorOne: ColorsResources.premiumLight,
+                  colorTwo: ColorsResources.primaryColor,
+                  size: 23,
+                ),
               )
-            ),
+            )
           ),
 
           Positioned(
@@ -1780,14 +1788,38 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
             child: SizedBox(
                 height: 49,
                 width: 173,
-                child: Container(
-                  color: Colors.red,
+                child: Center(
+                  child: Text(
+                    StringsResources.configuring(),
+                    style: const TextStyle(
+                      fontSize: 19,
+                      color: ColorsResources.premiumDark,
+                      letterSpacing: 1.31,
+                      fontWeight: FontWeight.w700
+                    )
+                  )
                 )
             ),
           ),
 
         ]
       );
+
+    });
+
+  }
+
+  void done() {
+
+    Future.delayed(const Duration(milliseconds: 1357), () {
+
+      setState(() {
+
+        confirmButton = const Image(
+          image: AssetImage("assets/confirm_icon.png")
+        );
+
+      });
 
     });
 

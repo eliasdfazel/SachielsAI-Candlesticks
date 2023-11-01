@@ -48,6 +48,16 @@ class StringsResources {
 
     return "Candlesticks";
   }
+
+  static String markets() {
+
+    return "Markets";
+  }
+
+  static String timeframes() {
+
+    return "Timeframes";
+  }
   /*
    * Start - Titles
    */
@@ -120,27 +130,16 @@ class StringsResources {
    */
 
   /*
-   * Start - Title
-   */
-  static String markets() {
-
-    return "Markets";
-  }
-
-  static String timeframes() {
-
-    return "Timeframes";
-  }
-  /*
-   * End - Title
-   */
-
-  /*
    * Start - Notice
    */
   static String comingSoon() {
 
     return "Coming Soon...";
+  }
+
+  static String configuring() {
+
+    return "Configuring";
   }
 
   static String ok() {
