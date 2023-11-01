@@ -147,13 +147,21 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
                                           shadowColor: Colors.transparent,
                                           color: Colors.transparent,
                                           child: InkWell(
-                                              splashColor: ColorsResources.lightestYellow.withOpacity(0.31),
+                                              splashColor: ColorsResources.lightestYellow.withOpacity(0.73),
                                               splashFactory: InkRipple.splashFactory,
                                               onTap: () {
 
                                                 setState(() {
 
-                                                  dataCardOpacity = 1.0;
+                                                  if (dataCardOpacity == 0.0) {
+
+                                                    dataCardOpacity = 1.0;
+
+                                                  } else {
+
+                                                    dataCardOpacity = 0.0;
+
+                                                  }
 
                                                 });
 
