@@ -35,6 +35,7 @@ Map<String, dynamic> candlestickDocument(String candlestickName, String candlest
     "candlestickMarketDirection": candlestickMarketDirection,
     "configuredMarkets": configuredMarkets,
     "configuredTimeframes": configuredTimeframes,
+    "notificationStatus": true,
   };
 }
 

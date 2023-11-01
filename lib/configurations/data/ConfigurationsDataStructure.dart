@@ -19,6 +19,8 @@ class ConfigurationsDataStructure {
   static const String candlestickImage = "candlestickImage";
   static const String candlestickMarketDirection = "candlestickMarketDirection";
 
+  static const String notificationStatus = "notificationStatus";
+
   Map<String, dynamic> documentData = <String, dynamic>{};
 
   ConfigurationsDataStructure(DocumentSnapshot documentSnapshot) {
@@ -50,6 +52,11 @@ class ConfigurationsDataStructure {
   String candlestickMarketDirectionValue() {
 
     return documentData[ConfigurationsDataStructure.candlestickMarketDirection].toString();
+  }
+
+  bool notificationStatusValue() {
+
+    return bool.parse(documentData[ConfigurationsDataStructure.notificationStatus].toString());
   }
 
 }

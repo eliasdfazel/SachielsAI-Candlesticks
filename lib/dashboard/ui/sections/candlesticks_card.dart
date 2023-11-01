@@ -17,6 +17,7 @@ import 'package:candlesticks/previews/data/previews_data_structure.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class CandlesticksCard extends StatefulWidget {
@@ -32,6 +33,9 @@ class CandlesticksCard extends StatefulWidget {
 }
 class _CandlesticksCardState extends State<CandlesticksCard> {
 
+  bool notificationOn = true;
+  String notificationOnIcon = "assets/notification_on.png";
+
   double dataCardOpacity = 0.0;
 
   @override
@@ -42,6 +46,16 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
   @override
   Widget build(BuildContext context) {
     debugPrint("Configured Candlesticks: $widget.configurationsDataStructure");
+
+    if (widget.configurationsDataStructure.notificationStatusValue()) {
+
+      notificationOnIcon = "assets/notification_on.png";
+
+    } else {
+
+      notificationOnIcon = "assets/notification_off.png";
+
+    }
 
     return ClipRRect(
         borderRadius: BorderRadius.circular(19),
@@ -92,7 +106,7 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
                                 blurColor: ColorsResources.premiumDark,
                                 colorOpacity: 0.37,
                                 overlay: Padding(
-                                    padding: const EdgeInsets.all(7),
+                                    padding: const EdgeInsets.all(19),
                                     child: Column(
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,7 +187,35 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
                                       )
                                   )
                               )
-                          )
+                          ),
+
+                          Positioned(
+                              bottom: 13,
+                              left: 13,
+                              child: SizedBox(
+                                  height: 31,
+                                  width: 31,
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(99),
+                                      child: Material(
+                                          shadowColor: Colors.transparent,
+                                          color: Colors.transparent,
+                                          child: InkWell(
+                                              splashColor: ColorsResources.lightestYellow.withOpacity(0.73),
+                                              splashFactory: InkRipple.splashFactory,
+                                              onTap: () {
+
+                                                updateNotification(!widget.configurationsDataStructure.notificationStatusValue());
+
+                                              },
+                                              child: Image(
+                                                image: AssetImage(notificationOnIcon),
+                                              )
+                                          )
+                                      )
+                                  )
+                              )
+                          ),
 
                         ]
                     )
@@ -181,6 +223,15 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
             )
         )
     );
+  }
+
+  void updateNotification(bool notificationStatus) {
+
+    FirebaseFirestore.instance.doc(configurationsDocumentPath(FirebaseAuth.instance.currentUser!.email!, widget.configurationsDataStructure.candlestickNameValue()))
+      .update({
+        "notificationStatus": notificationStatus,
+      }).then((value) => widget.dashboardInterfaceState.retrieveConfiguredCandlesticks());
+
   }
 
 }
