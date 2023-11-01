@@ -8,10 +8,8 @@
  * https://opensource.org/licenses/MIT
  */
 
-import 'package:candlesticks/profile/ui/account_information_details.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
-import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:widget_mask/widget_mask.dart';
@@ -60,7 +58,7 @@ class AccountInformationOverviewStates extends State<AccountInformationOverview>
           InkWell(
               onTap: () {
 
-                openAccountInformation();
+                // openAccountInformation();
 
               },
               child: Align(
@@ -113,7 +111,7 @@ class AccountInformationOverviewStates extends State<AccountInformationOverview>
           InkWell(
               onTap: () {
 
-                openAccountInformation();
+                // openAccountInformation();
 
               },
               child:  Align(
@@ -219,12 +217,6 @@ class AccountInformationOverviewStates extends State<AccountInformationOverview>
       });
 
     }
-
-  }
-
-  void openAccountInformation() {
-
-    navigateTo(context, const AccountInformationDetails());
 
   }
 
