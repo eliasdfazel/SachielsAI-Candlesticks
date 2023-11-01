@@ -172,4 +172,15 @@ class StringsResources {
    * End - Warnings
    */
 
+  /*
+   * Start - Social Media
+   */
+  static String xLink() {
+
+    return "https://twitter.com/SachielsAI";
+  }
+  /*
+   * End - Social Media
+   */
+
 }

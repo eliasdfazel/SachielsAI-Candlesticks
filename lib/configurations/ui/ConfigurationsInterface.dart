@@ -24,7 +24,6 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:widget_mask/widget_mask.dart';
 
@@ -717,15 +716,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                               child: InkWell(
                                   onTap: () {
 
-                                    Fluttertoast.showToast(
-                                        msg: StringsResources.comingSoon(),
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: ColorsResources.premiumDark,
-                                        textColor: ColorsResources.premiumLight,
-                                        fontSize: 13.0
-                                    );
+                                    launchUrlString(StringsResources.xLink(), mode: LaunchMode.externalApplication);
 
                                   },
                                   child: const Image(
@@ -743,15 +734,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                               child: InkWell(
                                   onTap: () {
 
-                                    Fluttertoast.showToast(
-                                        msg: StringsResources.comingSoon(),
-                                        toastLength: Toast.LENGTH_LONG,
-                                        gravity: ToastGravity.BOTTOM,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: ColorsResources.premiumDark,
-                                        textColor: ColorsResources.premiumLight,
-                                        fontSize: 13.0
-                                    );
+
 
                                   },
                                   child: const Image(

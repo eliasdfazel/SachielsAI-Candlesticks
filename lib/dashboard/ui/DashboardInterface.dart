@@ -439,6 +439,8 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
   /* Start - Configured List */
   void retrieveConfiguredCandlesticks() {
 
+    // FirebaseFirestore.instance.collection(configurationsCollectionPath(emailAddress, candlestickName))
+    
   }
   /* End - Configured List */
 
