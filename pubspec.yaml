@@ -147,6 +147,7 @@ flutter:
     - assets/advanced_text.png
 
     - assets/back_icon.png
+    - assets/button_background.png
 
     - assets/confirm_icon.png
     - assets/cyborg_girl.jpg
