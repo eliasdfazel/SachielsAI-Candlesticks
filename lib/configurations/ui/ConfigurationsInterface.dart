@@ -25,6 +25,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:widget_mask/widget_mask.dart';
 
 class ConfigurationsInterface extends StatefulWidget {
@@ -437,27 +438,34 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
                                             SizedBox(
                                                 height: 111,
-                                                child: Align(
-                                                    alignment: Alignment.centerLeft,
-                                                    child: Text(
-                                                      widget.previewsDataStructure.candlestickDescriptionValue(),
-                                                      maxLines: 7,
-                                                      textAlign: TextAlign.justify,
-                                                      style: TextStyle(
-                                                          color: ColorsResources.premiumLightTransparent,
-                                                          fontSize: 11,
-                                                          fontWeight: FontWeight.normal,
-                                                          letterSpacing: 1.37,
-                                                          overflow: TextOverflow.ellipsis,
-                                                          shadows: [
-                                                            Shadow(
-                                                                color: ColorsResources.primaryColorLighter.withOpacity(0.19),
-                                                                blurRadius: 13,
-                                                                offset: const Offset(-3, 3)
-                                                            )
-                                                          ]
-                                                      ),
-                                                    )
+                                                child: InkWell(
+                                                  onTap: () {
+
+                                                    launchUrlString("https://geeksempire.co/?s=${widget.previewsDataStructure.candlestickNameValue()}", mode: LaunchMode.externalApplication);
+
+                                                  },
+                                                  child: Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Text(
+                                                          widget.previewsDataStructure.candlestickDescriptionValue(),
+                                                          maxLines: 7,
+                                                          textAlign: TextAlign.justify,
+                                                          style: TextStyle(
+                                                              color: ColorsResources.premiumLightTransparent,
+                                                              fontSize: 11,
+                                                              fontWeight: FontWeight.normal,
+                                                              letterSpacing: 1.37,
+                                                              overflow: TextOverflow.ellipsis,
+                                                              shadows: [
+                                                                Shadow(
+                                                                    color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                                    blurRadius: 13,
+                                                                    offset: const Offset(-3, 3)
+                                                                )
+                                                              ]
+                                                          )
+                                                      )
+                                                  )
                                                 )
                                             ),
 
