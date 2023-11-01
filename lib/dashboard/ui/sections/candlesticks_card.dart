@@ -142,6 +142,38 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
                                               )
                                           ),
 
+                                          const Divider(
+                                            height: 19,
+                                          ),
+
+                                          Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: ClipRRect(
+                                                borderRadius: BorderRadius.circular(13),
+                                                child: Container(
+                                                  height: 37,
+                                                  color: ColorsResources.premiumDark,
+                                                  child: prepareMarkets()
+                                                )
+                                              )
+                                          ),
+
+                                          const Divider(
+                                            height: 11,
+                                          ),
+
+                                          Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: ClipRRect(
+                                                  borderRadius: BorderRadius.circular(13),
+                                                  child: Container(
+                                                      height: 37,
+                                                      color: ColorsResources.premiumDark,
+                                                      child: prepareTimeframes()
+                                                  )
+                                              )
+                                          ),
+
                                         ]
                                     )
                                 ),
@@ -225,6 +257,137 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
     );
   }
 
+  /*
+   * Start - Markets
+   */
+  Widget prepareMarkets() {
+
+    List<Widget> configuredItems = [];
+
+    widget.configurationsDataStructure.configuredMarketsValue().split(",").forEach((element) {
+
+      if (element.isNotEmpty) {
+        debugPrint("Configured Candlestick Markets: $element");
+
+        configuredItems.add(configuredMarketsItems(element));
+
+      }
+
+    });
+
+    return ListView(
+        padding: const EdgeInsets.only(left: 7),
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        children: configuredItems
+    );
+  }
+
+  Widget configuredMarketsItems(String marketPair) {
+
+    return Padding(
+        padding: const EdgeInsets.only(right: 13),
+        child: Align(
+          alignment: Alignment.center,
+          child: SizedBox(
+            height: 23,
+            width: 59,
+            child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    border: Border.all(
+                        color: ColorsResources.premiumLight,
+                        width: 1
+                    ),
+                    color: ColorsResources.premiumDark
+                ),
+                height: 23,
+                width: 59,
+                child: Center(
+                    child: Text(
+                      marketPair,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: ColorsResources.premiumLight
+                      ),
+                    )
+                )
+            ),
+          ),
+        )
+    );
+  }
+  /*
+   * Start - Markets
+   */
+
+  /*
+   * Start - Timeframes
+   */
+  Widget prepareTimeframes() {
+
+    List<Widget> configuredItems = [];
+
+    widget.configurationsDataStructure.configuredTimeframesValue().split(",").forEach((element) {
+
+      if (element.isNotEmpty) {
+        debugPrint("Configured Candlestick Timeframes: $element");
+
+        configuredItems.add(configuredTimeframesItems(element));
+
+      }
+
+    });
+
+    return ListView(
+        padding: const EdgeInsets.only(left: 7),
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        children: configuredItems
+    );
+  }
+
+  Widget configuredTimeframesItems(String timeframe) {
+
+    return Padding(
+        padding: const EdgeInsets.only(right: 13),
+        child: Align(
+          alignment: Alignment.center,
+          child: SizedBox(
+            height: 23,
+            width: 59,
+            child: Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(7),
+                    border: Border.all(
+                        color: ColorsResources.premiumLight,
+                        width: 1
+                    ),
+                    color: ColorsResources.premiumDark
+                ),
+                height: 23,
+                width: 59,
+                child: Center(
+                    child: Text(
+                      timeframe,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: ColorsResources.premiumLight
+                      ),
+                    )
+                )
+            ),
+          ),
+        )
+    );
+  }
+  /*
+   * End - Timeframes
+   */
+
+  /*
+   * Start - Notification
+   */
   void updateNotification(bool notificationStatus) {
 
     FirebaseFirestore.instance.doc(configurationsDocumentPath(FirebaseAuth.instance.currentUser!.email!, widget.configurationsDataStructure.candlestickNameValue()))
@@ -233,5 +396,8 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
       }).then((value) => widget.dashboardInterfaceState.retrieveConfiguredCandlesticks());
 
   }
+  /*
+   * End - Notification
+   */
 
 }
