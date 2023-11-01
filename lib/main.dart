@@ -12,6 +12,8 @@ import 'dart:io';
 
 import 'package:candlesticks/EntryConfigurations.dart';
 import 'package:candlesticks/firebase_options.dart';
+import 'package:candlesticks/resources/colors_resources.dart';
+import 'package:candlesticks/resources/strings_resources.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -79,6 +81,16 @@ void main() async {
           Phoenix(
               child: MaterialApp(
                   debugShowCheckedModeBanner: false,
+                  title: StringsResources.applicationName(),
+                  color: ColorsResources.primaryColor,
+                  theme: ThemeData(
+                    fontFamily: 'Ubuntu',
+                    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ColorsResources.primaryColor),
+                    pageTransitionsTheme: const PageTransitionsTheme(builders: {
+                      TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+                      TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+                    }),
+                  ),
                   home: EntryConfigurations(internetConnection: connectionResult)
               )
           )

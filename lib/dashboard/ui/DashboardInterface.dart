@@ -67,8 +67,6 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
 
     });
 
-    int gridColumnCount = (displayLogicalWidth(context) / 199).round();
-
     return SafeArea(
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
