@@ -8,8 +8,12 @@
  * https://opensource.org/licenses/MIT
  */
 
+import 'package:blur/blur.dart';
+import 'package:candlesticks/configurations/data/ConfigurationsDataStructure.dart';
+import 'package:candlesticks/configurations/utils/Utils.dart';
 import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
 import 'package:candlesticks/dashboard/ui/sections/account_information_overview.dart';
+import 'package:candlesticks/previews/data/previews_data_structure.dart';
 import 'package:candlesticks/previews/ui/PreviewInterface.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
@@ -17,9 +21,13 @@ import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:candlesticks/utils/ui/display.dart';
 import 'package:candlesticks/utils/ui/system_bars.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+import '../../configurations/ui/ConfigurationsInterface.dart';
 
 class DashboardInterface extends StatefulWidget {
 
@@ -29,6 +37,8 @@ class DashboardInterface extends StatefulWidget {
   State<DashboardInterface> createState() => _DashboardInterfaceState();
 }
 class _DashboardInterfaceState extends State<DashboardInterface> {
+
+  User firebaseUser = FirebaseAuth.instance.currentUser!;
 
   AccountInformationOverview accountInformationOverview = const AccountInformationOverview();
 
@@ -437,10 +447,158 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
   }
 
   /* Start - Configured List */
-  void retrieveConfiguredCandlesticks() {
+  void retrieveConfiguredCandlesticks() async {
 
-    // FirebaseFirestore.instance.collection(configurationsCollectionPath(emailAddress, candlestickName))
-    
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+      .collection(configurationsCollectionPath(firebaseUser.email!))
+      .get();
+
+    prepareCandlesticksList(querySnapshot);
+
+  }
+
+  void prepareCandlesticksList(QuerySnapshot querySnapshot) async {
+
+    List<Widget> allCandlesticks = [];
+
+    for (var element in querySnapshot.docs) {
+
+      allCandlesticks.add(candlestickItem(ConfigurationsDataStructure(element)));
+
+    }
+
+    int gridColumnCount = (displayLogicalWidth(context) / 199).round();
+
+    setState(() {
+
+      configuredCandlesticksPlaceholder = Padding(
+          padding: const EdgeInsets.fromLTRB(19, 237, 19, 7),
+          child: GridView(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: gridColumnCount,
+                childAspectRatio: 0.79,
+                mainAxisSpacing: 37.0,
+                crossAxisSpacing: 19.0,
+              ),
+              padding: const EdgeInsets.fromLTRB(0, 19, 0, 137),
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              controller: scrollController,
+              children: allCandlesticks
+          )
+      );
+
+    });
+
+  }
+
+  Widget candlestickItem(ConfigurationsDataStructure configurationsDataStructure) {
+    debugPrint("Configured Candlesticks: $configurationsDataStructure");
+
+    return ClipRRect(
+        borderRadius: BorderRadius.circular(19),
+        child: Material(
+            shadowColor: Colors.transparent,
+            color: Colors.transparent,
+            child: InkWell(
+                splashColor: ColorsResources.lightestYellow.withOpacity(0.31),
+                splashFactory: InkRipple.splashFactory,
+                onTap: () async {
+
+                  DocumentSnapshot previewsDocument = await FirebaseFirestore.instance.doc(candlestickPreviewDocumentPath(configurationsDataStructure.candlestickNameValue())).get();
+
+                  Future.delayed(const Duration(milliseconds: 531), () async {
+
+                    bool updateConfiguredList = await navigateTo(context, ConfigurationsInterface(previewsDataStructure: PreviewsDataStructure(previewsDocument)));
+
+                    if (updateConfiguredList) {
+
+                      retrieveConfiguredCandlesticks();
+
+                    }
+
+                  });
+
+                },
+                child: Container(
+                    color: ColorsResources.premiumDark.withOpacity(0.37),
+                    child: Stack(
+                        children: [
+
+                          Center(
+                              child: Image(
+                                image: NetworkImage(configurationsDataStructure.candlestickImageValue()),
+                                alignment: Alignment.center,
+                                fit: BoxFit.contain,
+                              )
+                          ),
+
+                          Positioned(
+                              bottom: 13,
+                              left: 13,
+                              right: 13,
+                              child: PhysicalModel(
+                                  color: Colors.transparent,
+                                  elevation: 7,
+                                  shadowColor: ColorsResources.black.withOpacity(0.37),
+                                  child: Blur(
+                                    blur: 13,
+                                    borderRadius: BorderRadius.circular(13),
+                                    blurColor: ColorsResources.premiumDark,
+                                    colorOpacity: 0.37,
+                                    overlay: Padding(
+                                        padding: const EdgeInsets.all(7),
+                                        child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+
+                                              Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Text(
+                                                      configurationsDataStructure.candlestickNameValue(),
+                                                      textAlign: TextAlign.start,
+                                                      maxLines: 1,
+                                                      style: const TextStyle(
+                                                          color: ColorsResources.premiumLight,
+                                                          fontSize: 17,
+                                                          letterSpacing: 1.3,
+                                                          fontWeight: FontWeight.bold
+                                                      )
+                                                  )
+                                              ),
+
+                                              Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Text(
+                                                      configurationsDataStructure.candlestickMarketDirectionValue(),
+                                                      textAlign: TextAlign.end,
+                                                      maxLines: 1,
+                                                      style: const TextStyle(
+                                                          color: ColorsResources.premiumLight,
+                                                          fontSize: 7,
+                                                          letterSpacing: 1.3,
+                                                          fontWeight: FontWeight.normal
+                                                      )
+                                                  )
+                                              ),
+
+                                            ]
+                                        )
+                                    ),
+                                    child: const SizedBox(
+                                      height: 43,
+                                    ),
+                                  )
+                              )
+                          )
+
+                        ]
+                    )
+                )
+            )
+        )
+    );
   }
   /* End - Configured List */
 

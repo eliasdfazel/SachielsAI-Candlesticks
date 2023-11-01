@@ -15,11 +15,16 @@ String configurationsDocumentPath(String emailAddress, String candlestickName) {
   return firestorePath;
 }
 
-String configurationsCollectionPath(String emailAddress, String candlestickName) {
+String configurationsCollectionPath(String emailAddress) {
 
   String firestorePath = "Sachiels/Candlesticks/Profiles/${emailAddress.toUpperCase()}/Configurations";
 
   return firestorePath;
+}
+
+String candlestickPreviewDocumentPath(candlestickName) {
+
+  return "/Sachiels/Candlesticks/Patterns/$candlestickName";
 }
 
 Map<String, dynamic> candlestickDocument(String candlestickName, String candlestickImage, String candlestickMarketDirection, String configuredMarkets, String configuredTimeframes) {

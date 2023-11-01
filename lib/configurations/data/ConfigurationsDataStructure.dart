@@ -15,7 +15,9 @@ class ConfigurationsDataStructure {
   static const String configuredMarkets = "configuredMarkets";
   static const String configuredTimeframes = "configuredTimeframes";
 
+  static const String candlestickName = "candlestickName";
   static const String candlestickImage = "candlestickImage";
+  static const String candlestickMarketDirection = "candlestickMarketDirection";
 
   Map<String, dynamic> documentData = <String, dynamic>{};
 
@@ -35,9 +37,19 @@ class ConfigurationsDataStructure {
     return documentData[ConfigurationsDataStructure.configuredTimeframes].toString();
   }
 
+  String candlestickNameValue() {
+
+    return documentData[ConfigurationsDataStructure.candlestickName].toString();
+  }
+
   String candlestickImageValue() {
 
     return documentData[ConfigurationsDataStructure.candlestickImage].toString();
+  }
+
+  String candlestickMarketDirectionValue() {
+
+    return documentData[ConfigurationsDataStructure.candlestickMarketDirection].toString();
   }
 
 }
