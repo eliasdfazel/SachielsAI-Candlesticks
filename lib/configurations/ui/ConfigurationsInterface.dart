@@ -158,7 +158,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
     retrieveTimeframes();
 
-    retrieveConfiguredMarkets();
+    retrieveConfiguredTimeframes();
 
   }
 
@@ -791,7 +791,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
    */
   void retrieveConfiguredMarkets() async {
 
-    String firestorePath = "Sachiels/Candlesticks/Profiles/${firebaseUser.email}/${widget.previewsDataStructure.candlestickNameValue()}/Configurations";
+    String firestorePath = configurationsDocumentPath(firebaseUser.email.toString(), widget.previewsDataStructure.candlestickNameValue());
 
     DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance.doc(firestorePath).get();
 
@@ -812,6 +812,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
       configuredMarkets.split(",").forEach((element) {
 
         if (element.isNotEmpty) {
+          debugPrint("Configured Candlestick Markets: $element");
 
           configuredItems.add(configuredMarketsItems(element));
 
@@ -1236,7 +1237,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
    */
   void retrieveConfiguredTimeframes() async {
 
-    String firestorePath = "Sachiels/Candlesticks/Profiles/${firebaseUser.email}/${widget.previewsDataStructure.candlestickNameValue()}/Configurations";
+    String firestorePath = configurationsDocumentPath(firebaseUser.email.toString(), widget.previewsDataStructure.candlestickNameValue());
 
     DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance.doc(firestorePath).get();
 
@@ -1257,6 +1258,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
       configuredTimeframes.split(",").forEach((element) {
 
         if (element.isNotEmpty) {
+          debugPrint("Configured Candlestick Timeframes: $element");
 
           configuredItems.add(configuredTimeframesItems(element));
 
@@ -1659,15 +1661,19 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
       String firestorePath = configurationsDocumentPath(firebaseUser.email.toString(), widget.previewsDataStructure.candlestickNameValue());
 
-      FirebaseFirestore.instance
-          .doc(firestorePath)
-          .set(candlestickDocument(
+      if (!kDebugMode) {
+
+        FirebaseFirestore.instance
+            .doc(firestorePath)
+            .set(candlestickDocument(
             widget.previewsDataStructure.candlestickNameValue(),
             widget.previewsDataStructure.candlestickImageValue(),
             widget.previewsDataStructure.candlestickDirectionValue(),
             configuredMarkets,
             configuredTimeframes
-          ));
+        ));
+
+      }
 
       for (var market in listOfConfiguredMarkets) {
 
@@ -1686,6 +1692,8 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
       candlestickAdded = true;
 
+      done();
+
     }
 
   }
@@ -1693,6 +1701,9 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
    * End - Update Firestore Candlestick
    */
 
+  /*
+   * Start - Delete
+   */
   Widget deleteConfiguration() {
 
     return Container(
@@ -1735,5 +1746,54 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
         )
     );
   }
+  /*
+   * End - Delete
+   */
+
+  /*
+   * Start - Done Animation
+   */
+  void done() {
+
+    setState(() {
+
+      confirmButton = Stack(
+        children: [
+
+          const Image(
+            image: AssetImage("assets/button_background.png"),
+          ),
+
+          Positioned(
+            right: 0,
+            child: SizedBox(
+              height: 49,
+              width: 49,
+              child: Container(
+                color: Colors.red,
+              )
+            ),
+          ),
+
+          Positioned(
+            left: 0,
+            child: SizedBox(
+                height: 49,
+                width: 173,
+                child: Container(
+                  color: Colors.red,
+                )
+            ),
+          ),
+
+        ]
+      );
+
+    });
+
+  }
+  /*
+   * Start - Done Animation
+   */
 
 }
