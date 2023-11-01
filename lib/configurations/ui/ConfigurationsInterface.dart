@@ -1658,40 +1658,17 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
       List listOfConfiguredTimeframes = configuredTimeframes.split(",");
       listOfConfiguredTimeframes.removeLast();
 
-      String firestorePath = "Sachiels/Candlesticks/Profiles/${firebaseUser.email}/${widget.previewsDataStructure.candlestickNameValue()}/Configurations";
+      String firestorePath = configurationsDocumentPath(firebaseUser.email.toString(), widget.previewsDataStructure.candlestickNameValue());
 
       FirebaseFirestore.instance
           .doc(firestorePath)
-          .set({
-            "candlestickImage": widget.previewsDataStructure.candlestickImageValue(),
-            "configuredMarkets": configuredMarkets,
-            "configuredTimeframes": configuredTimeframes,
-          });
-
-      FirebaseFirestore.instance
-          .doc("Sachiels/Candlesticks/Profiles/${firebaseUser.email}")
-          .get().then((DocumentSnapshot documentSnapshot) {
-
-            if (documentSnapshot.exists) {
-
-              var listOfCandlesticks = documentSnapshot.get("ConfiguredCandlesticks") as List;
-              debugPrint("Configured Candlesticks: $listOfCandlesticks");
-
-              if (!listOfCandlesticks.contains(widget.previewsDataStructure.candlestickNameValue())) {
-
-                listOfCandlesticks.add(widget.previewsDataStructure.candlestickNameValue());
-
-                FirebaseFirestore.instance
-                    .doc("Sachiels/Candlesticks/Profiles/${firebaseUser.email}")
-                    .set({
-                      "ConfiguredCandlesticks": listOfCandlesticks
-                    });
-
-              }
-
-            }
-
-          });
+          .set(candlestickDocument(
+            widget.previewsDataStructure.candlestickNameValue(),
+            widget.previewsDataStructure.candlestickImageValue(),
+            widget.previewsDataStructure.candlestickDirectionValue(),
+            configuredMarkets,
+            configuredTimeframes
+          ));
 
       for (var market in listOfConfiguredMarkets) {
 
