@@ -619,7 +619,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                                       child: InkWell(
                                         onTap: () {
 
-                                          navigatePop(context);
+                                          navigatePopWithResult(context, candlestickAdded);
 
                                         },
                                         child: const Image(
@@ -1664,7 +1664,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
       String firestorePath = configurationsDocumentPath(firebaseUser.email.toString(), widget.previewsDataStructure.candlestickNameValue());
 
-      if (!kDebugMode) {
+      if (kDebugMode) {
 
         await FirebaseFirestore.instance
             .doc(firestorePath)

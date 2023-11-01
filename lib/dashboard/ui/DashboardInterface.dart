@@ -382,6 +382,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
 
                                 }
 
+                                debugPrint("Updating? $updateConfiguredList");
                               },
                               child: const Image(
                                 image: AssetImage("assets/add_icon.png"),
@@ -516,6 +517,8 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                       retrieveConfiguredCandlesticks();
 
                     }
+
+                    debugPrint("Updating? $updateConfiguredList");
 
                   });
 

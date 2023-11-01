@@ -16,7 +16,6 @@ Future<dynamic> navigateTo(BuildContext context, StatefulWidget statefulWidget) 
     context,
     MaterialPageRoute(builder: (context) => statefulWidget),
   );
-
 }
 
 void navigateToWithPop(BuildContext context, StatefulWidget statefulWidget) {

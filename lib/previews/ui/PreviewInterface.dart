@@ -410,7 +410,7 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
                                       child: InkWell(
                                         onTap: () {
 
-                                          navigatePop(context);
+                                          navigatePopWithResult(context, candlestickAdded);
 
                                         },
                                         child: const Image(
@@ -598,6 +598,8 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
                 bool updateConfiguredList = await navigateTo(context, ConfigurationsInterface(previewsDataStructure: previewsDataStructure));
 
                 candlestickAdded = updateConfiguredList;
+
+                debugPrint("Updating? $candlestickAdded");
 
               });
 
