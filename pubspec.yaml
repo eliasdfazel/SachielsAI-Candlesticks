@@ -152,6 +152,7 @@ flutter:
     - assets/confirm_icon.png
     - assets/cyborg_girl.jpg
 
+    - assets/data_icon.png
     - assets/delete_icon.png
 
     - assets/entrance_next.png

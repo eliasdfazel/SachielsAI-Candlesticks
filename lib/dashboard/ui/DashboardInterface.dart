@@ -8,12 +8,11 @@
  * https://opensource.org/licenses/MIT
  */
 
-import 'package:blur/blur.dart';
 import 'package:candlesticks/configurations/data/ConfigurationsDataStructure.dart';
 import 'package:candlesticks/configurations/utils/Utils.dart';
 import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
 import 'package:candlesticks/dashboard/ui/sections/account_information_overview.dart';
-import 'package:candlesticks/previews/data/previews_data_structure.dart';
+import 'package:candlesticks/dashboard/ui/sections/candlesticks_card.dart';
 import 'package:candlesticks/previews/ui/PreviewInterface.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
@@ -27,16 +26,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-import '../../configurations/ui/ConfigurationsInterface.dart';
-
 class DashboardInterface extends StatefulWidget {
 
   const DashboardInterface({Key? key}) : super(key: key);
 
   @override
-  State<DashboardInterface> createState() => _DashboardInterfaceState();
+  State<DashboardInterface> createState() => DashboardInterfaceState();
 }
-class _DashboardInterfaceState extends State<DashboardInterface> {
+class DashboardInterfaceState extends State<DashboardInterface> {
 
   User firebaseUser = FirebaseAuth.instance.currentUser!;
 
@@ -45,6 +42,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
   Widget configuredCandlesticksPlaceholder = Container();
 
   ScrollController scrollController = ScrollController();
+
 
   @override
   void initState() {
@@ -494,112 +492,7 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
   Widget candlestickItem(ConfigurationsDataStructure configurationsDataStructure) {
     debugPrint("Configured Candlesticks: $configurationsDataStructure");
 
-    return ClipRRect(
-        borderRadius: BorderRadius.circular(19),
-        child: Material(
-            shadowColor: Colors.transparent,
-            color: Colors.transparent,
-            child: InkWell(
-                splashColor: ColorsResources.lightestYellow.withOpacity(0.31),
-                splashFactory: InkRipple.splashFactory,
-                onTap: () async {
-
-                  DocumentSnapshot previewsDocument = await FirebaseFirestore.instance.doc(candlestickPreviewDocumentPath(configurationsDataStructure.candlestickNameValue())).get();
-
-                  Future.delayed(const Duration(milliseconds: 531), () async {
-
-                    bool updateConfiguredList = await navigateTo(context, ConfigurationsInterface(previewsDataStructure: PreviewsDataStructure(previewsDocument)));
-
-                    if (updateConfiguredList) {
-
-                      retrieveConfiguredCandlesticks();
-
-                    }
-
-                    debugPrint("Updating? $updateConfiguredList");
-
-                  });
-
-                },
-                child: Container(
-                    color: ColorsResources.premiumDark.withOpacity(0.37),
-                    child: Stack(
-                        children: [
-
-                          Center(
-                              child: Image(
-                                image: NetworkImage(configurationsDataStructure.candlestickImageValue()),
-                                alignment: Alignment.center,
-                                fit: BoxFit.contain,
-                              )
-                          ),
-
-                          Positioned(
-                              bottom: 13,
-                              left: 13,
-                              right: 13,
-                              child: PhysicalModel(
-                                  color: Colors.transparent,
-                                  elevation: 7,
-                                  shadowColor: ColorsResources.black.withOpacity(0.37),
-                                  child: Blur(
-                                    blur: 13,
-                                    borderRadius: BorderRadius.circular(13),
-                                    blurColor: ColorsResources.premiumDark,
-                                    colorOpacity: 0.37,
-                                    overlay: Padding(
-                                        padding: const EdgeInsets.all(7),
-                                        child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-
-                                              Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Text(
-                                                      configurationsDataStructure.candlestickNameValue(),
-                                                      textAlign: TextAlign.start,
-                                                      maxLines: 1,
-                                                      style: const TextStyle(
-                                                          color: ColorsResources.premiumLight,
-                                                          fontSize: 17,
-                                                          letterSpacing: 1.3,
-                                                          fontWeight: FontWeight.bold
-                                                      )
-                                                  )
-                                              ),
-
-                                              Align(
-                                                  alignment: Alignment.centerLeft,
-                                                  child: Text(
-                                                      configurationsDataStructure.candlestickMarketDirectionValue(),
-                                                      textAlign: TextAlign.end,
-                                                      maxLines: 1,
-                                                      style: const TextStyle(
-                                                          color: ColorsResources.premiumLight,
-                                                          fontSize: 7,
-                                                          letterSpacing: 1.3,
-                                                          fontWeight: FontWeight.normal
-                                                      )
-                                                  )
-                                              ),
-
-                                            ]
-                                        )
-                                    ),
-                                    child: const SizedBox(
-                                      height: 43,
-                                    ),
-                                  )
-                              )
-                          )
-
-                        ]
-                    )
-                )
-            )
-        )
-    );
+    return CandlesticksCard(dashboardInterfaceState: this, configurationsDataStructure: configurationsDataStructure);
   }
   /* End - Configured List */
 
