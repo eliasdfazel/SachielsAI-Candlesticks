@@ -101,15 +101,21 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
    * End - Timeframes
    */
 
+  bool candlestickAdded = false;
+
   bool aInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
 
     if (marketsVisibility) {
 
       hideMarketsPicker();
 
+    } else if (timeframesVisibility) {
+
+      hideTimeframesPicker();
+
     } else {
 
-      navigatePop(context);
+      navigatePopWithResult(context, candlestickAdded);
 
     }
 
@@ -1692,6 +1698,8 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
         }
 
       }
+
+      candlestickAdded = true;
 
     }
 

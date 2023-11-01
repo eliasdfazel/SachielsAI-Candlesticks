@@ -8,6 +8,7 @@
  * https://opensource.org/licenses/MIT
  */
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:blur/blur.dart';
 import 'package:candlesticks/configurations/ui/ConfigurationsInterface.dart';
 import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
@@ -43,9 +44,28 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
 
   ScrollController scrollController = ScrollController();
 
+  bool candlestickAdded = false;
+
+  bool aInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+
+    navigatePopWithResult(context, candlestickAdded);
+
+    return true;
+  }
+
+  @override
+  void dispose() {
+
+    BackButtonInterceptor.remove(aInterceptor);
+
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
+
+    BackButtonInterceptor.add(aInterceptor);
 
     changeColor(ColorsResources.black, ColorsResources.black);
 
@@ -573,9 +593,11 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
             splashFactory: InkRipple.splashFactory,
             onTap: () {
 
-              Future.delayed(const Duration(milliseconds: 753), () {
+              Future.delayed(const Duration(milliseconds: 753), () async {
 
-                navigateTo(context, ConfigurationsInterface(previewsDataStructure: previewsDataStructure));
+                bool updateConfiguredList = await navigateTo(context, ConfigurationsInterface(previewsDataStructure: previewsDataStructure));
+
+                candlestickAdded = updateConfiguredList;
 
               });
 

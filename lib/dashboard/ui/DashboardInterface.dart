@@ -44,6 +44,8 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
 
     configuredCandlesticksPlaceholder = waiting();
 
+    retrieveConfiguredCandlesticks();
+
   }
 
   @override
@@ -360,9 +362,15 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
                             height: 49,
                             width: 239,
                             child: InkWell(
-                              onTap: () {
+                              onTap: () async {
 
-                                navigateTo(context, PreviewInterface());
+                                bool updateConfiguredList = await navigateTo(context, PreviewInterface());
+
+                                if (updateConfiguredList) {
+
+                                  retrieveConfiguredCandlesticks();
+
+                                }
 
                               },
                               child: const Image(
@@ -427,5 +435,11 @@ class _DashboardInterfaceState extends State<DashboardInterface> {
         )
     );
   }
+
+  /* Start - Configured List */
+  void retrieveConfiguredCandlesticks() {
+
+  }
+  /* End - Configured List */
 
 }

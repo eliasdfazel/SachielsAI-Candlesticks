@@ -10,9 +10,9 @@
 
 import 'package:flutter/material.dart';
 
-void navigateTo(BuildContext context, StatefulWidget statefulWidget) {
+Future<dynamic> navigateTo(BuildContext context, StatefulWidget statefulWidget) {
 
-  Navigator.push(
+  return Navigator.push(
     context,
     MaterialPageRoute(builder: (context) => statefulWidget),
   );
@@ -33,5 +33,11 @@ void navigateToWithPop(BuildContext context, StatefulWidget statefulWidget) {
 void navigatePop(BuildContext context) {
 
   Navigator.pop(context);
+
+}
+
+void navigatePopWithResult(BuildContext context, dynamic result) {
+
+  Navigator.pop(context, result);
 
 }
