@@ -48,6 +48,10 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
   late Animation<Offset> offsetAnimation;
 
+  Widget confirmButton = const Image(
+    image: AssetImage("assets/confirm_icon.png"),
+  );
+
   /*
    * Start - Markets
    */
@@ -590,9 +594,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                                         }
 
                                       },
-                                      child: const Image(
-                                        image: AssetImage("assets/confirm_icon.png"),
-                                      )
+                                      child: confirmButton
                                   )
                               )
                           )
@@ -1708,7 +1710,19 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
                       Future.delayed(const Duration(milliseconds: 333), () {
 
+                        FirebaseFirestore.instance
+                            .doc(configurationsDocumentPath(firebaseUser.email!, widget.previewsDataStructure.candlestickNameValue()))
+                            .delete().then((value) => {
 
+                              Future.delayed(Duration.zero, () {
+
+                                candlestickAdded = true;
+
+                                navigatePopWithResult(context, candlestickAdded);
+
+                              })
+
+                            });
 
                       });
 
