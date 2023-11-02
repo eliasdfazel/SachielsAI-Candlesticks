@@ -151,6 +151,7 @@ flutter:
     - assets/button_background.png
 
     - assets/confirm_icon.png
+    - assets/cross_icon.png
     - assets/cyborg_girl.jpg
 
     - assets/data_icon.png

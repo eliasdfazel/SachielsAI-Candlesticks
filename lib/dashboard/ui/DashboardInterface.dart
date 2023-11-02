@@ -46,6 +46,8 @@ class DashboardInterfaceState extends State<DashboardInterface> {
   /*
    * Start - Search
    */
+  List<ConfigurationsDataStructure> allCandlesticksData = [];
+
   TextEditingController searchController = TextEditingController();
 
   String? warningNoticeSearch;
@@ -54,6 +56,12 @@ class DashboardInterfaceState extends State<DashboardInterface> {
   FocusNode searchFocusNode = FocusNode();
 
   bool searchBorderOpacity = false;
+
+  String searchIcon = "assets/search_icon.png";
+  double searchIconSize = 43;
+
+  bool enableSearchInput = false;
+  bool searchPerformed = false;
   /*
    * End - Search
    */
@@ -346,6 +354,7 @@ class DashboardInterfaceState extends State<DashboardInterface> {
 
                                           TextField(
                                               controller: searchController,
+                                              enabled: enableSearchInput,
                                               textAlign: TextAlign.left,
                                               textDirection: TextDirection.ltr,
                                               textAlignVertical: TextAlignVertical.center,
@@ -401,21 +410,7 @@ class DashboardInterfaceState extends State<DashboardInterface> {
                                               },
                                               onSubmitted: (searchQuery) {
 
-                                                if (searchQuery.isNotEmpty) {
-
-                                                  processSearchQuery(searchQuery);
-
-                                                }
-
-                                                if (searchController.text.isEmpty) {
-
-                                                  setState(() {
-
-                                                    searchBorderOpacity = false;
-
-                                                  });
-
-                                                }
+                                                searchInputActions();
 
                                               }
                                           )
@@ -433,40 +428,15 @@ class DashboardInterfaceState extends State<DashboardInterface> {
                                     child: InkWell(
                                       onTap: () {
 
-                                        if (searchFocusNode.hasFocus) {
-
-                                          FocusScope.of(context).unfocus();
-
-                                          if (searchController.text.isEmpty) {
-
-                                            setState(() {
-
-                                              searchBorderOpacity = false;
-
-                                            });
-
-                                          }
-
-                                        } else {
-
-                                          searchFocusNode.requestFocus();
-
-                                          setState(() {
-
-                                            searchBorderOpacity = true;
-
-                                          });
-
-
-                                        }
+                                        searchIconActions();
 
                                       },
                                       child: Container(
                                         padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),
                                         alignment: Alignment.centerRight,
-                                        child: const Image(
-                                          image: AssetImage("assets/search_icon.png"),
-                                          height: 43,
+                                        child: Image(
+                                          image: AssetImage(searchIcon),
+                                          height: searchIconSize,
                                         )
                                       )
                                     ),
@@ -602,6 +572,8 @@ class DashboardInterfaceState extends State<DashboardInterface> {
 
       candlesticksNames.add(configurationsDataStructure.candlestickNameValue());
 
+      allCandlesticksData.add(configurationsDataStructure);
+
     }
 
     int gridColumnCount = (displayLogicalWidth(context) / 199).round();
@@ -639,9 +611,112 @@ class DashboardInterfaceState extends State<DashboardInterface> {
   /*
    * Start - Search
    */
+  void searchIconActions() {
+
+    if (searchPerformed) {
+
+      searchPerformed = false;
+
+      setState(() {
+
+        enableSearchInput = false;
+
+        searchBorderOpacity = false;
+
+        searchIcon = "assets/search_icon.png";
+
+        searchIconSize = 43;
+
+        searchController.text = "";
+
+      });
+
+    } else {
+
+      if (searchFocusNode.hasFocus) {
+
+        FocusScope.of(context).unfocus();
+
+        if (searchController.text.isEmpty) {
+
+          setState(() {
+
+            searchBorderOpacity = false;
+
+            searchIcon = "assets/search_icon.png";
+
+            searchIconSize = 43;
+
+          });
+
+        }
+
+        if (searchController.text.isNotEmpty) {
+
+          processSearchQuery(searchController.text);
+
+        }
+
+      } else {
+
+
+        setState(() {
+
+          enableSearchInput = true;
+
+          searchBorderOpacity = true;
+
+        });
+
+        Future.delayed(const Duration(milliseconds: 555), () {
+
+          searchFocusNode.requestFocus();
+
+        });
+
+      }
+
+    }
+
+  }
+
+  void searchInputActions() {
+
+    if (searchController.text.isNotEmpty) {
+
+      processSearchQuery(searchController.text);
+
+    }
+
+    if (searchController.text.isEmpty) {
+
+      setState(() {
+
+        searchBorderOpacity = false;
+
+        searchIcon = "assets/search_icon.png";
+
+        searchIconSize = 43;
+
+      });
+
+    }
+
+  }
+
   void processSearchQuery(String searchQuery) {
     debugPrint("Search Query: ${searchQuery}");
 
+    setState(() {
+
+      searchIcon = "assets/cross_icon.png";
+
+      searchIconSize = 31;
+
+    });
+
+
+    searchPerformed = true;
 
   }
   /*
