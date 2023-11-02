@@ -717,6 +717,11 @@ class DashboardInterfaceState extends State<DashboardInterface> {
 
     });
 
+    for (var element in allCandlesticksData) {
+
+
+
+    }
 
     searchPerformed = true;
 
