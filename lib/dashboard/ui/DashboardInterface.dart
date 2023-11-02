@@ -53,7 +53,7 @@ class DashboardInterfaceState extends State<DashboardInterface> {
 
   FocusNode searchFocusNode = FocusNode();
 
-  double searchBorderOpacity = 0.0;
+  bool searchBorderOpacity = false;
   /*
    * End - Search
    */
@@ -319,8 +319,8 @@ class DashboardInterfaceState extends State<DashboardInterface> {
                                           Align(
                                               alignment: Alignment.centerLeft,
                                               child: AnimatedOpacity(
-                                                opacity: searchBorderOpacity,
-                                                duration: const Duration(milliseconds: 1333),
+                                                opacity: searchBorderOpacity ? 1.0 : 0.0,
+                                                duration: searchBorderOpacity ? const Duration(milliseconds: 1333) : const Duration(milliseconds: 555),
                                                 curve: Curves.easeInOutCubic,
                                                 child: const Image(
                                                   image: AssetImage("assets/gradient_border_ltr.png"),
@@ -333,7 +333,7 @@ class DashboardInterfaceState extends State<DashboardInterface> {
                                           Align(
                                             alignment: Alignment.centerRight,
                                             child: AnimatedOpacity(
-                                              opacity: searchBorderOpacity,
+                                              opacity: searchBorderOpacity ? 1.0 : 0.0,
                                               duration: const Duration(milliseconds: 555),
                                               curve: Curves.easeIn,
                                               child: const Image(
@@ -411,7 +411,7 @@ class DashboardInterfaceState extends State<DashboardInterface> {
 
                                                   setState(() {
 
-                                                    searchBorderOpacity = 0.0;
+                                                    searchBorderOpacity = false;
 
                                                   });
 
@@ -441,7 +441,7 @@ class DashboardInterfaceState extends State<DashboardInterface> {
 
                                             setState(() {
 
-                                              searchBorderOpacity = 0.0;
+                                              searchBorderOpacity = false;
 
                                             });
 
@@ -453,7 +453,7 @@ class DashboardInterfaceState extends State<DashboardInterface> {
 
                                           setState(() {
 
-                                            searchBorderOpacity = 1.0;
+                                            searchBorderOpacity = true;
 
                                           });
 
