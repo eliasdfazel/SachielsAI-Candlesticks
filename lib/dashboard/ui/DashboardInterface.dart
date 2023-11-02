@@ -43,6 +43,18 @@ class DashboardInterfaceState extends State<DashboardInterface> {
 
   ScrollController scrollController = ScrollController();
 
+  /*
+   * Start - Search
+   */
+  TextEditingController searchController = TextEditingController();
+
+  String? warningNoticeSearch;
+  List<String> candlesticksNames = [];
+
+  FocusNode searchFocusNode = FocusNode();
+  /*
+   * End - Search
+   */
 
   @override
   void initState() {
@@ -284,7 +296,7 @@ class DashboardInterfaceState extends State<DashboardInterface> {
                        * Start - Title
                        */
                       Padding(
-                          padding: const EdgeInsets.fromLTRB(25, 177, 25, 7),
+                          padding: const EdgeInsets.fromLTRB(13, 177, 25, 7),
                           child: SizedBox(
                             height: 59,
                             width: displayLogicalWidth(context),
@@ -299,11 +311,23 @@ class DashboardInterfaceState extends State<DashboardInterface> {
                                     height: 59,
                                     child: Align(
                                       alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        StringsResources.configuredCandlesticks(),
+                                      child: TextField(
+                                        controller: searchController,
+                                        textAlign: TextAlign.left,
+                                        textDirection: TextDirection.ltr,
+                                        textAlignVertical: TextAlignVertical.center,
+                                        maxLines: 1,
+                                        cursorColor: ColorsResources.primaryColor,
+                                        autofocus: false,
+                                        focusNode: searchFocusNode,
+                                        keyboardType: TextInputType.text,
+                                        textInputAction: TextInputAction.search,
+                                        autofillHints: candlesticksNames,
+                                        autocorrect: true,
                                         style: TextStyle(
                                           color: ColorsResources.premiumLight,
                                           fontSize: 23,
+                                          overflow: TextOverflow.ellipsis,
                                           shadows: [
                                             Shadow(
                                               color: ColorsResources.primaryColorLighter.withOpacity(0.19),
@@ -312,6 +336,46 @@ class DashboardInterfaceState extends State<DashboardInterface> {
                                             )
                                           ]
                                         ),
+                                        decoration: InputDecoration(
+                                          errorText: warningNoticeSearch,
+                                          border: const OutlineInputBorder(
+                                            borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+                                            gapPadding: 0
+                                          ),
+                                          enabledBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+                                            gapPadding: 0
+                                          ),
+                                          focusedBorder: const OutlineInputBorder(
+                                            borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+                                            gapPadding: 0
+                                          ),
+                                          hintText: StringsResources.configuredCandlesticks(),
+                                          hintStyle: TextStyle(
+                                              color: ColorsResources.premiumLight,
+                                              fontSize: 23,
+                                              overflow: TextOverflow.ellipsis,
+                                              shadows: [
+                                                Shadow(
+                                                    color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                    blurRadius: 13,
+                                                    offset: const Offset(-3, 3)
+                                                )
+                                              ]
+                                          )
+                                        ),
+                                        onChanged: (searchQuery) {
+
+                                        },
+                                        onSubmitted: (searchQuery) {
+
+                                          if (searchQuery.isNotEmpty) {
+
+                                            querySearch(searchQuery);
+
+                                          }
+
+                                        },
                                       )
                                     )
                                   ),
@@ -323,6 +387,16 @@ class DashboardInterfaceState extends State<DashboardInterface> {
                                     height: 59,
                                     child: InkWell(
                                       onTap: () {
+
+                                        if (searchFocusNode.hasFocus) {
+
+                                          FocusScope.of(context).unfocus();
+
+                                        } else {
+
+                                          searchFocusNode.requestFocus();
+
+                                        }
 
                                       },
                                       child: Container(
@@ -460,7 +534,11 @@ class DashboardInterfaceState extends State<DashboardInterface> {
 
     for (var element in querySnapshot.docs) {
 
-      allCandlesticks.add(candlestickItem(ConfigurationsDataStructure(element)));
+      ConfigurationsDataStructure configurationsDataStructure = ConfigurationsDataStructure(element);
+
+      allCandlesticks.add(candlestickItem(configurationsDataStructure));
+
+      candlesticksNames.add(configurationsDataStructure.candlestickNameValue());
 
     }
 
@@ -495,5 +573,14 @@ class DashboardInterfaceState extends State<DashboardInterface> {
     return CandlesticksCard(dashboardInterfaceState: this, configurationsDataStructure: configurationsDataStructure);
   }
   /* End - Configured List */
+
+  /*
+   *
+   */
+  void searchQuery(String searchQuery) {
+    debugPrint("Search Query: ${searchQuery}");
+
+
+  }
 
 }
