@@ -366,6 +366,7 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
 
                                                   TextField(
                                                       controller: searchController,
+                                                      enabled: enableSearchInput,
                                                       textAlign: TextAlign.left,
                                                       textDirection: TextDirection.ltr,
                                                       textAlignVertical: TextAlignVertical.center,
