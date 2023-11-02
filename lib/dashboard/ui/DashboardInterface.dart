@@ -637,12 +637,15 @@ class DashboardInterfaceState extends State<DashboardInterface> {
   /* End - Configured List */
 
   /*
-   *
+   * Start - Search
    */
   void processSearchQuery(String searchQuery) {
     debugPrint("Search Query: ${searchQuery}");
 
 
   }
+  /*
+   * End - Search
+   */
 
 }

@@ -46,6 +46,21 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
 
   bool candlestickAdded = false;
 
+  /*
+   * Start - Search
+   */
+  TextEditingController searchController = TextEditingController();
+
+  String? warningNoticeSearch;
+  List<String> candlesticksNames = [];
+
+  FocusNode searchFocusNode = FocusNode();
+
+  double searchBorderOpacity = 0.0;
+  /*
+   * End - Search
+   */
+
   bool aInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
 
     navigatePopWithResult(context, candlestickAdded);
@@ -305,24 +320,119 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
                                 children: [
 
                                   Expanded(
-                                    flex: 7,
+                                    flex: 11,
                                     child: SizedBox(
                                         height: 59,
                                         child: Align(
                                             alignment: Alignment.centerLeft,
-                                            child: Text(
-                                              StringsResources.candlesticks(),
-                                              style: TextStyle(
-                                                  color: ColorsResources.premiumLight,
-                                                  fontSize: 23,
-                                                  shadows: [
-                                                    Shadow(
-                                                        color: ColorsResources.primaryColorLighter.withOpacity(0.19),
-                                                        blurRadius: 13,
-                                                        offset: const Offset(-3, 3)
-                                                    )
-                                                  ]
-                                              ),
+                                            child: Stack(
+                                                children: [
+
+                                                  Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: AnimatedOpacity(
+                                                        opacity: searchBorderOpacity,
+                                                        duration: const Duration(milliseconds: 1333),
+                                                        curve: Curves.easeInOutCubic,
+                                                        child: const Image(
+                                                            image: AssetImage("assets/gradient_border_ltr.png"),
+                                                            height: 59,
+                                                            fit: BoxFit.fill
+                                                        ),
+                                                      )
+                                                  ),
+
+                                                  Align(
+                                                      alignment: Alignment.centerRight,
+                                                      child: AnimatedOpacity(
+                                                        opacity: searchBorderOpacity,
+                                                        duration: const Duration(milliseconds: 555),
+                                                        curve: Curves.easeIn,
+                                                        child: const Image(
+                                                            image: AssetImage("assets/gradient_border_rtl.png"),
+                                                            height: 59,
+                                                            fit: BoxFit.fill
+                                                        ),
+                                                      )
+                                                  ),
+
+                                                  TextField(
+                                                      controller: searchController,
+                                                      textAlign: TextAlign.left,
+                                                      textDirection: TextDirection.ltr,
+                                                      textAlignVertical: TextAlignVertical.center,
+                                                      maxLines: 1,
+                                                      cursorColor: ColorsResources.primaryColor,
+                                                      autofocus: false,
+                                                      focusNode: searchFocusNode,
+                                                      keyboardType: TextInputType.text,
+                                                      textInputAction: TextInputAction.search,
+                                                      autofillHints: candlesticksNames,
+                                                      autocorrect: true,
+                                                      style: TextStyle(
+                                                          color: ColorsResources.premiumLight,
+                                                          fontSize: 23,
+                                                          shadows: [
+                                                            Shadow(
+                                                                color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                                blurRadius: 13,
+                                                                offset: const Offset(-3, 3)
+                                                            )
+                                                          ]
+                                                      ),
+                                                      decoration: InputDecoration(
+                                                          errorText: warningNoticeSearch,
+                                                          border: const OutlineInputBorder(
+                                                              borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+                                                              gapPadding: 0
+                                                          ),
+                                                          enabledBorder: const OutlineInputBorder(
+                                                              borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+                                                              gapPadding: 0
+                                                          ),
+                                                          focusedBorder: const OutlineInputBorder(
+                                                              borderSide: BorderSide(color: Colors.transparent, width: 0.0),
+                                                              gapPadding: 0
+                                                          ),
+                                                          hintText: StringsResources.configuredCandlesticks(),
+                                                          hintStyle: TextStyle(
+                                                              color: ColorsResources.premiumLight,
+                                                              fontSize: 23,
+                                                              overflow: TextOverflow.ellipsis,
+                                                              shadows: [
+                                                                Shadow(
+                                                                    color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                                    blurRadius: 13,
+                                                                    offset: const Offset(-3, 3)
+                                                                )
+                                                              ]
+                                                          )
+                                                      ),
+                                                      onChanged: (searchQuery) {
+
+                                                      },
+                                                      onSubmitted: (searchQuery) {
+
+                                                        if (searchQuery.isNotEmpty) {
+
+                                                          processSearchQuery(searchQuery);
+
+                                                        }
+
+                                                        if (searchController.text.isEmpty) {
+
+                                                          setState(() {
+
+                                                            searchBorderOpacity = 0.0;
+
+                                                          });
+
+                                                        }
+
+                                                      }
+                                                  )
+
+                                                ]
                                             )
                                         )
                                     ),
@@ -334,6 +444,33 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
                                       height: 59,
                                       child: InkWell(
                                           onTap: () {
+
+                                            if (searchFocusNode.hasFocus) {
+
+                                              FocusScope.of(context).unfocus();
+
+                                              if (searchController.text.isEmpty) {
+
+                                                setState(() {
+
+                                                  searchBorderOpacity = 0.0;
+
+                                                });
+
+                                              }
+
+                                            } else {
+
+                                              searchFocusNode.requestFocus();
+
+                                              setState(() {
+
+                                                searchBorderOpacity = 1.0;
+
+                                              });
+
+
+                                            }
 
                                           },
                                           child: Container(
@@ -684,5 +821,17 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
       )
     );
   }
+
+  /*
+   * Start - Search
+   */
+  void processSearchQuery(String searchQuery) {
+    debugPrint("Search Query: ${searchQuery}");
+
+
+  }
+  /*
+   * End - Search
+   */
 
 }
