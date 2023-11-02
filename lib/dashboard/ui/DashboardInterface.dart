@@ -380,16 +380,16 @@ class DashboardInterfaceState extends State<DashboardInterface> {
                                               decoration: InputDecoration(
                                                   errorText: warningNoticeSearch,
                                                   border: const OutlineInputBorder(
-                                                      borderSide: BorderSide(color: Colors.transparent, width: 0.0),
-                                                      gapPadding: 0
+                                                      borderSide: BorderSide(color: Colors.transparent, width: 0.0)
                                                   ),
                                                   enabledBorder: const OutlineInputBorder(
-                                                      borderSide: BorderSide(color: Colors.transparent, width: 0.0),
-                                                      gapPadding: 0
+                                                      borderSide: BorderSide(color: Colors.transparent, width: 0.0)
+                                                  ),
+                                                  disabledBorder: const OutlineInputBorder(
+                                                      borderSide: BorderSide(color: Colors.transparent, width: 0.0)
                                                   ),
                                                   focusedBorder: const OutlineInputBorder(
-                                                      borderSide: BorderSide(color: Colors.transparent, width: 0.0),
-                                                      gapPadding: 0
+                                                      borderSide: BorderSide(color: Colors.transparent, width: 0.0)
                                                   ),
                                                   hintText: StringsResources.configuredCandlesticks(),
                                                   hintStyle: TextStyle(
@@ -691,6 +691,8 @@ class DashboardInterfaceState extends State<DashboardInterface> {
     if (searchController.text.isEmpty) {
 
       setState(() {
+
+        enableSearchInput = false;
 
         searchBorderOpacity = false;
 

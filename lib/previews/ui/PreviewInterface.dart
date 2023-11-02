@@ -398,6 +398,9 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
                                                               borderSide: BorderSide(color: Colors.transparent, width: 0.0),
                                                               gapPadding: 0
                                                           ),
+                                                          disabledBorder: const OutlineInputBorder(
+                                                              borderSide: BorderSide(color: Colors.transparent, width: 0.0)
+                                                          ),
                                                           focusedBorder: const OutlineInputBorder(
                                                               borderSide: BorderSide(color: Colors.transparent, width: 0.0),
                                                               gapPadding: 0
@@ -878,6 +881,8 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
     if (searchController.text.isEmpty) {
 
       setState(() {
+
+        enableSearchInput = false;
 
         searchBorderOpacity = false;
 
