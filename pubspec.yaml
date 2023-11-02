@@ -147,6 +147,7 @@ flutter:
     - assets/advanced_text.png
 
     - assets/back_icon.png
+    - assets/border.png
     - assets/button_background.png
 
     - assets/confirm_icon.png
@@ -157,6 +158,9 @@ flutter:
 
     - assets/entrance_next.png
     - assets/entry_background.jpg
+
+    - assets/gradient_border_rtl.png
+    - assets/gradient_border_ltr.png
 
     - assets/logo.png
     - assets/logo_background.png
