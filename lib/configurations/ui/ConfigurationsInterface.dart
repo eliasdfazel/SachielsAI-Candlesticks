@@ -387,7 +387,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                       Padding(
                           padding: const EdgeInsets.fromLTRB(25, 177, 25, 7),
                           child: SizedBox(
-                            height: 159,
+                            height: 173,
                             width: displayLogicalWidth(context),
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -447,37 +447,49 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                                             ),
 
                                             SizedBox(
-                                                height: 111,
-                                                child: InkWell(
-                                                  onTap: () {
+                                                height: 123,
+                                                child: Padding(
+                                                    padding: const EdgeInsets.only(top: 7),
+                                                  child: Container(
+                                                      decoration: BoxDecoration(
+                                                          borderRadius: BorderRadius.circular(17),
+                                                          color: ColorsResources.premiumDark.withOpacity(0.37)
+                                                      ),
+                                                      child: InkWell(
+                                                          onTap: () {
 
-                                                    launchUrlString("https://geeksempire.co/?s=${widget.previewsDataStructure.candlestickNameValue()}", mode: LaunchMode.externalApplication);
+                                                            launchUrlString("https://geeksempire.co/?s=${widget.previewsDataStructure.candlestickNameValue()}", mode: LaunchMode.externalApplication);
 
-                                                  },
-                                                  child: Align(
-                                                      alignment: Alignment.centerLeft,
-                                                      child: Text(
-                                                          widget.previewsDataStructure.candlestickDescriptionValue(),
-                                                          maxLines: 7,
-                                                          textAlign: TextAlign.justify,
-                                                          style: TextStyle(
-                                                              color: ColorsResources.premiumLightTransparent,
-                                                              fontSize: 11,
-                                                              fontWeight: FontWeight.normal,
-                                                              letterSpacing: 1.37,
-                                                              overflow: TextOverflow.ellipsis,
-                                                              shadows: [
-                                                                Shadow(
-                                                                    color: ColorsResources.primaryColorLighter.withOpacity(0.19),
-                                                                    blurRadius: 13,
-                                                                    offset: const Offset(-3, 3)
-                                                                )
-                                                              ]
+                                                          },
+                                                          child: Align(
+                                                              alignment: Alignment.topLeft,
+                                                              child: Padding(
+                                                                  padding: const EdgeInsets.all(11),
+                                                                  child: Text(
+                                                                      widget.previewsDataStructure.candlestickDescriptionValue(),
+                                                                      maxLines: 7,
+                                                                      textAlign: TextAlign.justify,
+                                                                      style: TextStyle(
+                                                                          color: ColorsResources.premiumLightTransparent,
+                                                                          fontSize: 11,
+                                                                          fontWeight: FontWeight.normal,
+                                                                          letterSpacing: 1.37,
+                                                                          overflow: TextOverflow.ellipsis,
+                                                                          shadows: [
+                                                                            Shadow(
+                                                                                color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                                                blurRadius: 13,
+                                                                                offset: const Offset(-3, 3)
+                                                                            )
+                                                                          ]
+                                                                      )
+                                                                  )
+                                                              )
                                                           )
                                                       )
                                                   )
                                                 )
-                                            ),
+                                            )
 
                                           ]
                                       )
@@ -758,7 +770,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   Widget setupConfigurationOptions() {
 
     return configurationOptions = Padding(
-      padding: const EdgeInsets.fromLTRB(25, 357, 25, 7),
+      padding: const EdgeInsets.fromLTRB(25, 373, 25, 7),
       child: ListView(
         padding: const EdgeInsets.only(bottom: 137),
         physics: const BouncingScrollPhysics(),
