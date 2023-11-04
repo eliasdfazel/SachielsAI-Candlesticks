@@ -631,6 +631,8 @@ class DashboardInterfaceState extends State<DashboardInterface> {
 
       });
 
+      resetSearchResult();
+
     } else {
 
       if (searchFocusNode.hasFocus) {
@@ -717,13 +719,50 @@ class DashboardInterfaceState extends State<DashboardInterface> {
 
     });
 
+    List<Widget> allCandlesticks = [];
+
     for (var element in allCandlesticksData) {
 
+      if (element.candlestickNameValue().toLowerCase().contains(searchQuery.toLowerCase())
+        || element.candlestickMarketDirectionValue().toLowerCase().contains(searchQuery.toLowerCase())) {
+        debugPrint("Query Found: $searchQuery");
 
+        allCandlesticks.add(candlestickItem(element));
+
+      }
 
     }
 
     searchPerformed = true;
+
+    int gridColumnCount = (displayLogicalWidth(context) / 199).round();
+
+    setState(() {
+
+      configuredCandlesticksPlaceholder = Padding(
+          padding: const EdgeInsets.fromLTRB(19, 237, 19, 7),
+          child: GridView(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: gridColumnCount,
+                childAspectRatio: 0.79,
+                mainAxisSpacing: 37.0,
+                crossAxisSpacing: 19.0,
+              ),
+              padding: const EdgeInsets.fromLTRB(0, 19, 0, 137),
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              controller: scrollController,
+              children: allCandlesticks
+          )
+      );
+
+    });
+
+  }
+
+  void resetSearchResult() {
+
+    retrieveConfiguredCandlesticks();
 
   }
   /*

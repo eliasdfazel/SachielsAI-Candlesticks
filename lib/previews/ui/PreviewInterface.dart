@@ -822,6 +822,8 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
 
       });
 
+      resetSearchResult();
+
     } else {
 
       if (searchFocusNode.hasFocus) {
@@ -901,7 +903,59 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
     debugPrint("Search Query: $searchQuery");
 
 
+    setState(() {
+
+      searchIcon = "assets/cross_icon.png";
+
+      searchIconSize = 31;
+
+    });
+
+    List<Widget> allCandlesticks = [];
+
+    for (var element in allCandlesticksData) {
+
+      if (element.candlestickNameValue().toLowerCase().contains(searchQuery.toLowerCase())
+        || element.candlestickDirectionValue().toLowerCase().contains(searchQuery.toLowerCase())
+        || element.candlestickDescriptionValue().toLowerCase().contains(searchQuery.toLowerCase())) {
+        debugPrint("Query Found: $searchQuery");
+
+        allCandlesticks.add(previewItem(element));
+
+      }
+
+    }
+
     searchPerformed = true;
+
+    int gridColumnCount = (displayLogicalWidth(context) / 199).round();
+
+    setState(() {
+
+      candlesticksPreviewsPlaceholder = Padding(
+          padding: const EdgeInsets.fromLTRB(19, 237, 19, 7),
+          child: GridView(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: gridColumnCount,
+                childAspectRatio: 0.79,
+                mainAxisSpacing: 37.0,
+                crossAxisSpacing: 19.0,
+              ),
+              padding: const EdgeInsets.fromLTRB(0, 19, 0, 137),
+              physics: const BouncingScrollPhysics(),
+              scrollDirection: Axis.vertical,
+              controller: scrollController,
+              children: allCandlesticks
+          )
+      );
+
+    });
+
+  }
+
+  void resetSearchResult() {
+
+    retrieveCandlesticks();
 
   }
   /*
