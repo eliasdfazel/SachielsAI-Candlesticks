@@ -707,7 +707,7 @@ class DashboardInterfaceState extends State<DashboardInterface> {
   }
 
   void processSearchQuery(String searchQuery) {
-    debugPrint("Search Query: ${searchQuery}");
+    debugPrint("Search Query: $searchQuery");
 
     setState(() {
 

@@ -898,7 +898,7 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
   }
 
   void processSearchQuery(String searchQuery) {
-    debugPrint("Search Query: ${searchQuery}");
+    debugPrint("Search Query: $searchQuery");
 
 
     searchPerformed = true;
