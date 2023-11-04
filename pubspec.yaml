@@ -160,6 +160,8 @@ flutter:
     - assets/entrance_next.png
     - assets/entry_background.jpg
 
+    - assets/geeksempire.png
+    -
     - assets/gradient_border_rtl.png
     - assets/gradient_border_ltr.png
 
@@ -175,6 +177,7 @@ flutter:
     - assets/option_title_background.png
 
     - assets/plus_icon.png
+    - assets/privacy.png
 
     - assets/rectircle_shape.png
     - assets/roundangle_half.png
@@ -184,6 +187,10 @@ flutter:
     - assets/sachiels_signals_logo.png
     - assets/search_icon.png
     - assets/squircle_shape.png
+
+    - assets/threads_icon.png
+    - assets/tos.png
+    - assets/twitter_icon.png
 
 
 

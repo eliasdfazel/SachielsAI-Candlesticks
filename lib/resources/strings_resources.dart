@@ -24,6 +24,12 @@ class StringsResources {
   /*
    * Start - Titles
    */
+
+  static String geeksEmpire() {
+
+    return "Geeks Empire";
+  }
+
   static String profileTitle() {
 
     return "Profile";
@@ -151,6 +157,16 @@ class StringsResources {
 
     return "Terms Of Services. Agree By Login In...";
   }
+
+  static String tos() {
+
+    return "Terms Of Services";
+  }
+
+  static String privacyPolicy() {
+
+    return "Privacy Policy";
+  }
   /*
    * End - Notice
    */
@@ -174,9 +190,29 @@ class StringsResources {
   /*
    * Start - Social Media
    */
+  static String geeksEmpireAndroid() {
+
+    return "https://play.google.com/store/apps/dev?id=8263190182709725073&hl=en_US&gl=US";
+  }
+
   static String xLink() {
 
     return "https://twitter.com/SachielsAI";
+  }
+
+  static String privacyPolicyLink() {
+
+    return "https://geeksempire.co/privacypolicy/";
+  }
+
+  static String tosLink() {
+
+    return "https://geeksempire.co/sachiel-ai-trading-signals/term-of-services/";
+  }
+
+  static String threadsLink() {
+
+    return "https://www.threads.net/@sachielsai";
   }
   /*
    * End - Social Media

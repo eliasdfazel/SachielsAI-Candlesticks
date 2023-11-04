@@ -10,6 +10,7 @@
 
 import 'package:candlesticks/configurations/data/ConfigurationsDataStructure.dart';
 import 'package:candlesticks/configurations/utils/Utils.dart';
+import 'package:candlesticks/dashboard/ui/sections/Menus.dart';
 import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
 import 'package:candlesticks/dashboard/ui/sections/account_information_overview.dart';
 import 'package:candlesticks/dashboard/ui/sections/candlesticks_card.dart';
@@ -33,7 +34,7 @@ class DashboardInterface extends StatefulWidget {
   @override
   State<DashboardInterface> createState() => DashboardInterfaceState();
 }
-class DashboardInterfaceState extends State<DashboardInterface> {
+class DashboardInterfaceState extends State<DashboardInterface> with TickerProviderStateMixin {
 
   User firebaseUser = FirebaseAuth.instance.currentUser!;
 
@@ -66,6 +67,19 @@ class DashboardInterfaceState extends State<DashboardInterface> {
    * End - Search
    */
 
+  /*
+   * Start - Menu
+   */
+  late AnimationController animationController;
+
+  late Animation<Offset> offsetAnimation;
+  late Animation<double> doubleAnimation;
+
+  bool menuOpen = false;
+  /*
+   * End - Menu
+   */
+
   @override
   void initState() {
     super.initState();
@@ -75,6 +89,22 @@ class DashboardInterfaceState extends State<DashboardInterface> {
     configuredCandlesticksPlaceholder = waiting();
 
     retrieveConfiguredCandlesticks();
+
+    animationController = AnimationController(vsync: this,
+        duration: const Duration(milliseconds: 777),
+        reverseDuration: const Duration(milliseconds: 333),
+        animationBehavior: AnimationBehavior.preserve);
+
+    offsetAnimation = Tween<Offset>(begin: const Offset(0, 0), end: const Offset(0.49, 0))
+        .animate(CurvedAnimation(
+        parent: animationController,
+        curve: Curves.easeIn
+    ));
+    doubleAnimation = Tween<double>(begin: 1, end: 0.91)
+        .animate(CurvedAnimation(
+        parent: animationController,
+        curve: Curves.easeOut
+    ));
 
   }
 
@@ -97,420 +127,468 @@ class DashboardInterfaceState extends State<DashboardInterface> {
               colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ColorsResources.primaryColor),
               pageTransitionsTheme: const PageTransitionsTheme(builders: {
                 TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-                TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
-              }),
+                TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder()
+              })
             ),
             home: Scaffold(
                 resizeToAvoidBottomInset: false,
                 backgroundColor: ColorsResources.black,
                 body: Stack(
-                    children: [
+                  children: [
 
-                      /* Start - Decorations */
-                      /* Start - Gradient Background - Dark */
-                      Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(17),
-                              topRight: Radius.circular(17),
-                              bottomLeft: Radius.circular(17),
-                              bottomRight: Radius.circular(17)
+                    const Menus(),
+
+                    allContent()
+
+                  ]
+                )
+            )
+        )
+    );
+  }
+
+  Widget allContent() {
+
+    return SlideTransition(
+        position: offsetAnimation,
+        child: ScaleTransition(
+            scale: doubleAnimation,
+            child: Stack(
+                children: [
+
+                  Stack(
+                      children: [
+
+                        /* Start - Decorations */
+                        /* Start - Gradient Background - Dark */
+                        Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(17),
+                                topRight: Radius.circular(17),
+                                bottomLeft: Radius.circular(17),
+                                bottomRight: Radius.circular(17)
+                            ),
+                            border: Border(
+                                top: BorderSide(
+                                  color: ColorsResources.black,
+                                  width: 7,
+                                ),
+                                bottom: BorderSide(
+                                  color: ColorsResources.black,
+                                  width: 7,
+                                ),
+                                left: BorderSide(
+                                  color: ColorsResources.black,
+                                  width: 7,
+                                ),
+                                right: BorderSide(
+                                  color: ColorsResources.black,
+                                  width: 7,
+                                )
+                            ),
+                            gradient: LinearGradient(
+                                colors: [
+                                  ColorsResources.premiumDark,
+                                  ColorsResources.black,
+                                ],
+                                begin: FractionalOffset(0.0, 0.0),
+                                end: FractionalOffset(1.0, 0.0),
+                                stops: [0.0, 1.0],
+                                transform: GradientRotation(-45),
+                                tileMode: TileMode.clamp
+                            ),
                           ),
-                          border: Border(
-                              top: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              ),
-                              bottom: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              ),
-                              left: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              ),
-                              right: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
+                        ),
+                        /* End - Gradient Background - Dark */
+
+                        /* Start - Branding Transparent */
+                        Align(
+                          alignment: Alignment.center,
+                          child: Opacity(
+                              opacity: 0.1,
+                              child: Transform.scale(
+                                  scale: 1.7,
+                                  child: const Image(
+                                    image: AssetImage("assets/logo.png"),
+                                  )
                               )
                           ),
-                          gradient: LinearGradient(
-                              colors: [
-                                ColorsResources.premiumDark,
-                                ColorsResources.black,
-                              ],
-                              begin: FractionalOffset(0.0, 0.0),
-                              end: FractionalOffset(1.0, 0.0),
-                              stops: [0.0, 1.0],
-                              transform: GradientRotation(-45),
-                              tileMode: TileMode.clamp
-                          ),
                         ),
-                      ),
-                      /* End - Gradient Background - Dark */
+                        /* End - Branding Transparent */
 
-                      /* Start - Branding Transparent */
-                      Align(
-                        alignment: Alignment.center,
-                        child: Opacity(
-                            opacity: 0.1,
-                            child: Transform.scale(
-                                scale: 1.7,
-                                child: const Image(
-                                  image: AssetImage("assets/logo.png"),
-                                )
+                        /* Start - Gradient Background - Golden */
+                        Align(
+                            alignment: Alignment.topRight,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(17),
+                                      topRight: Radius.circular(17),
+                                      bottomLeft: Radius.circular(17),
+                                      bottomRight: Radius.circular(17)
+                                  ),
+                                  gradient: RadialGradient(
+                                    radius: 1.1,
+                                    colors: <Color> [
+                                      ColorsResources.primaryColorLighter.withOpacity(0.51),
+                                      Colors.transparent,
+                                    ],
+                                    center: const Alignment(0.79, -0.87),
+                                  )
+                              ),
+                              child: SizedBox(
+                                height: calculatePercentage(99, displayLogicalHeight(context)),
+                                width: calculatePercentage(99, displayLogicalWidth(context)),
+                              ),
                             )
                         ),
-                      ),
-                      /* End - Branding Transparent */
+                        /* End - Gradient Background - Golden */
 
-                      /* Start - Gradient Background - Golden */
-                      Align(
-                          alignment: Alignment.topRight,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(17),
-                                    topRight: Radius.circular(17),
-                                    bottomLeft: Radius.circular(17),
-                                    bottomRight: Radius.circular(17)
+                        /* Start - Gradient Background - Dark */
+                        Container(
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(17),
+                                topRight: Radius.circular(17),
+                                bottomLeft: Radius.circular(17),
+                                bottomRight: Radius.circular(17)
+                            ),
+                            border: Border(
+                                top: BorderSide(
+                                  color: ColorsResources.black,
+                                  width: 7,
                                 ),
-                                gradient: RadialGradient(
-                                  radius: 1.1,
-                                  colors: <Color> [
-                                    ColorsResources.primaryColorLighter.withOpacity(0.51),
-                                    Colors.transparent,
-                                  ],
-                                  center: const Alignment(0.79, -0.87),
+                                bottom: BorderSide(
+                                  color: ColorsResources.black,
+                                  width: 7,
+                                ),
+                                left: BorderSide(
+                                  color: ColorsResources.black,
+                                  width: 7,
+                                ),
+                                right: BorderSide(
+                                  color: ColorsResources.black,
+                                  width: 7,
                                 )
                             ),
-                            child: SizedBox(
-                              height: calculatePercentage(99, displayLogicalHeight(context)),
-                              width: calculatePercentage(99, displayLogicalWidth(context)),
+                            gradient: LinearGradient(
+                                colors: [
+                                  ColorsResources.premiumDark,
+                                  ColorsResources.black,
+                                ],
+                                begin: FractionalOffset(0.0, 0.0),
+                                end: FractionalOffset(1.0, 0.0),
+                                stops: [0.0, 1.0],
+                                transform: GradientRotation(-45),
+                                tileMode: TileMode.clamp
                             ),
-                          )
-                      ),
-                      /* End - Gradient Background - Golden */
-
-                      /* Start - Gradient Background - Dark */
-                      Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(17),
-                              topRight: Radius.circular(17),
-                              bottomLeft: Radius.circular(17),
-                              bottomRight: Radius.circular(17)
                           ),
-                          border: Border(
-                              top: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              ),
-                              bottom: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              ),
-                              left: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              ),
-                              right: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
+                        ),
+                        /* End - Gradient Background - Dark */
+
+                        /* Start - Branding Transparent */
+                        Align(
+                          alignment: Alignment.center,
+                          child: Opacity(
+                              opacity: 0.37,
+                              child: Transform.scale(
+                                  scale: 1.7,
+                                  child: const Image(
+                                    image: AssetImage("assets/sachiels_candlestick_logo.png"),
+                                  )
                               )
                           ),
-                          gradient: LinearGradient(
-                              colors: [
-                                ColorsResources.premiumDark,
-                                ColorsResources.black,
-                              ],
-                              begin: FractionalOffset(0.0, 0.0),
-                              end: FractionalOffset(1.0, 0.0),
-                              stops: [0.0, 1.0],
-                              transform: GradientRotation(-45),
-                              tileMode: TileMode.clamp
-                          ),
                         ),
-                      ),
-                      /* End - Gradient Background - Dark */
+                        /* End - Branding Transparent */
 
-                      /* Start - Branding Transparent */
-                      Align(
-                        alignment: Alignment.center,
-                        child: Opacity(
-                            opacity: 0.37,
-                            child: Transform.scale(
-                                scale: 1.7,
-                                child: const Image(
-                                  image: AssetImage("assets/sachiels_candlestick_logo.png"),
-                                )
+                        /* Start - Gradient Background - Golden */
+                        Align(
+                            alignment: Alignment.topRight,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(17),
+                                      topRight: Radius.circular(17),
+                                      bottomLeft: Radius.circular(17),
+                                      bottomRight: Radius.circular(17)
+                                  ),
+                                  gradient: RadialGradient(
+                                    radius: 1.1,
+                                    colors: <Color> [
+                                      ColorsResources.primaryColorLighter.withOpacity(0.51),
+                                      Colors.transparent,
+                                    ],
+                                    center: const Alignment(0.79, -0.87),
+                                  )
+                              ),
+                              child: SizedBox(
+                                height: calculatePercentage(99, displayLogicalHeight(context)),
+                                width: calculatePercentage(99, displayLogicalWidth(context)),
+                              ),
                             )
                         ),
-                      ),
-                      /* End - Branding Transparent */
+                        /* End - Gradient Background - Golden */
 
-                      /* Start - Gradient Background - Golden */
-                      Align(
-                          alignment: Alignment.topRight,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(17),
-                                    topRight: Radius.circular(17),
-                                    bottomLeft: Radius.circular(17),
-                                    bottomRight: Radius.circular(17)
-                                ),
-                                gradient: RadialGradient(
-                                  radius: 1.1,
-                                  colors: <Color> [
-                                    ColorsResources.primaryColorLighter.withOpacity(0.51),
-                                    Colors.transparent,
-                                  ],
-                                  center: const Alignment(0.79, -0.87),
-                                )
-                            ),
-                            child: SizedBox(
-                              height: calculatePercentage(99, displayLogicalHeight(context)),
-                              width: calculatePercentage(99, displayLogicalWidth(context)),
-                            ),
-                          )
-                      ),
-                      /* End - Gradient Background - Golden */
-
-                      /*
+                        /*
                        * Start - List Background
                        */
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(7, 137, 7, 7),
-                        child: Opacity(
-                          opacity: 0.73,
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.all(Radius.circular(17)),
-                            child: Image(
-                              image: const AssetImage("assets/roundangle_half.png"),
-                              width: displayLogicalWidth(context),
-                              fit: BoxFit.fill,
+                        Padding(
+                            padding: const EdgeInsets.fromLTRB(7, 137, 7, 7),
+                            child: Opacity(
+                                opacity: 0.73,
+                                child: ClipRRect(
+                                    borderRadius: const BorderRadius.all(Radius.circular(17)),
+                                    child: Image(
+                                      image: const AssetImage("assets/roundangle_half.png"),
+                                      width: displayLogicalWidth(context),
+                                      fit: BoxFit.fill,
+                                    )
+                                )
                             )
-                          )
-                        )
-                      ),
-                      /*
+                        ),
+                        /*
                        * End - List Background
                        */
-                      /* End - Decorations */
+                        /* End - Decorations */
 
-                      /*
+                        /*
                        * Start - Content
                        */
-                      /*
+                        /*
                        * Start - Title
                        */
-                      Padding(
-                          padding: const EdgeInsets.fromLTRB(13, 177, 25, 7),
-                          child: SizedBox(
-                            height: 59,
-                            width: displayLogicalWidth(context),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
+                        Padding(
+                            padding: const EdgeInsets.fromLTRB(13, 177, 25, 7),
+                            child: SizedBox(
+                              height: 59,
+                              width: displayLogicalWidth(context),
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
 
-                                Expanded(
-                                  flex: 11,
-                                  child: SizedBox(
-                                    height: 59,
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Stack(
-                                        children: [
-
-                                          Align(
+                                    Expanded(
+                                      flex: 11,
+                                      child: SizedBox(
+                                          height: 59,
+                                          child: Align(
                                               alignment: Alignment.centerLeft,
-                                              child: AnimatedOpacity(
-                                                opacity: searchBorderOpacity ? 1.0 : 0.0,
-                                                duration: searchBorderOpacity ? const Duration(milliseconds: 1333) : const Duration(milliseconds: 555),
-                                                curve: Curves.easeInOutCubic,
-                                                child: const Image(
-                                                  image: AssetImage("assets/gradient_border_ltr.png"),
-                                                  height: 59,
-                                                  fit: BoxFit.fill
-                                                ),
-                                              )
-                                          ),
+                                              child: Stack(
+                                                  children: [
 
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: AnimatedOpacity(
-                                              opacity: searchBorderOpacity ? 1.0 : 0.0,
-                                              duration: const Duration(milliseconds: 555),
-                                              curve: Curves.easeIn,
-                                              child: const Image(
-                                                image: AssetImage("assets/gradient_border_rtl.png"),
-                                                height: 59,
-                                                fit: BoxFit.fill
-                                              ),
-                                            )
-                                          ),
-
-                                          TextField(
-                                              controller: searchController,
-                                              enabled: enableSearchInput,
-                                              textAlign: TextAlign.left,
-                                              textDirection: TextDirection.ltr,
-                                              textAlignVertical: TextAlignVertical.center,
-                                              maxLines: 1,
-                                              cursorColor: ColorsResources.primaryColor,
-                                              autofocus: false,
-                                              focusNode: searchFocusNode,
-                                              keyboardType: TextInputType.text,
-                                              textInputAction: TextInputAction.search,
-                                              autofillHints: candlesticksNames,
-                                              autocorrect: true,
-                                              style: TextStyle(
-                                                  color: ColorsResources.premiumLight,
-                                                  fontSize: 23,
-                                                  shadows: [
-                                                    Shadow(
-                                                        color: ColorsResources.primaryColorLighter.withOpacity(0.19),
-                                                        blurRadius: 13,
-                                                        offset: const Offset(-3, 3)
-                                                    )
-                                                  ]
-                                              ),
-                                              decoration: InputDecoration(
-                                                  errorText: warningNoticeSearch,
-                                                  border: const OutlineInputBorder(
-                                                      borderSide: BorderSide(color: Colors.transparent, width: 0.0)
-                                                  ),
-                                                  enabledBorder: const OutlineInputBorder(
-                                                      borderSide: BorderSide(color: Colors.transparent, width: 0.0)
-                                                  ),
-                                                  disabledBorder: const OutlineInputBorder(
-                                                      borderSide: BorderSide(color: Colors.transparent, width: 0.0)
-                                                  ),
-                                                  focusedBorder: const OutlineInputBorder(
-                                                      borderSide: BorderSide(color: Colors.transparent, width: 0.0)
-                                                  ),
-                                                  hintText: StringsResources.configuredCandlesticks(),
-                                                  hintStyle: TextStyle(
-                                                      color: ColorsResources.premiumLight,
-                                                      fontSize: 23,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      shadows: [
-                                                        Shadow(
-                                                            color: ColorsResources.primaryColorLighter.withOpacity(0.19),
-                                                            blurRadius: 13,
-                                                            offset: const Offset(-3, 3)
+                                                    Align(
+                                                        alignment: Alignment.centerLeft,
+                                                        child: AnimatedOpacity(
+                                                          opacity: searchBorderOpacity ? 1.0 : 0.0,
+                                                          duration: searchBorderOpacity ? const Duration(milliseconds: 1333) : const Duration(milliseconds: 555),
+                                                          curve: Curves.easeInOutCubic,
+                                                          child: const Image(
+                                                              image: AssetImage("assets/gradient_border_ltr.png"),
+                                                              height: 59,
+                                                              fit: BoxFit.fill
+                                                          ),
                                                         )
-                                                      ]
-                                                  )
-                                              ),
-                                              onChanged: (searchQuery) {
+                                                    ),
 
-                                              },
-                                              onSubmitted: (searchQuery) {
+                                                    Align(
+                                                        alignment: Alignment.centerRight,
+                                                        child: AnimatedOpacity(
+                                                          opacity: searchBorderOpacity ? 1.0 : 0.0,
+                                                          duration: const Duration(milliseconds: 555),
+                                                          curve: Curves.easeIn,
+                                                          child: const Image(
+                                                              image: AssetImage("assets/gradient_border_rtl.png"),
+                                                              height: 59,
+                                                              fit: BoxFit.fill
+                                                          ),
+                                                        )
+                                                    ),
 
-                                                searchInputActions();
+                                                    TextField(
+                                                        controller: searchController,
+                                                        enabled: enableSearchInput,
+                                                        textAlign: TextAlign.left,
+                                                        textDirection: TextDirection.ltr,
+                                                        textAlignVertical: TextAlignVertical.center,
+                                                        maxLines: 1,
+                                                        cursorColor: ColorsResources.primaryColor,
+                                                        autofocus: false,
+                                                        focusNode: searchFocusNode,
+                                                        keyboardType: TextInputType.text,
+                                                        textInputAction: TextInputAction.search,
+                                                        autofillHints: candlesticksNames,
+                                                        autocorrect: true,
+                                                        style: TextStyle(
+                                                            color: ColorsResources.premiumLight,
+                                                            fontSize: 23,
+                                                            shadows: [
+                                                              Shadow(
+                                                                  color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                                  blurRadius: 13,
+                                                                  offset: const Offset(-3, 3)
+                                                              )
+                                                            ]
+                                                        ),
+                                                        decoration: InputDecoration(
+                                                            errorText: warningNoticeSearch,
+                                                            border: const OutlineInputBorder(
+                                                                borderSide: BorderSide(color: Colors.transparent, width: 0.0)
+                                                            ),
+                                                            enabledBorder: const OutlineInputBorder(
+                                                                borderSide: BorderSide(color: Colors.transparent, width: 0.0)
+                                                            ),
+                                                            disabledBorder: const OutlineInputBorder(
+                                                                borderSide: BorderSide(color: Colors.transparent, width: 0.0)
+                                                            ),
+                                                            focusedBorder: const OutlineInputBorder(
+                                                                borderSide: BorderSide(color: Colors.transparent, width: 0.0)
+                                                            ),
+                                                            hintText: StringsResources.configuredCandlesticks(),
+                                                            hintStyle: TextStyle(
+                                                                color: ColorsResources.premiumLight,
+                                                                fontSize: 23,
+                                                                overflow: TextOverflow.ellipsis,
+                                                                shadows: [
+                                                                  Shadow(
+                                                                      color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                                      blurRadius: 13,
+                                                                      offset: const Offset(-3, 3)
+                                                                  )
+                                                                ]
+                                                            )
+                                                        ),
+                                                        onChanged: (searchQuery) {
 
-                                              }
+                                                        },
+                                                        onSubmitted: (searchQuery) {
+
+                                                          searchInputActions();
+
+                                                        }
+                                                    )
+
+                                                  ]
+                                              )
                                           )
-
-                                        ]
-                                      )
-                                    )
-                                  ),
-                                ),
-
-                                Expanded(
-                                  flex: 2,
-                                  child: SizedBox(
-                                    height: 59,
-                                    child: InkWell(
-                                      onTap: () {
-
-                                        searchIconActions();
-
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),
-                                        alignment: Alignment.centerRight,
-                                        child: Image(
-                                          image: AssetImage(searchIcon),
-                                          height: searchIconSize,
-                                        )
-                                      )
+                                      ),
                                     ),
-                                  ),
-                                )
 
-                              ]
-                            ),
-                          )
-                      ),
-                      /*
+                                    Expanded(
+                                      flex: 2,
+                                      child: SizedBox(
+                                        height: 59,
+                                        child: InkWell(
+                                            onTap: () {
+
+                                              searchIconActions();
+
+                                            },
+                                            child: Container(
+                                                padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),
+                                                alignment: Alignment.centerRight,
+                                                child: Image(
+                                                  image: AssetImage(searchIcon),
+                                                  height: searchIconSize,
+                                                )
+                                            )
+                                        ),
+                                      ),
+                                    )
+
+                                  ]
+                              ),
+                            )
+                        ),
+                        /*
                        * End - Title
                        */
 
-                      /*
+                        /*
                        * Start - List
                        */
-                      configuredCandlesticksPlaceholder,
-                      /*
+                        configuredCandlesticksPlaceholder,
+                        /*
                        * End - List
                        */
-                      /*
+                        /*
                        * End - Content
                        */
 
-                      /*
+                        /*
                        * Start - Add
                        */
-                      Positioned(
-                        bottom: 37,
-                        left: 19,
-                        right: 19,
-                        child: Center(
-                          child: SizedBox(
-                            height: 49,
-                            width: 239,
-                            child: InkWell(
-                              onTap: () async {
+                        Positioned(
+                            bottom: 37,
+                            left: 19,
+                            right: 19,
+                            child: Center(
+                                child: SizedBox(
+                                    height: 49,
+                                    width: 239,
+                                    child: InkWell(
+                                        onTap: () async {
 
-                                bool updateConfiguredList = await navigateTo(context, PreviewInterface());
+                                          bool updateConfiguredList = await navigateTo(context, PreviewInterface());
 
-                                if (updateConfiguredList) {
+                                          if (updateConfiguredList) {
 
-                                  retrieveConfiguredCandlesticks();
+                                            retrieveConfiguredCandlesticks();
 
-                                }
+                                          }
 
-                                debugPrint("Updating? $updateConfiguredList");
-                              },
-                              child: const Image(
-                                image: AssetImage("assets/add_icon.png"),
-                              )
+                                          debugPrint("Updating? $updateConfiguredList");
+                                        },
+                                        child: const Image(
+                                          image: AssetImage("assets/add_icon.png"),
+                                        )
+                                    )
+                                )
                             )
-                          )
-                        )
-                      ),
-                      /*
+                        ),
+                        /*
                        * End - Add
                        */
 
-                      /* Start - Account Information Overview */
-                      accountInformationOverview,
-                      /* End - Account Information Overview */
+                        /* Start - Account Information Overview */
+                        InkWell(
+                            onTap: () {
 
-                      /* Start - Purchase Plan Picker */
-                      const Positioned(
-                          right: 19,
-                          top: 19,
-                          child: SachielsSignals()
-                      ),
-                      /* End - Purchase Plan Picker */
+                              if (menuOpen) {
 
-                    ]
-                )
+                                menuOpen = false;
+
+                                animationController.reverse().whenComplete(() {
+
+                                });
+
+                              } else {
+
+
+                                menuOpen = true;
+
+                                animationController.forward().whenComplete(() {
+
+                                });
+                              }
+
+                            },
+                            child: accountInformationOverview
+                        ),
+                        /* End - Account Information Overview */
+
+                        /* Start - Purchase Plan Picker */
+                        const Positioned(
+                            right: 19,
+                            top: 19,
+                            child: SachielsSignals()
+                        ),
+                        /* End - Purchase Plan Picker */
+
+                      ]
+                  )
+
+                ]
             )
         )
     );
