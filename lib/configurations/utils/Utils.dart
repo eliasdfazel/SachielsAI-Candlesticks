@@ -39,7 +39,8 @@ Map<String, dynamic> candlestickDocument(String candlestickName, String candlest
   };
 }
 
-/// [a-z A-Z 0-9 -_.~%] {1,900}
+/// [a-z A-Z 0-9 -_.~%] {1,900} <br/>
+/// For Example; DOJIGreenDailyEURUSD, DOJIRed4HoursEURUSD
 String notificationTopic(String candlestickName, String timeframe, String market) {
 
   String notificationTopic = "${candlestickName.replaceAll(" ", "")}${timeframe.replaceAll(" ", "")}${market.replaceAll(" ", "")}";
