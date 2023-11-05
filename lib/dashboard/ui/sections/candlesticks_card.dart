@@ -19,6 +19,7 @@ import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_flip_card/flutter_flip_card.dart';
 
 class CandlesticksCard extends StatefulWidget {
 
@@ -36,7 +37,9 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
   bool notificationOn = true;
   String notificationOnIcon = "assets/notification_on.png";
 
-  double dataCardOpacity = 0.0;
+  final flipController = FlipCardController();
+
+  bool detailsCard = false;
 
   @override
   void initState() {
@@ -84,175 +87,284 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
                   });
 
                 },
-                child: Container(
-                    color: ColorsResources.premiumDark.withOpacity(0.37),
-                    child: Stack(
+                child: FlipCard(
+                    rotateSide: detailsCard ? RotateSide.left : RotateSide.right,
+                    onTapFlipping: false,
+                    axis: FlipAxis.vertical,
+                    controller: flipController,
+                    animationDuration: const Duration(milliseconds: 777),
+                    frontWidget: foregroundCard(),
+                    backWidget: backgroundCard()
+                )
+            )
+        )
+    );
+  }
+
+  Widget foregroundCard() {
+
+    return Container(
+      color: ColorsResources.premiumDark.withOpacity(0.37),
+      child: Stack(
+          children: [
+
+            Center(
+                child: Image(
+                  image: NetworkImage(widget.configurationsDataStructure.candlestickImageValue()),
+                  alignment: Alignment.center,
+                  fit: BoxFit.contain,
+                )
+            ),
+
+            /*
+         * Start - Information Icon
+         */
+            Positioned(
+                bottom: 13,
+                right: 13,
+                child: SizedBox(
+                    height: 31,
+                    width: 31,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(99),
+                        child: Material(
+                            shadowColor: Colors.transparent,
+                            color: Colors.transparent,
+                            child: InkWell(
+                                splashColor: ColorsResources.lightestYellow.withOpacity(0.73),
+                                splashFactory: InkRipple.splashFactory,
+                                onTap: () async {
+
+                                  setState(() {
+
+                                    detailsCard = true;
+
+                                  });
+
+                                  await flipController.flipcard();
+
+                                },
+                                child: const Image(
+                                  image: AssetImage("assets/data_icon.png"),
+                                )
+                            )
+                        )
+                    )
+                )
+            ),
+            /*
+         * end - Information Icon
+         */
+
+            /*
+         * Start - Notification
+         */
+            Positioned(
+                bottom: 13,
+                left: 13,
+                child: SizedBox(
+                    height: 31,
+                    width: 31,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(99),
+                        child: Material(
+                            shadowColor: Colors.transparent,
+                            color: Colors.transparent,
+                            child: InkWell(
+                                splashColor: ColorsResources.lightestYellow.withOpacity(0.73),
+                                splashFactory: InkRipple.splashFactory,
+                                onTap: () {
+
+                                  updateNotification(!widget.configurationsDataStructure.notificationStatusValue());
+
+                                },
+                                child: Image(
+                                  image: AssetImage(notificationOnIcon),
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+            /*
+         * End - Notification
+         */
+
+          ]
+      )
+    );
+  }
+
+  Widget backgroundCard() {
+
+    return Container(
+        color: ColorsResources.premiumDark.withOpacity(0.37),
+        child: Stack(
+            children: [
+
+              Center(
+                  child: Image(
+                    image: NetworkImage(widget.configurationsDataStructure.candlestickImageValue()),
+                    alignment: Alignment.center,
+                    fit: BoxFit.contain,
+                  )
+              ),
+
+              Blur(
+                blur: 13,
+                borderRadius: BorderRadius.circular(13),
+                blurColor: ColorsResources.premiumDark,
+                colorOpacity: 0.37,
+                overlay: Padding(
+                    padding: const EdgeInsets.all(19),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
 
-                          Center(
-                              child: Image(
-                                image: NetworkImage(widget.configurationsDataStructure.candlestickImageValue()),
-                                alignment: Alignment.center,
-                                fit: BoxFit.contain,
-                              )
-                          ),
-
-                          AnimatedOpacity(
-                              opacity: dataCardOpacity,
-                              duration: const Duration(milliseconds: 777),
-                              child: Blur(
-                                blur: 13,
-                                borderRadius: BorderRadius.circular(13),
-                                blurColor: ColorsResources.premiumDark,
-                                colorOpacity: 0.37,
-                                overlay: Padding(
-                                    padding: const EdgeInsets.all(19),
-                                    child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-
-                                          Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                  widget.configurationsDataStructure.candlestickNameValue(),
-                                                  textAlign: TextAlign.start,
-                                                  maxLines: 1,
-                                                  style: const TextStyle(
-                                                      color: ColorsResources.premiumLight,
-                                                      fontSize: 17,
-                                                      letterSpacing: 1.3,
-                                                      fontWeight: FontWeight.bold
-                                                  )
-                                              )
-                                          ),
-
-                                          Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                  widget.configurationsDataStructure.candlestickMarketDirectionValue(),
-                                                  textAlign: TextAlign.end,
-                                                  maxLines: 1,
-                                                  style: const TextStyle(
-                                                      color: ColorsResources.premiumLight,
-                                                      fontSize: 7,
-                                                      letterSpacing: 1.3,
-                                                      fontWeight: FontWeight.normal
-                                                  )
-                                              )
-                                          ),
-
-                                          const Divider(
-                                            height: 19,
-                                          ),
-
-                                          Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: ClipRRect(
-                                                borderRadius: BorderRadius.circular(13),
-                                                child: Container(
-                                                  height: 37,
-                                                  color: ColorsResources.premiumDark,
-                                                  child: prepareMarkets()
-                                                )
-                                              )
-                                          ),
-
-                                          const Divider(
-                                            height: 11,
-                                          ),
-
-                                          Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: ClipRRect(
-                                                  borderRadius: BorderRadius.circular(13),
-                                                  child: Container(
-                                                      height: 37,
-                                                      color: ColorsResources.premiumDark,
-                                                      child: prepareTimeframes()
-                                                  )
-                                              )
-                                          ),
-
-                                        ]
-                                    )
-                                ),
-                                child: Container(),
-                              )
-                          ),
-
-                          Positioned(
-                              bottom: 13,
-                              right: 13,
-                              child: SizedBox(
-                                  height: 31,
-                                  width: 31,
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(99),
-                                      child: Material(
-                                          shadowColor: Colors.transparent,
-                                          color: Colors.transparent,
-                                          child: InkWell(
-                                              splashColor: ColorsResources.lightestYellow.withOpacity(0.73),
-                                              splashFactory: InkRipple.splashFactory,
-                                              onTap: () {
-
-                                                setState(() {
-
-                                                  if (dataCardOpacity == 0.0) {
-
-                                                    dataCardOpacity = 1.0;
-
-                                                  } else {
-
-                                                    dataCardOpacity = 0.0;
-
-                                                  }
-
-                                                });
-
-                                              },
-                                              child: const Image(
-                                                image: AssetImage("assets/data_icon.png"),
-                                              )
-                                          )
-                                      )
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                  widget.configurationsDataStructure.candlestickNameValue(),
+                                  textAlign: TextAlign.start,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                      color: ColorsResources.premiumLight,
+                                      fontSize: 17,
+                                      letterSpacing: 1.3,
+                                      fontWeight: FontWeight.bold
                                   )
                               )
                           ),
 
-                          Positioned(
-                              bottom: 13,
-                              left: 13,
-                              child: SizedBox(
-                                  height: 31,
-                                  width: 31,
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(99),
-                                      child: Material(
-                                          shadowColor: Colors.transparent,
-                                          color: Colors.transparent,
-                                          child: InkWell(
-                                              splashColor: ColorsResources.lightestYellow.withOpacity(0.73),
-                                              splashFactory: InkRipple.splashFactory,
-                                              onTap: () {
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                  widget.configurationsDataStructure.candlestickMarketDirectionValue(),
+                                  textAlign: TextAlign.end,
+                                  maxLines: 1,
+                                  style: const TextStyle(
+                                      color: ColorsResources.premiumLight,
+                                      fontSize: 7,
+                                      letterSpacing: 1.3,
+                                      fontWeight: FontWeight.normal
+                                  )
+                              )
+                          ),
 
-                                                updateNotification(!widget.configurationsDataStructure.notificationStatusValue());
+                          const Divider(
+                            height: 19,
+                          ),
 
-                                              },
-                                              child: Image(
-                                                image: AssetImage(notificationOnIcon),
-                                              )
-                                          )
-                                      )
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(13),
+                                  child: Container(
+                                      height: 37,
+                                      color: ColorsResources.premiumDark,
+                                      child: prepareMarkets()
+                                  )
+                              )
+                          ),
+
+                          const Divider(
+                            height: 11,
+                          ),
+
+                          Align(
+                              alignment: Alignment.centerLeft,
+                              child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(13),
+                                  child: Container(
+                                      height: 37,
+                                      color: ColorsResources.premiumDark,
+                                      child: prepareTimeframes()
                                   )
                               )
                           ),
 
                         ]
                     )
-                )
-            )
+                ),
+                child: Container(),
+              ),
+
+              /*
+         * Start - Information Icon
+         */
+              Positioned(
+                  bottom: 13,
+                  right: 13,
+                  child: SizedBox(
+                      height: 31,
+                      width: 31,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(99),
+                          child: Material(
+                              shadowColor: Colors.transparent,
+                              color: Colors.transparent,
+                              child: InkWell(
+                                  splashColor: ColorsResources.lightestYellow.withOpacity(0.73),
+                                  splashFactory: InkRipple.splashFactory,
+                                  onTap: () async {
+
+                                    setState(() {
+
+                                      detailsCard = false;
+
+                                    });
+
+                                    await flipController.flipcard();
+
+                                  },
+                                  child: const Image(
+                                    image: AssetImage("assets/data_icon.png"),
+                                  )
+                              )
+                          )
+                      )
+                  )
+              ),
+              /*
+         * end - Information Icon
+         */
+
+              /*
+         * Start - Notification
+         */
+              Positioned(
+                  bottom: 13,
+                  left: 13,
+                  child: SizedBox(
+                      height: 31,
+                      width: 31,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(99),
+                          child: Material(
+                              shadowColor: Colors.transparent,
+                              color: Colors.transparent,
+                              child: InkWell(
+                                  splashColor: ColorsResources.lightestYellow.withOpacity(0.73),
+                                  splashFactory: InkRipple.splashFactory,
+                                  onTap: () {
+
+                                    updateNotification(!widget.configurationsDataStructure.notificationStatusValue());
+
+                                  },
+                                  child: Image(
+                                    image: AssetImage(notificationOnIcon),
+                                  )
+                              )
+                          )
+                      )
+                  )
+              )
+              /*
+         * End - Notification
+         */
+
+            ]
         )
     );
   }

@@ -63,6 +63,7 @@ dependencies:
   firebase_dynamic_links: ^5.0.5
 
   flutter_app_name: ^0.1.1
+  flutter_flip_card: ^0.0.4
   flutter_html:
     path: 'X:\Xlutter\Libraries\flutter_html'
   flutter_launcher_icons: ^0.11.0
@@ -161,7 +162,7 @@ flutter:
     - assets/entry_background.jpg
 
     - assets/geeksempire.png
-    -
+
     - assets/gradient_border_rtl.png
     - assets/gradient_border_ltr.png
 
