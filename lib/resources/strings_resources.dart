@@ -24,7 +24,6 @@ class StringsResources {
   /*
    * Start - Titles
    */
-
   static String geeksEmpire() {
 
     return "Geeks Empire";
@@ -64,8 +63,13 @@ class StringsResources {
 
     return "Timeframes";
   }
+
+  static String history() {
+
+    return "History";
+  }
   /*
-   * Start - Titles
+   * End - Titles
    */
 
   /*
@@ -198,6 +202,11 @@ class StringsResources {
   static String xLink() {
 
     return "https://twitter.com/SachielsAI";
+  }
+
+  static String historyLink() {
+
+    return "https://sachielsai.com/#/CandlesticksHistory";
   }
 
   static String privacyPolicyLink() {

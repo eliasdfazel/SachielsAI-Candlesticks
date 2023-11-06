@@ -85,6 +85,66 @@ class _MenusState extends State<Menus> {
               ),
 
               const Divider(
+                height: 73,
+                color: Colors.transparent,
+              ),
+
+              SizedBox(
+                  height: 51,
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(11),
+                      child: Material(
+                          shadowColor: Colors.transparent,
+                          color: Colors.transparent,
+                          child: InkWell(
+                              splashColor: ColorsResources.lightestYellow.withOpacity(0.31),
+                              splashFactory: InkRipple.splashFactory,
+                              onTap: () {
+
+                                launchUrlString(StringsResources.historyLink(), mode: LaunchMode.externalApplication);
+
+                              },
+                              child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+
+                                    const Expanded(
+                                        flex: 3,
+                                        child: Padding(
+                                            padding: EdgeInsets.all(5),
+                                            child: Image(
+                                              image: AssetImage("assets/history_icon.png"),
+                                              color: ColorsResources.light,
+                                            )
+                                        )
+                                    ),
+
+                                    Expanded(
+                                        flex: 1,
+                                        child: Container()
+                                    ),
+
+                                    Expanded(
+                                        flex: 11,
+                                        child: Text(
+                                          StringsResources.history(),
+                                          maxLines: 2,
+                                          style: const TextStyle(
+                                              color: ColorsResources.lightTransparent,
+                                              fontSize: 19
+                                          ),
+                                        )
+                                    )
+
+                                  ]
+                              )
+                          )
+                      )
+                  )
+              ),
+
+              const Divider(
                 height: 13,
                 color: Colors.transparent,
               ),

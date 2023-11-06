@@ -166,6 +166,8 @@ flutter:
     - assets/gradient_border_rtl.png
     - assets/gradient_border_ltr.png
 
+    - assets/history_icon.png
+
     - assets/logo.png
     - assets/logo_background.png
     - assets/logo_android.png
