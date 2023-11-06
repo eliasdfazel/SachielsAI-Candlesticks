@@ -66,7 +66,7 @@ class StringsResources {
 
   static String history() {
 
-    return "History";
+    return "Candlesticks History";
   }
   /*
    * End - Titles
