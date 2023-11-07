@@ -109,7 +109,7 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
     curve: Curves.easeOut
     ));
 
-    offsetAnimationItems = offsetAnimation = Tween<Offset>(begin: const Offset(0, 0), end: const Offset(0.49, 0))
+    offsetAnimationItems = Tween<Offset>(begin: const Offset(-0.13, 0), end: const Offset(0, 0))
         .animate(CurvedAnimation(
         parent: animationController,
         curve: Curves.easeIn
