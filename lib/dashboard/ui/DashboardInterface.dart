@@ -75,6 +75,9 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
   late Animation<Offset> offsetAnimation;
   late Animation<double> doubleAnimation;
 
+  late Animation<Offset> offsetAnimationItems;
+  double opacityAnimation = 0.37;
+
   bool menuOpen = false;
   /*
    * End - Menu
@@ -97,13 +100,19 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
 
     offsetAnimation = Tween<Offset>(begin: const Offset(0, 0), end: const Offset(0.49, 0))
         .animate(CurvedAnimation(
-        parent: animationController,
-        curve: Curves.easeIn
+    parent: animationController,
+    curve: Curves.easeIn
     ));
     doubleAnimation = Tween<double>(begin: 1, end: 0.91)
         .animate(CurvedAnimation(
+    parent: animationController,
+    curve: Curves.easeOut
+    ));
+
+    offsetAnimationItems = offsetAnimation = Tween<Offset>(begin: const Offset(0, 0), end: const Offset(0.49, 0))
+        .animate(CurvedAnimation(
         parent: animationController,
-        curve: Curves.easeOut
+        curve: Curves.easeIn
     ));
 
   }
@@ -136,7 +145,19 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
                 body: Stack(
                   children: [
 
-                    const Menus(),
+                    Container(
+                        width: calculatePercentage(53, displayLogicalWidth(context)),
+                        alignment: AlignmentDirectional.centerStart,
+                        color: Colors.black,
+                        child: AnimatedOpacity(
+                            opacity: opacityAnimation,
+                            duration: Duration(milliseconds: menuOpen ? 753 : 137),
+                            child: SlideTransition(
+                                position: offsetAnimationItems,
+                                child: const Menus()
+                            )
+                        )
+                    ),
 
                     allContent()
 
@@ -562,6 +583,12 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
 
                                 });
 
+                                setState(() {
+
+                                  opacityAnimation = 0.37;
+
+                                });
+
                               } else {
 
 
@@ -570,6 +597,13 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
                                 animationController.forward().whenComplete(() {
 
                                 });
+
+                                setState(() {
+
+                                  opacityAnimation = 1;
+
+                                });
+
                               }
 
                             },
