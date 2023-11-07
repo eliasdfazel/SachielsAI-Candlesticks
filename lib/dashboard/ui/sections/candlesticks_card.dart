@@ -48,7 +48,7 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Configured Candlesticks: $widget.configurationsDataStructure");
+    debugPrint("Configured Candlesticks: ${widget.configurationsDataStructure.candlestickNameValue()}");
 
     if (widget.configurationsDataStructure.notificationStatusValue()) {
 
