@@ -63,6 +63,8 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
 
   bool enableSearchInput = false;
   bool searchPerformed = false;
+
+  Color searchTextColor = ColorsResources.premiumLight;
   /*
    * End - Search
    */
@@ -441,7 +443,7 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
                                                         autofillHints: candlesticksNames,
                                                         autocorrect: true,
                                                         style: TextStyle(
-                                                            color: ColorsResources.premiumLight,
+                                                            color: searchTextColor,
                                                             fontSize: 23,
                                                             shadows: [
                                                               Shadow(
@@ -463,6 +465,9 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
                                                                 borderSide: BorderSide(color: Colors.transparent, width: 0.0)
                                                             ),
                                                             focusedBorder: const OutlineInputBorder(
+                                                                borderSide: BorderSide(color: Colors.transparent, width: 0.0)
+                                                            ),
+                                                            errorBorder: const OutlineInputBorder(
                                                                 borderSide: BorderSide(color: Colors.transparent, width: 0.0)
                                                             ),
                                                             hintText: StringsResources.configuredCandlesticks(),
@@ -735,6 +740,8 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
 
       setState(() {
 
+        searchTextColor = ColorsResources.premiumLight;
+
         enableSearchInput = false;
 
         searchBorderOpacity = false;
@@ -810,6 +817,8 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
 
       setState(() {
 
+        searchTextColor = ColorsResources.premiumLight;
+
         enableSearchInput = false;
 
         searchBorderOpacity = false;
@@ -849,9 +858,9 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
 
     }
 
-    if (allCandlesticks.isNotEmpty) {
+    searchPerformed = true;
 
-      searchPerformed = true;
+    if (allCandlesticks.isNotEmpty) {
 
       int gridColumnCount = (displayLogicalWidth(context) / 199).round();
 
@@ -880,7 +889,9 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
 
       setState(() {
 
-        warningNoticeSearch = StringsResources.nothingFound();
+        searchTextColor = ColorsResources.red;
+
+        searchController.text = StringsResources.nothingFound();
 
       });
 
