@@ -688,28 +688,32 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
 
     }
 
-    int gridColumnCount = (displayLogicalWidth(context) / 199).round();
+    if (allCandlesticks.isNotEmpty) {
 
-    setState(() {
+      int gridColumnCount = (displayLogicalWidth(context) / 199).round();
 
-      configuredCandlesticksPlaceholder = Padding(
-          padding: const EdgeInsets.fromLTRB(19, 237, 19, 7),
-          child: GridView(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: gridColumnCount,
-                childAspectRatio: 0.79,
-                mainAxisSpacing: 37.0,
-                crossAxisSpacing: 19.0,
-              ),
-              padding: const EdgeInsets.fromLTRB(0, 19, 0, 137),
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              controller: scrollController,
-              children: allCandlesticks
-          )
-      );
+      setState(() {
 
-    });
+        configuredCandlesticksPlaceholder = Padding(
+            padding: const EdgeInsets.fromLTRB(19, 237, 19, 7),
+            child: GridView(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: gridColumnCount,
+                  childAspectRatio: 0.79,
+                  mainAxisSpacing: 37.0,
+                  crossAxisSpacing: 19.0,
+                ),
+                padding: const EdgeInsets.fromLTRB(0, 19, 0, 137),
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                controller: scrollController,
+                children: allCandlesticks
+            )
+        );
+
+      });
+
+    }
 
   }
 
@@ -845,30 +849,42 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
 
     }
 
-    searchPerformed = true;
+    if (allCandlesticks.isNotEmpty) {
 
-    int gridColumnCount = (displayLogicalWidth(context) / 199).round();
+      searchPerformed = true;
 
-    setState(() {
+      int gridColumnCount = (displayLogicalWidth(context) / 199).round();
 
-      configuredCandlesticksPlaceholder = Padding(
-          padding: const EdgeInsets.fromLTRB(19, 237, 19, 7),
-          child: GridView(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: gridColumnCount,
-                childAspectRatio: 0.79,
-                mainAxisSpacing: 37.0,
-                crossAxisSpacing: 19.0,
-              ),
-              padding: const EdgeInsets.fromLTRB(0, 19, 0, 137),
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              controller: scrollController,
-              children: allCandlesticks
-          )
-      );
+      setState(() {
 
-    });
+        configuredCandlesticksPlaceholder = Padding(
+            padding: const EdgeInsets.fromLTRB(19, 237, 19, 7),
+            child: GridView(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: gridColumnCount,
+                  childAspectRatio: 0.79,
+                  mainAxisSpacing: 37.0,
+                  crossAxisSpacing: 19.0,
+                ),
+                padding: const EdgeInsets.fromLTRB(0, 19, 0, 137),
+                physics: const BouncingScrollPhysics(),
+                scrollDirection: Axis.vertical,
+                controller: scrollController,
+                children: allCandlesticks
+            )
+        );
+
+      });
+
+    } else {
+
+      setState(() {
+
+        warningNoticeSearch = StringsResources.nothingFound();
+
+      });
+
+    }
 
   }
 

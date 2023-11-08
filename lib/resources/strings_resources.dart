@@ -152,6 +152,10 @@ class StringsResources {
     return "Configuring";
   }
 
+  static String nothingFound() {
+
+    return "Nothing Found";
+  }
   static String ok() {
 
     return "OK";
