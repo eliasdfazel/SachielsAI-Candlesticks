@@ -49,20 +49,15 @@ class _MenusState extends State<Menus> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
 
-                        const Expanded(
-                            flex: 5,
-                            child: Image(
-                                image: AssetImage("assets/geeksempire.png")
-                            )
+                        const Image(
+                            image: AssetImage("assets/geeksempire.png")
+                        ),
+
+                        const SizedBox(
+                          width: 19,
                         ),
 
                         Expanded(
-                            flex: 2,
-                            child: Container()
-                        ),
-
-                        Expanded(
-                            flex: 11,
                             child: Text(
                               StringsResources.geeksEmpire(),
                               maxLines: 2,
@@ -103,24 +98,19 @@ class _MenusState extends State<Menus> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
 
-                                const Expanded(
-                                    flex: 3,
-                                    child: Padding(
-                                        padding: EdgeInsets.all(5),
-                                        child: Image(
-                                          image: AssetImage("assets/history_icon.png"),
-                                          color: ColorsResources.light,
-                                        )
+                                const Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: Image(
+                                      image: AssetImage("assets/history_icon.png"),
+                                      color: ColorsResources.light,
                                     )
                                 ),
 
-                                Expanded(
-                                    flex: 1,
-                                    child: Container()
+                                const SizedBox(
+                                  width: 19,
                                 ),
 
                                 Expanded(
-                                    flex: 11,
                                     child: Text(
                                       StringsResources.history(),
                                       maxLines: 2,
@@ -163,24 +153,19 @@ class _MenusState extends State<Menus> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
 
-                                const Expanded(
-                                    flex: 3,
-                                    child: Padding(
-                                        padding: EdgeInsets.all(5),
-                                        child: Image(
-                                          image: AssetImage("assets/tos.png"),
-                                          color: ColorsResources.light,
-                                        )
+                                const Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: Image(
+                                      image: AssetImage("assets/tos.png"),
+                                      color: ColorsResources.light,
                                     )
                                 ),
 
-                                Expanded(
-                                    flex: 1,
-                                    child: Container()
+                                const SizedBox(
+                                  width: 19,
                                 ),
 
                                 Expanded(
-                                    flex: 11,
                                     child: Text(
                                       StringsResources.tos(),
                                       maxLines: 2,
@@ -223,24 +208,19 @@ class _MenusState extends State<Menus> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
 
-                                const Expanded(
-                                    flex: 3,
-                                    child: Padding(
-                                        padding: EdgeInsets.all(3),
-                                        child: Image(
-                                          image: AssetImage("assets/privacy.png"),
-                                          color: ColorsResources.light,
-                                        )
+                                const Padding(
+                                    padding: EdgeInsets.all(3),
+                                    child: Image(
+                                      image: AssetImage("assets/privacy.png"),
+                                      color: ColorsResources.light,
                                     )
                                 ),
 
-                                Expanded(
-                                    flex: 1,
-                                    child: Container()
+                                const SizedBox(
+                                  width: 19,
                                 ),
 
                                 Expanded(
-                                    flex: 11,
                                     child: Text(
                                       StringsResources.privacyPolicy(),
                                       maxLines: 2,
