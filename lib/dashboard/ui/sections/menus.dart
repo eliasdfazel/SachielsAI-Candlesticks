@@ -12,6 +12,7 @@ import 'package:candlesticks/browser/ui/browser.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -92,7 +93,7 @@ class _MenusState extends State<Menus> {
                           splashFactory: InkRipple.splashFactory,
                           onTap: () {
 
-                            navigateTo(context, Browser(websiteAddress: StringsResources.historyLink()));
+                            navigateTo(context, Browser(websiteAddress: "${StringsResources.historyLink()}?authenticationId=${FirebaseAuth.instance.currentUser?.email}"));
 
                           },
                           child: Row(
