@@ -227,6 +227,11 @@ class StringsResources {
 
     return "https://www.threads.net/@sachielsai";
   }
+
+  static String requestLink() {
+
+    return "https://twitter.com/compose/tweet?text=";
+  }
   /*
    * End - Social Media
    */

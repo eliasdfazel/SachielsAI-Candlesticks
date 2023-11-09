@@ -22,6 +22,7 @@ import 'package:candlesticks/utils/ui/system_bars.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 import 'package:widget_mask/widget_mask.dart';
 
 class PreviewInterface extends StatefulWidget {
@@ -491,7 +492,7 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
                                   child: InkWell(
                                       onTap: () {
 
-
+                                        launchUrlString("${StringsResources.requestLink()}@SachielsAI | Request: ", mode: LaunchMode.externalApplication);
 
                                       },
                                       child: const Image(
@@ -628,7 +629,6 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
   void retrieveCandlesticks() async {
     debugPrint("Retrieve Candlesticks");
 
-    /* Start - Academy Tutorials */
     FirebaseFirestore.instance
       .collection("/Sachiels/Candlesticks/Patterns")
       .orderBy("index")
