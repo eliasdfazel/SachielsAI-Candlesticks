@@ -492,7 +492,8 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
                                   child: InkWell(
                                       onTap: () {
 
-                                        launchUrlString("${StringsResources.requestLink()}@SachielsAI | Request: ", mode: LaunchMode.externalApplication);
+                                        launchUrlString("${StringsResources.requestLink()}@SachielsAI - Request: ", mode: LaunchMode.platformDefault
+                                        );
 
                                       },
                                       child: const Image(
