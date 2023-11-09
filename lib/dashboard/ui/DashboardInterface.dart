@@ -10,10 +10,10 @@
 
 import 'package:candlesticks/configurations/data/ConfigurationsDataStructure.dart';
 import 'package:candlesticks/configurations/utils/Utils.dart';
-import 'package:candlesticks/dashboard/ui/sections/Menus.dart';
 import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
 import 'package:candlesticks/dashboard/ui/sections/account_information_overview.dart';
 import 'package:candlesticks/dashboard/ui/sections/candlesticks_card.dart';
+import 'package:candlesticks/dashboard/ui/sections/menus.dart';
 import 'package:candlesticks/previews/ui/PreviewInterface.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';

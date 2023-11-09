@@ -8,8 +8,11 @@
  * https://opensource.org/licenses/MIT
  */
 
+import 'package:candlesticks/browser/ui/browser.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
+import 'package:candlesticks/utils/navigations/navigation_commands.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -90,7 +93,7 @@ class _MenusState extends State<Menus> {
                           splashFactory: InkRipple.splashFactory,
                           onTap: () {
 
-                            launchUrlString(StringsResources.historyLink(), mode: LaunchMode.externalApplication);
+                            navigateTo(context, Browser(websiteAddress: "${StringsResources.historyLink()}?authenticanId=${FirebaseAuth.instance.currentUser?.uid}"));
 
                           },
                           child: Row(
