@@ -72,6 +72,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
   String configuredMarketsCsv = "";
   Color configuredMarketsColor = ColorsResources.dark;
+  Color configuredMarketsColorRipple = ColorsResources.dark;
   /*
    * End - Configured Markets
    */
@@ -98,6 +99,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
   String configuredTimeframesCsv = "";
   Color configuredTimeframesColor = ColorsResources.dark;
+  Color configuredTimeframesColorRipple = ColorsResources.dark;
   /*
    * End - Configured Timeframes
    */
@@ -1103,9 +1105,13 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
       configuredMarketsColor = ColorsResources.primaryColorLighter;
 
+      configuredMarketsColorRipple = ColorsResources.dark;
+
     } else {
 
       configuredMarketsColor = ColorsResources.dark;
+
+      configuredMarketsColorRipple = ColorsResources.primaryColorLighter;
 
     }
 
@@ -1137,7 +1143,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                 shadowColor: Colors.transparent,
                 color: Colors.transparent,
                 child: InkWell(
-                    splashColor: ColorsResources.lightestYellow.withOpacity(0.31),
+                    splashColor: configuredMarketsColorRipple.withOpacity(0.51),
                     splashFactory: InkRipple.splashFactory,
                     onTap: () {
 
@@ -1530,9 +1536,13 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
       configuredTimeframesColor = ColorsResources.primaryColorLighter;
 
+      configuredTimeframesColorRipple = ColorsResources.dark;
+
     } else {
 
       configuredTimeframesColor = ColorsResources.dark;
+
+      configuredTimeframesColorRipple = ColorsResources.primaryColorLighter;
 
     }
 
@@ -1564,7 +1574,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                     shadowColor: Colors.transparent,
                     color: Colors.transparent,
                     child: InkWell(
-                        splashColor: ColorsResources.lightestYellow.withOpacity(0.31),
+                        splashColor: configuredTimeframesColorRipple.withOpacity(0.51),
                         splashFactory: InkRipple.splashFactory,
                         onTap: () {
 
