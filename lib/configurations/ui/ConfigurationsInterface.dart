@@ -1141,15 +1141,21 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                     splashFactory: InkRipple.splashFactory,
                     onTap: () {
 
-                      if (configuredMarketsCsv.contains(marketLabel)) {
+                      print(">>> >> > 1. " + configuredMarketsCsv);
 
-                        configuredMarketsCsv.replaceAll("$marketLabel,", "");
+                      if (configuredMarketsCsv.contains(marketLabel)) {
+                        print(" > ${configuredMarketsCsv.contains(marketLabel)}");
+
+                        configuredMarketsCsv = configuredMarketsCsv.replaceAll("$marketLabel,", "");
 
                       } else {
 
                         configuredMarketsCsv += "$marketLabel,";
 
                       }
+
+                      print(">>> >> > 2. " + "$marketLabel,");
+                      print(">>> >> > 3. " + configuredMarketsCsv);
 
                       updateMarketsList();
 
@@ -1570,7 +1576,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
                           if (configuredTimeframesCsv.contains(timeframe)) {
 
-                            configuredTimeframesCsv.replaceAll("$timeframe,", "");
+                            configuredTimeframesCsv = configuredTimeframesCsv.replaceAll("$timeframe,", "");
 
                           } else {
 
