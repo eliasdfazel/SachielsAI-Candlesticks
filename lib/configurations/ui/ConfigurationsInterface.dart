@@ -70,7 +70,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
    */
   Widget configuredMarketsList = Container();
 
-  String configuredMarkets = "";
+  String configuredMarketsCsv = "";
   Color configuredMarketsColor = ColorsResources.dark;
   /*
    * End - Configured Markets
@@ -96,7 +96,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
    */
   Widget configuredTimeframesList = Container();
 
-  String configuredTimeframes = "";
+  String configuredTimeframesCsv = "";
   Color configuredTimeframesColor = ColorsResources.dark;
   /*
    * End - Configured Timeframes
@@ -810,19 +810,21 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
     ConfigurationsDataStructure configurationsDataStructure = ConfigurationsDataStructure(documentSnapshot);
 
-    configuredMarkets = configurationsDataStructure.configuredMarketsValue();
+    configuredMarketsCsv = configurationsDataStructure.configuredMarketsValue();
 
     updateConfiguredMarkets();
+
+    updateMarketsList();
 
   }
 
   void updateConfiguredMarkets() {
 
-    if (configuredMarkets.isNotEmpty) {
+    if (configuredMarketsCsv.isNotEmpty) {
 
       List<Widget> configuredItems = [];
 
-      configuredMarkets.split(",").forEach((element) {
+      configuredMarketsCsv.split(",").forEach((element) {
 
         if (element.isNotEmpty) {
           debugPrint("Configured Candlestick Markets: $element");
@@ -1015,7 +1017,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
         for(var marketPair in element.children) {
           debugPrint("Pair: ${marketPair.value}");
 
-          allMarketsItems.add(marketsPickerItemPair(marketPair.key.toString(), marketPair.value.toString()));
+          allMarketsItems.add(marketsPickerItemPair(marketPair.key.toString(), marketPair.key.toString()));
 
         }
 
@@ -1097,7 +1099,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
   Widget marketsPickerItemPair(String marketLabel, String marketPair) {
 
-    if (configuredMarkets.contains(marketLabel)) {
+    if (configuredMarketsCsv.contains(marketLabel)) {
 
       configuredMarketsColor = ColorsResources.primaryColorLighter;
 
@@ -1139,9 +1141,19 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                     splashFactory: InkRipple.splashFactory,
                     onTap: () {
 
-                      configuredMarkets += "$marketLabel,";
+                      if (configuredMarketsCsv.contains(marketLabel)) {
+
+                        configuredMarketsCsv.replaceAll("$marketLabel,", "");
+
+                      } else {
+
+                        configuredMarketsCsv += "$marketLabel,";
+
+                      }
 
                       updateMarketsList();
+
+                      updateConfiguredMarkets();
 
                     },
                     child: SizedBox(
@@ -1256,19 +1268,21 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
     ConfigurationsDataStructure configurationsDataStructure = ConfigurationsDataStructure(documentSnapshot);
 
-    configuredTimeframes = configurationsDataStructure.configuredTimeframesValue();
+    configuredTimeframesCsv = configurationsDataStructure.configuredTimeframesValue();
 
     updateConfiguredTimeframes();
+
+    updateTimeframesList();
 
   }
 
   void updateConfiguredTimeframes() {
 
-    if (configuredTimeframes.isNotEmpty) {
+    if (configuredTimeframesCsv.isNotEmpty) {
 
       List<Widget> configuredItems = [];
 
-      configuredTimeframes.split(",").forEach((element) {
+      configuredTimeframesCsv.split(",").forEach((element) {
 
         if (element.isNotEmpty) {
           debugPrint("Configured Candlestick Timeframes: $element");
@@ -1512,7 +1526,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
   Widget timeframesPickerItem(String timeframe, String description) {
 
-    if (configuredTimeframes.contains(timeframe)) {
+    if (configuredTimeframesCsv.contains(timeframe)) {
 
       configuredTimeframesColor = ColorsResources.primaryColorLighter;
 
@@ -1554,9 +1568,19 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                         splashFactory: InkRipple.splashFactory,
                         onTap: () {
 
-                          configuredTimeframes += "$timeframe,";
+                          if (configuredTimeframesCsv.contains(timeframe)) {
+
+                            configuredTimeframesCsv.replaceAll("$timeframe,", "");
+
+                          } else {
+
+                            configuredTimeframesCsv += "$timeframe,";
+
+                          }
 
                           updateTimeframesList();
+
+                          updateConfiguredTimeframes();
 
                         },
                         child: SizedBox(
@@ -1662,16 +1686,16 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
    */
   void configureIt() async {
 
-    if (configuredMarkets.isNotEmpty
-        && configuredTimeframes.isNotEmpty) {
+    if (configuredMarketsCsv.isNotEmpty
+        && configuredTimeframesCsv.isNotEmpty) {
       debugPrint("Configuring ${widget.previewsDataStructure.candlestickNameValue()} Notifications");
 
       startDone();
 
-      List listOfConfiguredMarkets = configuredMarkets.split(",");
+      List listOfConfiguredMarkets = configuredMarketsCsv.split(",");
       listOfConfiguredMarkets.removeLast();
 
-      List listOfConfiguredTimeframes = configuredTimeframes.split(",");
+      List listOfConfiguredTimeframes = configuredTimeframesCsv.split(",");
       listOfConfiguredTimeframes.removeLast();
 
       String firestorePath = configurationsDocumentPath(firebaseUser.email.toString(), widget.previewsDataStructure.candlestickNameValue());
@@ -1684,8 +1708,8 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
             widget.previewsDataStructure.candlestickNameValue(),
             widget.previewsDataStructure.candlestickImageValue(),
             widget.previewsDataStructure.candlestickDirectionValue(),
-            configuredMarkets,
-            configuredTimeframes
+            configuredMarketsCsv,
+            configuredTimeframesCsv
         ));
 
       }
