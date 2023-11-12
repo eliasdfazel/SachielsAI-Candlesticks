@@ -387,7 +387,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                       Padding(
                           padding: const EdgeInsets.fromLTRB(25, 177, 25, 7),
                           child: SizedBox(
-                            height: 173,
+                            height: 231,
                             width: displayLogicalWidth(context),
                             child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -428,7 +428,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                                                 child: Align(
                                                     alignment: Alignment.centerLeft,
                                                     child: Text(
-                                                      "(${widget.previewsDataStructure.candlestickDirectionValue()})",
+                                                      widget.previewsDataStructure.candlestickDirectionValue(),
                                                       style: TextStyle(
                                                           color: ColorsResources.premiumLight,
                                                           fontSize: 13,
@@ -447,7 +447,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                                             ),
 
                                             SizedBox(
-                                                height: 123,
+                                                height: 171,
                                                 child: Padding(
                                                     padding: const EdgeInsets.only(top: 7),
                                                   child: Container(
@@ -467,11 +467,11 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
                                                                   padding: const EdgeInsets.all(11),
                                                                   child: Text(
                                                                       widget.previewsDataStructure.candlestickDescriptionValue(),
-                                                                      maxLines: 7,
+                                                                      maxLines: 9,
                                                                       textAlign: TextAlign.justify,
                                                                       style: TextStyle(
                                                                           color: ColorsResources.premiumLightTransparent,
-                                                                          fontSize: 11,
+                                                                          fontSize: 13,
                                                                           fontWeight: FontWeight.normal,
                                                                           letterSpacing: 1.37,
                                                                           overflow: TextOverflow.ellipsis,
@@ -770,7 +770,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   Widget setupConfigurationOptions() {
 
     return configurationOptions = Padding(
-      padding: const EdgeInsets.fromLTRB(25, 373, 25, 7),
+      padding: const EdgeInsets.fromLTRB(25, 419, 25, 7),
       child: ListView(
         padding: const EdgeInsets.only(bottom: 137),
         physics: const BouncingScrollPhysics(),
