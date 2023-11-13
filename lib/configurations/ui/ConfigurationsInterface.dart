@@ -1710,17 +1710,17 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
       String firestorePath = configurationsDocumentPath(firebaseUser.email.toString(), widget.previewsDataStructure.candlestickNameValue());
 
-      if (kDebugMode) {
+      if (!kDebugMode) {
 
         await FirebaseFirestore.instance
             .doc(firestorePath)
             .set(candlestickDocument(
-            widget.previewsDataStructure.candlestickNameValue(),
-            widget.previewsDataStructure.candlestickImageValue(),
-            widget.previewsDataStructure.candlestickDirectionValue(),
-            configuredMarketsCsv,
-            configuredTimeframesCsv
-        ));
+              widget.previewsDataStructure.candlestickNameValue(),
+              widget.previewsDataStructure.candlestickImageValue(),
+              widget.previewsDataStructure.candlestickDirectionValue(),
+              configuredMarketsCsv,
+              configuredTimeframesCsv
+            ));
 
       }
 
