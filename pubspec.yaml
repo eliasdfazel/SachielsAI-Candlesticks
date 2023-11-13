@@ -173,6 +173,7 @@ flutter:
     - assets/logo_android.png
     - assets/logo_ios.png
 
+    - assets/newspaper.png
     - assets/notification_on.png
     - assets/notification_off.png
 

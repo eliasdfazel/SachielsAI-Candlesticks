@@ -64,6 +64,11 @@ class StringsResources {
     return "Timeframes";
   }
 
+  static String academy() {
+
+    return "Academy";
+  }
+
   static String history() {
 
     return "Candlesticks History";
@@ -114,6 +119,11 @@ class StringsResources {
   static String sachielsSignalsLink() {
 
     return "https://play.google.com/store/apps/details?id=co.geeksempire.sachiel.signals";
+  }
+
+  static String academyLink() {
+
+    return "https://GeeksEmpire.co/category/financial/";
   }
   /*
    * End - Links

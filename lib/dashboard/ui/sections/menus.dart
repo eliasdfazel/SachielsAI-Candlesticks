@@ -204,7 +204,7 @@ class _MenusState extends State<Menus> {
                           splashFactory: InkRipple.splashFactory,
                           onTap: () {
 
-                            launchUrlString(StringsResources.tosLink(), mode: LaunchMode.externalApplication);
+                            navigateTo(context, Browser(websiteAddress: StringsResources.academyLink()));
 
                           },
                           child: Row(
@@ -215,7 +215,7 @@ class _MenusState extends State<Menus> {
                                 const Padding(
                                     padding: EdgeInsets.all(5),
                                     child: Image(
-                                      image: AssetImage("assets/tos.png"),
+                                      image: AssetImage("assets/newspaper.png"),
                                       color: ColorsResources.light,
                                     )
                                 ),
@@ -226,7 +226,7 @@ class _MenusState extends State<Menus> {
 
                                 Expanded(
                                     child: Text(
-                                      StringsResources.tos(),
+                                      StringsResources.academy(),
                                       maxLines: 2,
                                       style: const TextStyle(
                                           color: ColorsResources.lightTransparent,
@@ -243,7 +243,62 @@ class _MenusState extends State<Menus> {
           ),
 
           const Divider(
-            height: 13,
+            height: 17,
+            color: ColorsResources.premiumDarkTransparent,
+          ),
+
+          SizedBox(
+              height: 51,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(11),
+                  child: Material(
+                      shadowColor: Colors.transparent,
+                      color: Colors.transparent,
+                      child: InkWell(
+                          splashColor: ColorsResources.lightestYellow.withOpacity(0.31),
+                          splashFactory: InkRipple.splashFactory,
+                          onTap: () {
+
+                            launchUrlString(StringsResources.tosLink(), mode: LaunchMode.externalApplication);
+
+                          },
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+
+                                const Padding(
+                                    padding: EdgeInsets.all(11),
+                                    child: Image(
+                                      image: AssetImage("assets/tos.png"),
+                                      color: ColorsResources.light,
+                                    )
+                                ),
+
+                                const SizedBox(
+                                  width: 19,
+                                ),
+
+                                Expanded(
+                                    child: Text(
+                                      StringsResources.tos(),
+                                      maxLines: 2,
+                                      style: const TextStyle(
+                                          color: ColorsResources.lightTransparent,
+                                          fontSize: 15
+                                      ),
+                                    )
+                                )
+
+                              ]
+                          )
+                      )
+                  )
+              )
+          ),
+
+          const Divider(
+            height: 7,
             color: Colors.transparent,
           ),
 
@@ -268,7 +323,7 @@ class _MenusState extends State<Menus> {
                               children: [
 
                                 const Padding(
-                                    padding: EdgeInsets.all(3),
+                                    padding: EdgeInsets.all(11),
                                     child: Image(
                                       image: AssetImage("assets/privacy.png"),
                                       color: ColorsResources.light,
@@ -285,7 +340,7 @@ class _MenusState extends State<Menus> {
                                       maxLines: 2,
                                       style: const TextStyle(
                                           color: ColorsResources.lightTransparent,
-                                          fontSize: 19
+                                          fontSize: 15
                                       ),
                                     )
                                 )
