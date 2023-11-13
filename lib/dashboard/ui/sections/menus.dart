@@ -11,6 +11,7 @@
 import 'package:candlesticks/browser/ui/browser.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
+import 'package:candlesticks/store/ui/DigitalStore.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +79,61 @@ class _MenusState extends State<Menus> {
 
           const Divider(
             height: 73,
+            color: Colors.transparent,
+          ),
+
+          SizedBox(
+              height: 51,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(11),
+                  child: Material(
+                      shadowColor: Colors.transparent,
+                      color: Colors.transparent,
+                      child: InkWell(
+                          splashColor: ColorsResources.lightestYellow.withOpacity(0.31),
+                          splashFactory: InkRipple.splashFactory,
+                          onTap: () {
+
+                            navigateTo(context, DigitalStore());
+
+                          },
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+
+                                const Padding(
+                                    padding: EdgeInsets.all(5),
+                                    child: Image(
+                                      image: AssetImage("assets/store_icon.png"),
+                                      color: ColorsResources.light,
+                                    )
+                                ),
+
+                                const SizedBox(
+                                  width: 19,
+                                ),
+
+                                Expanded(
+                                    child: Text(
+                                      StringsResources.store(),
+                                      maxLines: 2,
+                                      style: const TextStyle(
+                                          color: ColorsResources.lightTransparent,
+                                          fontSize: 19
+                                      ),
+                                    )
+                                )
+
+                              ]
+                          )
+                      )
+                  )
+              )
+          ),
+
+          const Divider(
+            height: 13,
             color: Colors.transparent,
           ),
 

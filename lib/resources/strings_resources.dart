@@ -68,6 +68,11 @@ class StringsResources {
 
     return "Candlesticks History";
   }
+
+  static String store() {
+
+    return "Store";
+  }
   /*
    * End - Titles
    */
