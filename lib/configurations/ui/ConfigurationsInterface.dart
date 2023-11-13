@@ -14,6 +14,9 @@ import 'package:candlesticks/configurations/utils/Utils.dart';
 import 'package:candlesticks/previews/data/previews_data_structure.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
+import 'package:candlesticks/store/data/plans_data_structure.dart';
+import 'package:candlesticks/store/ui/DigitalStore.dart';
+import 'package:candlesticks/utils/io/file_io.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:candlesticks/utils/ui/display.dart';
@@ -1696,54 +1699,66 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
    */
   void configureIt() async {
 
-    if (configuredMarketsCsv.isNotEmpty
-        && configuredTimeframesCsv.isNotEmpty) {
-      debugPrint("Configuring ${widget.previewsDataStructure.candlestickNameValue()} Notifications");
+    fileExist(PlansDataStructure.purchasingPlanFile, "TXT").then((bool alreadyPurchased) async {
 
-      startDone();
+      if (alreadyPurchased) {
 
-      List listOfConfiguredMarkets = configuredMarketsCsv.split(",");
-      listOfConfiguredMarkets.removeLast();
+        if (configuredMarketsCsv.isNotEmpty
+            && configuredTimeframesCsv.isNotEmpty) {
+          debugPrint("Configuring ${widget.previewsDataStructure.candlestickNameValue()} Notifications");
 
-      List listOfConfiguredTimeframes = configuredTimeframesCsv.split(",");
-      listOfConfiguredTimeframes.removeLast();
+          startDone();
 
-      String firestorePath = configurationsDocumentPath(firebaseUser.email.toString(), widget.previewsDataStructure.candlestickNameValue());
+          List listOfConfiguredMarkets = configuredMarketsCsv.split(",");
+          listOfConfiguredMarkets.removeLast();
 
-      if (!kDebugMode) {
+          List listOfConfiguredTimeframes = configuredTimeframesCsv.split(",");
+          listOfConfiguredTimeframes.removeLast();
 
-        await FirebaseFirestore.instance
-            .doc(firestorePath)
-            .set(candlestickDocument(
-              widget.previewsDataStructure.candlestickNameValue(),
-              widget.previewsDataStructure.candlestickImageValue(),
-              widget.previewsDataStructure.candlestickDirectionValue(),
-              configuredMarketsCsv,
-              configuredTimeframesCsv
-            ));
-
-      }
-
-      for (var market in listOfConfiguredMarkets) {
-
-        for (var timeframe in listOfConfiguredTimeframes) {
-          debugPrint("Notification Topic: ${notificationTopic(widget.previewsDataStructure.candlestickNameValue(), timeframe, market)}");
+          String firestorePath = configurationsDocumentPath(firebaseUser.email.toString(), widget.previewsDataStructure.candlestickNameValue());
 
           if (!kDebugMode) {
 
-            FirebaseMessaging.instance.subscribeToTopic(notificationTopic(widget.previewsDataStructure.candlestickNameValue(), timeframe, market));
+            await FirebaseFirestore.instance
+                .doc(firestorePath)
+                .set(candlestickDocument(
+                widget.previewsDataStructure.candlestickNameValue(),
+                widget.previewsDataStructure.candlestickImageValue(),
+                widget.previewsDataStructure.candlestickDirectionValue(),
+                configuredMarketsCsv,
+                configuredTimeframesCsv
+            ));
 
           }
 
+          for (var market in listOfConfiguredMarkets) {
+
+            for (var timeframe in listOfConfiguredTimeframes) {
+              debugPrint("Notification Topic: ${notificationTopic(widget.previewsDataStructure.candlestickNameValue(), timeframe, market)}");
+
+              if (!kDebugMode) {
+
+                FirebaseMessaging.instance.subscribeToTopic(notificationTopic(widget.previewsDataStructure.candlestickNameValue(), timeframe, market));
+
+              }
+
+            }
+
+          }
+
+          candlestickAdded = true;
+
+          done();
+
         }
+
+      } else {
+
+        navigateTo(context, DigitalStore(planName: PlansDataStructure.planNameStandard));
 
       }
 
-      candlestickAdded = true;
-
-      done();
-
-    }
+    });
 
   }
   /*
