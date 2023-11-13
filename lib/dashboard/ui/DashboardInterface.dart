@@ -17,6 +17,7 @@ import 'package:candlesticks/dashboard/ui/sections/menus.dart';
 import 'package:candlesticks/previews/ui/PreviewInterface.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
+import 'package:candlesticks/store/utils/digital_store_utils.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:candlesticks/utils/ui/display.dart';
@@ -35,6 +36,8 @@ class DashboardInterface extends StatefulWidget {
   State<DashboardInterface> createState() => DashboardInterfaceState();
 }
 class DashboardInterfaceState extends State<DashboardInterface> with TickerProviderStateMixin {
+
+  DigitalStoreUtils digitalStoreUtils = DigitalStoreUtils();
 
   User firebaseUser = FirebaseAuth.instance.currentUser!;
 
@@ -116,6 +119,8 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
         parent: animationController,
         curve: Curves.easeIn
     ));
+
+    digitalStoreUtils.validateSubscriptions();
 
   }
 
