@@ -11,9 +11,11 @@
 import 'dart:async';
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:candlesticks/dashboard/ui/DashboardInterface.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
 import 'package:candlesticks/store/data/plans_data_structure.dart';
+import 'package:candlesticks/store/utils/digital_store_utils.dart';
 import 'package:candlesticks/utils/io/file_io.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
@@ -24,6 +26,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:widget_mask/widget_mask.dart';
 
 class DigitalStore extends StatefulWidget {
@@ -37,6 +40,8 @@ class DigitalStore extends StatefulWidget {
 
 }
 class _DigitalStoreState extends State<DigitalStore> with TickerProviderStateMixin {
+
+  DigitalStoreUtils digitalStoreUtils = DigitalStoreUtils();
 
   Widget planDetailsPlaceholder = Container();
 
@@ -82,6 +87,10 @@ class _DigitalStoreState extends State<DigitalStore> with TickerProviderStateMix
     }, onError: (error) {
 
     }) as StreamSubscription<List<PurchaseDetails>>?;
+
+    digitalStoreUtils.validateSubscriptions();
+
+    retrievePlan();
 
   }
 
@@ -386,6 +395,51 @@ class _DigitalStoreState extends State<DigitalStore> with TickerProviderStateMix
                       ),
                       /* End - Back */
 
+                      /* Start - Purchase Information (Try Restore If Nothing Purchased, Redirect to Link) */
+                      Positioned(
+                          right: 19,
+                          top: 19,
+                          child: Container(
+                            decoration: const BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: ColorsResources.primaryColorLighter,
+                                      blurRadius: 51,
+                                      spreadRadius: 0,
+                                      offset: Offset(0, 0)
+                                  )
+                                ]
+                            ),
+                            child: SizedBox(
+                                height: 59,
+                                width: 59,
+                                child: InkWell(
+                                    onTap: () async {
+
+                                      fileExist(PlansDataStructure.purchasingPlanFile, "TXT").then((alreadyPurchased) => {
+
+                                        if (alreadyPurchased) {
+
+                                          navigateToWithPop(context, const DashboardInterface())
+
+                                        } else {
+
+                                          launchUrl(Uri.parse("https://GeeksEmpire.co/Sachiels/PurchasingPlans"), mode: LaunchMode.externalApplication)
+
+                                        }
+
+                                      });
+
+                                    },
+                                    child: const Image(
+                                      image: AssetImage("assets/information_icon.png"),
+                                    )
+                                )
+                            ),
+                          )
+                      ),
+                      /* End - Purchase Information (Try Restore If Nothing Purchased, Redirect to Link) */
+
                       Align(
                           alignment: Alignment.bottomCenter,
                           child: Visibility(
@@ -408,7 +462,6 @@ class _DigitalStoreState extends State<DigitalStore> with TickerProviderStateMix
     );
   }
 
-  // Collection;
   void retrievePlan() async {
     debugPrint("Retrieve Plan; ${widget.planName}");
 
@@ -438,10 +491,9 @@ class _DigitalStoreState extends State<DigitalStore> with TickerProviderStateMix
     debugPrint("Plan Details: ${plansDataStructure.plansDocumentData}");
 
     return Padding(
-        padding: const EdgeInsets.fromLTRB(0, 91, 37, 19),
+        padding: const EdgeInsets.fromLTRB(19, 91, 19, 19),
         child: SizedBox(
-            height: double.maxFinite,
-            width: 353,
+            height: displayLogicalHeight(context),
             child: InkWell(
                 onTap: () async {
 

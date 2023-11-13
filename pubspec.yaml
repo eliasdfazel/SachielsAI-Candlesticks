@@ -168,6 +168,8 @@ flutter:
 
     - assets/history_icon.png
 
+    - assets/information_icon.png
+
     - assets/logo.png
     - assets/logo_background.png
     - assets/logo_android.png
@@ -182,6 +184,7 @@ flutter:
 
     - assets/plus_icon.png
     - assets/privacy.png
+    - assets/purchasing_icon.png
 
     - assets/rectircle_shape.png
     - assets/roundangle_half.png
