@@ -11,6 +11,7 @@
 import 'package:candlesticks/browser/ui/browser.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
+import 'package:candlesticks/store/data/plans_data_structure.dart';
 import 'package:candlesticks/store/ui/DigitalStore.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -94,7 +95,7 @@ class _MenusState extends State<Menus> {
                           splashFactory: InkRipple.splashFactory,
                           onTap: () {
 
-                            navigateTo(context, DigitalStore());
+                            navigateTo(context, DigitalStore(planName: PlansDataStructure.planNameStandard));
 
                           },
                           child: Row(

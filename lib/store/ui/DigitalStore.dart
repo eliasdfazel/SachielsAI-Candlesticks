@@ -8,18 +8,29 @@
  * https://opensource.org/licenses/MIT
  */
 
+import 'dart:async';
+
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
+import 'package:candlesticks/store/data/plans_data_structure.dart';
+import 'package:candlesticks/utils/io/file_io.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:candlesticks/utils/ui/display.dart';
 import 'package:candlesticks/utils/ui/system_bars.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:widget_mask/widget_mask.dart';
 
 class DigitalStore extends StatefulWidget {
 
-  DigitalStore({Key? key});
+  String planName;
+
+  DigitalStore({Key? key, required this.planName});
 
   @override
   State<DigitalStore> createState() => _DigitalStoreState();
@@ -27,11 +38,50 @@ class DigitalStore extends StatefulWidget {
 }
 class _DigitalStoreState extends State<DigitalStore> with TickerProviderStateMixin {
 
+  Widget planDetailsPlaceholder = Container();
+
+  StreamSubscription<List<PurchaseDetails>>? streamSubscription;
+
+  bool animationVisibility = false;
+
+  bool aInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+
+    navigatePop(context);
+
+    return true;
+  }
+
+  @override
+  void dispose() {
+
+    BackButtonInterceptor.remove(aInterceptor);
+
+    streamSubscription?.cancel();
+
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
 
     changeColor(ColorsResources.black, ColorsResources.black);
+
+    BackButtonInterceptor.add(aInterceptor);
+
+    final Stream purchaseUpdated = InAppPurchase.instance.purchaseStream;
+
+    streamSubscription = purchaseUpdated.listen((purchaseDetailsList) {
+
+      purchaseUpdatedListener(purchaseDetailsList);
+
+    }, onDone: () {
+
+      streamSubscription?.cancel();
+
+    }, onError: (error) {
+
+    }) as StreamSubscription<List<PurchaseDetails>>?;
 
   }
 
@@ -229,6 +279,8 @@ class _DigitalStoreState extends State<DigitalStore> with TickerProviderStateMix
                       /* End - Gradient Background - Golden */
                       /* End - Decorations */
 
+                      planDetailsPlaceholder,
+
                       /* Start - Back */
                       Row(
                         children: [
@@ -334,6 +386,21 @@ class _DigitalStoreState extends State<DigitalStore> with TickerProviderStateMix
                       ),
                       /* End - Back */
 
+                      Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Visibility(
+                              visible: animationVisibility,
+                              child: Padding(
+                                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 153),
+                                  child: LoadingAnimationWidget.staggeredDotsWave(
+                                    colorOne: ColorsResources.premiumLight,
+                                    colorTwo: ColorsResources.primaryColor,
+                                    size: 53,
+                                  )
+                              )
+                          )
+                      )
+
                     ]
                 )
             )
@@ -341,6 +408,127 @@ class _DigitalStoreState extends State<DigitalStore> with TickerProviderStateMix
     );
   }
 
-  // Collection; /Sachiels/Candlesticks/Plans
+  // Collection;
+  void retrievePlan() async {
+    debugPrint("Retrieve Plan; ${widget.planName}");
+
+    FirebaseFirestore.instance
+        .doc("/Sachiels/Candlesticks/Plans/${widget.planName}")
+        .get().then((DocumentSnapshot documentSnapshot) {
+
+          PlansDataStructure plansDataStructure = PlansDataStructure(documentSnapshot);
+
+          preparePlan(plansDataStructure);
+
+        });
+
+  }
+
+  void preparePlan(PlansDataStructure plansDataStructure) {
+
+    setState(() {
+
+      planDetailsPlaceholder = planDetails(plansDataStructure);
+
+    });
+
+  }
+
+  Widget planDetails(PlansDataStructure plansDataStructure) {
+    debugPrint("Plan Details: ${plansDataStructure.plansDocumentData}");
+
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(0, 91, 37, 19),
+        child: SizedBox(
+            height: double.maxFinite,
+            width: 353,
+            child: InkWell(
+                onTap: () async {
+
+                  setState(() {
+
+                    animationVisibility = true;
+
+                  });
+
+                  final ProductDetailsResponse productDetailsResponse  = await InAppPurchase.instance.queryProductDetails({plansDataStructure.purchasingPlanProductId()});
+
+                  PurchaseParam purchaseParam = PurchaseParam(productDetails: productDetailsResponse.productDetails.first);
+
+                  await InAppPurchase.instance.buyNonConsumable(purchaseParam: purchaseParam);
+
+                },
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(17),
+                        child: Image.network(
+                          plansDataStructure.purchasingPlanSnapshot(),
+                          height: 353,
+                          width: 353,
+                          fit: BoxFit.contain,
+                        )
+                    ),
+
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
+                        child: Html(
+                            data: plansDataStructure.purchasingPlanDescription()
+                        )
+                    ),
+
+                    const Image(
+                      image: AssetImage("assets/purchasing_icon.png"),
+                      height: 73,
+                      width: 353,
+                      fit: BoxFit.contain,
+                    )
+
+                  ],
+                )
+            )
+        )
+    );
+  }
+
+  void purchaseUpdatedListener(List<PurchaseDetails> purchaseDetailsList) async {
+
+    for (var purchaseDetails in purchaseDetailsList) {
+
+      if (purchaseDetails.status == PurchaseStatus.pending) {
+
+
+      } else {
+
+        if (purchaseDetails.status == PurchaseStatus.error) {
+
+
+
+        } else if (purchaseDetails.status == PurchaseStatus.purchased
+            || purchaseDetails.status == PurchaseStatus.restored) {
+
+          setState(() {
+
+            animationVisibility = false;
+
+          });
+
+        }
+
+        if (purchaseDetails.pendingCompletePurchase) {
+
+          await InAppPurchase.instance.completePurchase(purchaseDetails);
+
+          createFileOfTexts(PlansDataStructure.purchasingPlanFile, "TXT", purchaseDetails.productID);
+
+        }
+
+      }
+
+    }
+
+  }
 
 }
