@@ -127,6 +127,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "730794126051-e1s47hu0vtpd490v548fltvtaf8hi7e9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.geeksempire.sachiels.ai.candlesticks.candlesticks",
+            "certificate_hash": "6dac477d0d7fece2e534a1089becebe4625dfe1d"
+          }
+        },
+        {
           "client_id": "730794126051-ejc7of9l7i2hevokuo3in2kqbubko7ic.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
