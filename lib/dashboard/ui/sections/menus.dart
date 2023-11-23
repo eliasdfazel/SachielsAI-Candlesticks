@@ -150,7 +150,11 @@ class _MenusState extends State<Menus> {
                           splashFactory: InkRipple.splashFactory,
                           onTap: () {
 
-                            navigateTo(context, Browser(websiteAddress: "${StringsResources.historyLink()}?authenticationId=${FirebaseAuth.instance.currentUser?.email}"));
+                            if (FirebaseAuth.instance.currentUser != null) {
+
+                              navigateTo(context, Browser(websiteAddress: "${StringsResources.historyLink()}?authenticationId=${FirebaseAuth.instance.currentUser!.email!.toUpperCase()}"));
+
+                            }
 
                           },
                           child: Row(
