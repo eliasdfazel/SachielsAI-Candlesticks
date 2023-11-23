@@ -28,7 +28,7 @@ android {
 
     namespace "co.geeksempire.sachiels.ai.candlesticks.candlesticks"
 
-    compileSdkVersion 33
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -49,9 +49,9 @@ android {
         applicationId "co.geeksempire.sachiels.ai.candlesticks.candlesticks"
 
         minSdkVersion 26
-        targetSdkVersion 33
+        targetSdkVersion 34
 
-        versionCode 1
+        versionCode 2
         versionName "${majorVersion}." + getDateMonth() + "." + getDateDay() + "." + getDateYear() + ".${versionCode}"
     }
 
