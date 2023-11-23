@@ -1722,11 +1722,11 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
             await FirebaseFirestore.instance
                 .doc(firestorePath)
                 .set(candlestickDocument(
-                widget.previewsDataStructure.candlestickNameValue(),
-                widget.previewsDataStructure.candlestickImageValue(),
-                widget.previewsDataStructure.candlestickDirectionValue(),
-                configuredMarketsCsv,
-                configuredTimeframesCsv
+                  widget.previewsDataStructure.candlestickNameValue(),
+                  widget.previewsDataStructure.candlestickImageValue(),
+                  widget.previewsDataStructure.candlestickDirectionValue(),
+                  configuredMarketsCsv,
+                  configuredTimeframesCsv
             ));
 
           }

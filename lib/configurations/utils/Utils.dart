@@ -8,6 +8,13 @@
  * https://opensource.org/licenses/MIT
  */
 
+String profilesDocumentPath(String emailAddress) {
+
+  String firestorePath = "Sachiels/Candlesticks/Profiles/${emailAddress.toUpperCase()}";
+
+  return firestorePath;
+}
+
 String configurationsDocumentPath(String emailAddress, String candlestickName) {
 
   String firestorePath = "Sachiels/Candlesticks/Profiles/${emailAddress.toUpperCase()}/Configurations/$candlestickName";

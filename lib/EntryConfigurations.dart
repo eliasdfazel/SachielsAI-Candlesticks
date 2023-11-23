@@ -91,6 +91,8 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
 
           UserCredential userCredential = await authenticationsProcess.startGoogleAuthentication();
 
+          authenticationsProcess.createProfiles(userCredential.user!.email!);
+
           if (userCredential.user!.phoneNumber == null) {
             debugPrint("Phone Number Not Authenticated");
 
