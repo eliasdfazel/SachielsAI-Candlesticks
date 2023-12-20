@@ -28,10 +28,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage remoteMessage) async {
   debugPrint("Sachiels Signal Received: ${remoteMessage.data}");
 
-  // To Use Firestore / Realtime Database First Initialize Firebase
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
 }
 

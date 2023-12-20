@@ -12,6 +12,7 @@ import 'dart:io';
 
 import 'package:app_settings/app_settings.dart';
 import 'package:blur/blur.dart';
+import 'package:candlesticks/browser/ui/browser.dart';
 import 'package:candlesticks/dashboard/ui/DashboardInterface.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
@@ -842,7 +843,7 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
   }
 
   /*
-   * Request Notification Permission for iOS
+   * Start - Request Notification Permission for iOS
    */
   void requestNotificationPermission() async {
 
@@ -865,5 +866,38 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
     }
 
   }
+  /*
+   * End - Request Notification Permission for iOS
+   */
+
+  /*
+   * Start - Firebase Message Interaction
+   */
+  Future<void> setupInteractedMessage() async {
+
+    RemoteMessage? initialMessage = await FirebaseMessaging.instance.getInitialMessage();
+
+    if (initialMessage != null) {
+
+      _handleMessage(initialMessage);
+
+    }
+
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
+
+  }
+
+  void _handleMessage(RemoteMessage remoteMessage) {
+
+    if (remoteMessage.data['messageUrl'] == 'candlestickHistory') {
+
+      navigateTo(context, Browser(websiteAddress: "${StringsResources.historyLink()}?authenticationId=${FirebaseAuth.instance.currentUser!.email!.toUpperCase()}"));
+
+    }
+
+  }
+  /*
+   * End - Firebase Message Interaction
+   */
 
 }
