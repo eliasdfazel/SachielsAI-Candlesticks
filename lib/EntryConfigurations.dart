@@ -71,6 +71,8 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
 
     changeColor(ColorsResources.black, ColorsResources.black);
 
+    requestNotificationPermission();
+
     setupInteractedMessage();
 
   }
