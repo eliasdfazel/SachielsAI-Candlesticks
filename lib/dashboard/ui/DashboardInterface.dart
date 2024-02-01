@@ -397,7 +397,7 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
                              * Start - Title
                              */
                             Padding(
-                                padding: const EdgeInsets.fromLTRB(13, 0, 25, 7),
+                                padding: const EdgeInsets.fromLTRB(13, 19, 25, 7),
                                 child: SizedBox(
                                   height: 59,
                                   width: displayLogicalWidth(context),
@@ -882,7 +882,7 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
       setState(() {
 
         configuredPlaceholder = Padding(
-            padding: const EdgeInsets.fromLTRB(19, 237, 19, 7),
+            padding: const EdgeInsets.fromLTRB(19, 19, 19, 137),
             child: GridView(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: gridColumnCount,
@@ -894,6 +894,7 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.vertical,
                 controller: scrollController,
+                shrinkWrap: true,
                 children: allCandlesticks
             )
         );
