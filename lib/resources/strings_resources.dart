@@ -78,6 +78,11 @@ class StringsResources {
 
     return "Store";
   }
+
+  static String historyPreview() {
+
+    return "Candlesticks Since; ";
+  }
   /*
    * End - Titles
    */

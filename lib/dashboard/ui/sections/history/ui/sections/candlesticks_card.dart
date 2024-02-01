@@ -37,14 +37,21 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
   @override
   Widget build(BuildContext context) {
 
-    return FlipCard(
-        rotateSide: detailsCard ? RotateSide.left : RotateSide.right,
-        onTapFlipping: true,
-        axis: FlipAxis.vertical,
-        controller: flipController,
-        animationDuration: const Duration(milliseconds: 777),
-        frontWidget: foregroundCard(),
-        backWidget: backgroundCard()
+    return Padding(
+      padding: const EdgeInsets.only(right: 19),
+      child: SizedBox(
+        height: 117,
+        width: 173,
+        child: FlipCard(
+            rotateSide: detailsCard ? RotateSide.left : RotateSide.right,
+            onTapFlipping: true,
+            axis: FlipAxis.vertical,
+            controller: flipController,
+            animationDuration: const Duration(milliseconds: 777),
+            frontWidget: foregroundCard(),
+            backWidget: backgroundCard()
+        )
+      )
     );
   }
 
@@ -196,6 +203,7 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
 
                                       const Divider(
                                         height: 19,
+                                        color: Colors.transparent
                                       ),
 
                                       Align(
@@ -212,6 +220,7 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
 
                                       const Divider(
                                         height: 11,
+                                        color: Colors.transparent
                                       ),
 
                                       Align(

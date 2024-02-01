@@ -786,12 +786,14 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
 
           const Divider(
             height: 19,
+            color: Colors.transparent,
           ),
 
           setupConfiguredTimeframes(),
 
           const Divider(
             height: 19,
+            color: Colors.transparent,
           ),
 
           deleteConfiguration()

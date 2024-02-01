@@ -281,6 +281,7 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
 
                                       const Divider(
                                         height: 19,
+                                        color: Colors.transparent,
                                       ),
 
                                       Align(
@@ -297,6 +298,7 @@ class _CandlesticksCardState extends State<CandlesticksCard> {
 
                                       const Divider(
                                         height: 11,
+                                        color: Colors.transparent,
                                       ),
 
                                       Align(

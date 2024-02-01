@@ -1,11 +1,14 @@
 import 'package:candlesticks/dashboard/ui/sections/history/data/HistoryDataStructure.dart';
 import 'package:candlesticks/dashboard/ui/sections/history/ui/sections/candlesticks_card.dart';
+import 'package:candlesticks/resources/colors_resources.dart';
+import 'package:candlesticks/resources/strings_resources.dart';
+import 'package:candlesticks/utils/modifications/texts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class HistoryInterface extends StatefulWidget {
 
-  HistoryInterface({Key? key}) : super(key: key);
+  const HistoryInterface({Key? key}) : super(key: key);
 
   @override
   State<HistoryInterface> createState() => _HistoryInterfaceState();
@@ -19,6 +22,9 @@ class _HistoryInterfaceState extends State<HistoryInterface> with TickerProvider
   @override
   void initState() {
     super.initState();
+
+    retrieveCandlesticksHistory();
+
   }
 
   @override
@@ -26,11 +32,37 @@ class _HistoryInterfaceState extends State<HistoryInterface> with TickerProvider
 
     return Container(
         height: 279,
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 37),
         decoration: const BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(19))
         ),
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 7),
-        child: contentPlaceholder
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+
+            Padding(
+                padding: const EdgeInsets.fromLTRB(32, 0, 32, 19),
+                child: Text(
+                  "${StringsResources.historyPreview()}${formatDateTime(DateTime.now().subtract(const Duration(days: 3)))}",
+                  style: TextStyle(
+                      color: ColorsResources.premiumLight,
+                      fontSize: 23,
+                      shadows: [
+                        Shadow(
+                            color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                            blurRadius: 13,
+                            offset: const Offset(-3, 3)
+                        )
+                      ]
+                  ),
+                )
+            ),
+
+            contentPlaceholder
+
+          ]
+        )
     );
   }
 
@@ -69,15 +101,21 @@ class _HistoryInterfaceState extends State<HistoryInterface> with TickerProvider
 
     setState(() {
 
-      contentPlaceholder = Padding(
-          padding: const EdgeInsets.fromLTRB(19, 37, 19, 0),
-          child: ListView(
-              padding: const EdgeInsets.fromLTRB(19, 0, 19, 0),
-              physics: const BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              controller: scrollController,
-              children: allHistory
+      contentPlaceholder = Expanded(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
+          child: ClipRRect(
+              borderRadius: const BorderRadius.only(topLeft: Radius.circular(31), topRight: Radius.circular(31), bottomLeft: Radius.circular(19), bottomRight: Radius.circular(19)),
+              child: ListView(
+                  padding: const EdgeInsets.fromLTRB(10, 0, 19, 0),
+                  physics: const BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  controller: scrollController,
+                  shrinkWrap: true,
+                  children: allHistory
+              )
           )
+        )
       );
 
     });

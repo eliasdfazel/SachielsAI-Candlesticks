@@ -384,17 +384,18 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 137, 0, 7),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(87), topRight: Radius.circular(87)),
+                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(87), topRight: Radius.circular(87)),
                       child: ListView(
+                          padding: const EdgeInsets.fromLTRB(0, 37, 0, 0),
                           physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
                           children: [
 
-                            HistoryInterface(),
+                            const HistoryInterface(),
 
                             /*
-                       * Start - Title
-                       */
+                             * Start - Title
+                             */
                             Padding(
                                 padding: const EdgeInsets.fromLTRB(13, 0, 25, 7),
                                 child: SizedBox(
@@ -541,16 +542,16 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
                                 )
                             ),
                             /*
-                       * End - Title
-                       */
+                             * End - Title
+                             */
 
                             /*
-                       * Start - List
-                       */
+                             * Start - List
+                             */
                             configuredPlaceholder,
                             /*
-                       * End - List
-                       */
+                             * End - List
+                             */
 
                           ]
                       )
