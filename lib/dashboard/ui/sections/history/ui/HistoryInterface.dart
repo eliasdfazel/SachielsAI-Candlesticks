@@ -19,6 +19,10 @@ class _HistoryInterfaceState extends State<HistoryInterface> with TickerProvider
 
   Widget contentPlaceholder = Container();
 
+  bool historyVisibility = false;
+
+  final int daysSevenMilliseconds = (86400000 * 7);
+
   @override
   void initState() {
     super.initState();
@@ -30,39 +34,42 @@ class _HistoryInterfaceState extends State<HistoryInterface> with TickerProvider
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-        height: 279,
-        padding: const EdgeInsets.fromLTRB(0, 0, 0, 37),
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(19))
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+    return Visibility(
+      visible: historyVisibility,
+      child: Container(
+          height: 279,
+          padding: const EdgeInsets.fromLTRB(0, 0, 0, 37),
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(19))
+          ),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
 
-            Padding(
-                padding: const EdgeInsets.fromLTRB(32, 0, 32, 19),
-                child: Text(
-                  "${StringsResources.historyPreview()}${formatDateTime(DateTime.now().subtract(const Duration(days: 3)))}",
-                  style: TextStyle(
-                      color: ColorsResources.premiumLight,
-                      fontSize: 23,
-                      shadows: [
-                        Shadow(
-                            color: ColorsResources.primaryColorLighter.withOpacity(0.19),
-                            blurRadius: 13,
-                            offset: const Offset(-3, 3)
-                        )
-                      ]
-                  ),
-                )
-            ),
+                Padding(
+                    padding: const EdgeInsets.fromLTRB(32, 0, 32, 19),
+                    child: Text(
+                      "${StringsResources.historyPreview()}${formatDateTime(DateTime.now().subtract(const Duration(days: 7)))}",
+                      style: TextStyle(
+                          color: ColorsResources.premiumLight,
+                          fontSize: 23,
+                          shadows: [
+                            Shadow(
+                                color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                blurRadius: 13,
+                                offset: const Offset(-3, 3)
+                            )
+                          ]
+                      ),
+                    )
+                ),
 
-            contentPlaceholder
+                contentPlaceholder
 
-          ]
-        )
+              ]
+          )
+      )
     );
   }
 
@@ -93,32 +100,54 @@ class _HistoryInterfaceState extends State<HistoryInterface> with TickerProvider
 
       if (documentSnapshot.exists) {
 
-        allHistory.add(CandlesticksCard(historyDataStructure: HistoryDataStructure(documentSnapshot)));
+        HistoryDataStructure historyDataStructure = HistoryDataStructure(documentSnapshot);
+
+        int deltaTime = DateTime.now().millisecondsSinceEpoch - historyDataStructure.timestampValue().millisecondsSinceEpoch;
+
+        if (deltaTime <= daysSevenMilliseconds) {
+
+          allHistory.add(CandlesticksCard(historyDataStructure: historyDataStructure));
+
+        }
 
       }
 
     }
 
-    setState(() {
+    if (allHistory.isNotEmpty) {
 
-      contentPlaceholder = Expanded(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
-          child: ClipRRect(
-              borderRadius: const BorderRadius.only(topLeft: Radius.circular(31), topRight: Radius.circular(31), bottomLeft: Radius.circular(19), bottomRight: Radius.circular(19)),
-              child: ListView(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 19, 0),
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  controller: scrollController,
-                  shrinkWrap: true,
-                  children: allHistory
+      setState(() {
+
+        historyVisibility = true;
+
+      });
+
+      Future.delayed(const Duration(milliseconds: 555), () {
+
+        setState(() {
+
+          contentPlaceholder = Expanded(
+              child: Padding(
+                  padding: const EdgeInsets.fromLTRB(9, 0, 9, 0),
+                  child: ClipRRect(
+                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(31), topRight: Radius.circular(31), bottomLeft: Radius.circular(19), bottomRight: Radius.circular(19)),
+                      child: ListView(
+                          padding: const EdgeInsets.fromLTRB(10, 0, 19, 0),
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          controller: scrollController,
+                          shrinkWrap: true,
+                          children: allHistory
+                      )
+                  )
               )
-          )
-        )
-      );
+          );
 
-    });
+        });
+
+      });
+
+    }
 
   }
   /*

@@ -15,15 +15,15 @@ class HistoryDataStructure {
 
   Map<String, dynamic> documentData = <String, dynamic>{};
 
-  HistoryDataStructure(DocumentSnapshot docuemtnSnapshot) {
+  HistoryDataStructure(DocumentSnapshot documentSnapshot) {
 
-    documentData = docuemtnSnapshot.data() as Map<String, dynamic>;
+    documentData = documentSnapshot.data() as Map<String, dynamic>;
 
   }
 
-  String timestampValue() {
+  Timestamp timestampValue() {
 
-    return documentData[HistoryDataStructure.timestamp].toString();
+    return documentData[HistoryDataStructure.timestamp];
   }
 
   String candlestickNameValue() {
