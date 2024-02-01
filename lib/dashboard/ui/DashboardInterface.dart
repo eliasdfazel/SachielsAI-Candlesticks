@@ -654,6 +654,7 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
 
     return Container(
         alignment: Alignment.center,
+        padding: const EdgeInsets.only(top: 37),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,

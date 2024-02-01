@@ -37,7 +37,7 @@ class _HistoryInterfaceState extends State<HistoryInterface> with TickerProvider
     return Visibility(
       visible: historyVisibility,
       child: Container(
-          height: 279,
+          height: 299,
           padding: const EdgeInsets.fromLTRB(0, 0, 0, 37),
           decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(19))
@@ -80,6 +80,7 @@ class _HistoryInterfaceState extends State<HistoryInterface> with TickerProvider
 
     FirebaseFirestore.instance
         .collection("Sachiels/Candlesticks/History")
+        .orderBy(HistoryDataStructure.timestamp, descending: true)
         .get().then((QuerySnapshot querySnapshot) {
 
           if (querySnapshot.size > 0) {
