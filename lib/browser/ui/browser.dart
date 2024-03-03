@@ -31,6 +31,8 @@ class Browser extends StatefulWidget {
 }
 class _BrowserState extends State<Browser> {
 
+  late WebViewController webViewController;
+
   bool loadingAnimationVisibility = true;
 
   bool aInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
@@ -55,6 +57,33 @@ class _BrowserState extends State<Browser> {
     BackButtonInterceptor.add(aInterceptor);
 
     changeColor(ColorsResources.black, ColorsResources.black);
+
+    webViewController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setBackgroundColor(ColorsResources.dark)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {
+
+            setState(() {
+
+              loadingAnimationVisibility = false;
+
+            });
+
+          },
+          onWebResourceError: (WebResourceError error) {},
+          onNavigationRequest: (NavigationRequest request) {
+
+            return NavigationDecision.navigate;
+          },
+        ),
+      )
+      ..loadRequest(Uri.parse(widget.websiteAddress));
 
   }
 
@@ -167,22 +196,8 @@ class _BrowserState extends State<Browser> {
                 /* Start - Browser */
                 ClipRRect(
                     borderRadius: BorderRadius.circular(17),
-                    child: WebView(
-                      initialUrl: widget.websiteAddress,
-                      javascriptMode: JavascriptMode.unrestricted,
-                      backgroundColor: ColorsResources.dark,
-                      onPageFinished: (_) {
-
-                        setState(() {
-
-                          loadingAnimationVisibility = false;
-
-                        });
-
-                      },
-                      onWebViewCreated: (_) {
-                        debugPrint("Website Loaded Completely.");
-                      },
+                    child: WebViewWidget(
+                        controller: webViewController
                     )
                 ),
                 /* End - Browser */

@@ -29,7 +29,7 @@ android {
     namespace "co.geeksempire.sachiels.ai.candlesticks.candlesticks"
 
     compileSdkVersion 34
-    ndkVersion flutter.ndkVersion
+    ndkVersion "25.2.9519653"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8

@@ -24,7 +24,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:widget_mask/widget_mask.dart';
 
@@ -88,12 +87,6 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
         Future.delayed(const Duration(milliseconds: 1357), () async {
           debugPrint("Google Authenticating...");
 
-          Future.delayed(const Duration(milliseconds: 111), () {
-
-            FlutterNativeSplash.remove();
-
-          });
-
           UserCredential userCredential = await authenticationsProcess.startGoogleAuthentication();
 
           authenticationsProcess.createProfiles(userCredential.user!.email!);
@@ -143,8 +136,6 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
       }
 
     } else {
-
-      FlutterNativeSplash.remove();
 
       noticeMessage = StringsResources.noInternetConnection();
       noticeAction = StringsResources.ok();
@@ -381,7 +372,7 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
 
                                                                               } else {
 
-                                                                                AppSettings.openWIFISettings();
+                                                                                AppSettings.openAppSettings(type: AppSettingsType.wifi);
 
                                                                               }
 
@@ -450,12 +441,6 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
 
     if (firebaseAuthentication.currentUser!.phoneNumber == null) {
       debugPrint("Phone Number Not Authenticated > NULL");
-
-      Future.delayed(const Duration(milliseconds: 111), () {
-
-        FlutterNativeSplash.remove();
-
-      });
 
       setState(() {
 
@@ -645,12 +630,6 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
     } else if (firebaseAuthentication.currentUser!.phoneNumber!.isEmpty) {
 
       debugPrint("Phone Number Not Authenticated > EMPTY");
-
-      Future.delayed(const Duration(milliseconds: 111), () {
-
-        FlutterNativeSplash.remove();
-
-      });
 
       setState(() {
 
@@ -893,9 +872,13 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
 
   void _handleMessage(RemoteMessage remoteMessage) {
 
-    if (remoteMessage.data['messageUrl'] == 'candlestickHistory') {
+    // messageUrl
+    // timestamp
+    if (remoteMessage.data['messageUrl'] == 'CandlestickHistory') {
 
-      navigateTo(context, Browser(websiteAddress: "${StringsResources.historyLink()}?authenticationId=${FirebaseAuth.instance.currentUser!.email!.toUpperCase()}"));
+      String candlestickId = remoteMessage.data['timestamp'];
+
+      navigateTo(context, Browser(websiteAddress: "${StringsResources.historyLink()}?authenticationId=${FirebaseAuth.instance.currentUser!.email!.toUpperCase()}&&candlestickId=$candlestickId"));
 
     }
 
