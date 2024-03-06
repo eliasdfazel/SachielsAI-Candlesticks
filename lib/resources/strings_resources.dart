@@ -218,6 +218,11 @@ class StringsResources {
   /*
    * Start - Social Media
    */
+  static String marketChartLink(String marketPair) {
+
+    return "https://www.tradingview.com/chart/?aff_id=136528&symbol=${marketPair}";
+  }
+
   static String geeksEmpireAndroid() {
 
     return "https://play.google.com/store/apps/dev?id=8263190182709725073&hl=en_US&gl=US";
