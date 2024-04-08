@@ -18,6 +18,7 @@ dependencies:
 
   ####### ####### #######
   app_settings: ^5.1.1
+  app_version_update: ^4.0.1
   ####### ####### #######
 
 
@@ -151,38 +152,3 @@ flutter:
     - family: Electric
       fonts:
         - asset: fonts/electric.ttf
-
-
-
-flutter_native_splash:
-  color: "#000000"
-
-  image: assets/logo.png
-
-  branding: assets/logo.png
-
-  branding_mode: center
-
-  android_12:
-
-  android: true
-  ios: true
-  web: false
-
-
-
-flutter_icons:
-  image_path_android: "assets/logo_android.png"
-  image_path_ios: "assets/logo_ios.png"
-  android: true # can specify file name here e.g. "ic_launcher"
-  ios: true # can specify file name here e.g. "My-Launcher-Icon"
-  adaptive_icon_background: "assets/logo_background.png" # only available for Android 8.0 devices and above
-  adaptive_icon_foreground: "assets/logo.png" #
-  min_sdk_android: 21 # android min sdk min:16, default 21
-  remove_alpha_ios: true
-  background_color_ios: "#ffffff"
-
-
-
-flutter_app_name:
-  name: "Sachiels AI; Candlesticks"

@@ -8,6 +8,8 @@
  * https://opensource.org/licenses/MIT
  */
 
+import 'package:candlesticks/Update/process/UpdateAvailability.dart';
+import 'package:candlesticks/Update/ui/UpdateWidget.dart';
 import 'package:candlesticks/configurations/data/ConfigurationsDataStructure.dart';
 import 'package:candlesticks/configurations/utils/Utils.dart';
 import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
@@ -36,6 +38,8 @@ class DashboardInterface extends StatefulWidget {
   State<DashboardInterface> createState() => DashboardInterfaceState();
 }
 class DashboardInterfaceState extends State<DashboardInterface> with TickerProviderStateMixin {
+
+  UpdateAvailability updateAvailability = UpdateAvailability();
 
   DigitalStoreUtils digitalStoreUtils = DigitalStoreUtils();
 
@@ -88,6 +92,8 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
    * End - Menu
    */
 
+  Widget updatePlaceholder = Container();
+
   @override
   void initState() {
     super.initState();
@@ -121,6 +127,21 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
     ));
 
     digitalStoreUtils.validateSubscriptions();
+
+    updateAvailability.check().then((updateData) {
+      debugPrint("Update Available: ${updateData.$1}");
+
+      if (/*updateData.$1*/true) {
+
+        setState(() {
+
+          updatePlaceholder = updateWidget(updateData.$2);
+
+        });
+
+      }
+
+    });
 
   }
 
@@ -160,7 +181,9 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
                         )
                     ),
 
-                    allContent()
+                    allContent(),
+
+                    updatePlaceholder
 
                   ]
                 )
