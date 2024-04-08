@@ -131,7 +131,7 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
     updateAvailability.check().then((updateData) {
       debugPrint("Update Available: ${updateData.$1}");
 
-      if (/*updateData.$1*/true) {
+      if (updateData.$1) {
 
         setState(() {
 

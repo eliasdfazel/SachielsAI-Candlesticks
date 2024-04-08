@@ -53,7 +53,7 @@ Widget updateWidget(String applicationLink) {
                 shadowColor: Colors.transparent,
                 color: Colors.transparent,
                 child: InkWell(
-                    splashColor: ColorsResources.lightGreen.withOpacity(0.73),
+                    splashColor: ColorsResources.primaryColor.withOpacity(0.73),
                     splashFactory: InkRipple.splashFactory,
                     onTap: () {
 
@@ -92,7 +92,7 @@ Widget updateWidget(String applicationLink) {
                                             },
                                             child: const Image(
                                               image: AssetImage("assets/update.png"),
-                                              height: 399,
+                                              height: 313,
                                               width: double.maxFinite,
                                               fit: BoxFit.contain,
                                             )
@@ -100,7 +100,7 @@ Widget updateWidget(String applicationLink) {
                                     ),
                                     child: const Image(
                                       image: AssetImage("assets/update.png"),
-                                      height: 399,
+                                      height: 313,
                                       width: double.maxFinite,
                                       fit: BoxFit.contain,
                                     )
