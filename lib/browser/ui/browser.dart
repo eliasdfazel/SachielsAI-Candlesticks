@@ -10,7 +10,6 @@
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
-import 'package:candlesticks/resources/strings_resources.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:candlesticks/utils/ui/display.dart';
@@ -91,122 +90,110 @@ class _BrowserState extends State<Browser> {
   Widget build(BuildContext context) {
     debugPrint("Loading ${widget.websiteAddress}");
 
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: StringsResources.applicationName(),
-        color: ColorsResources.primaryColor,
-        theme: ThemeData(
-          fontFamily: 'Ubuntu',
-          colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ColorsResources.primaryColor),
-          pageTransitionsTheme: const PageTransitionsTheme(builders: {
-            TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-            TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
-          }),
-        ),
-        home: Scaffold(
-            backgroundColor: ColorsResources.black,
-            body: Stack(
-              children: [
+    return Scaffold(
+        backgroundColor: ColorsResources.black,
+        body: Stack(
+          children: [
 
-                /* Start - Gradient Background - Dark */
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(17),
-                        topRight: Radius.circular(17),
-                        bottomLeft: Radius.circular(17),
-                        bottomRight: Radius.circular(17)
-                    ),
-                    border: Border(
-                        top: BorderSide(
-                          color: ColorsResources.black,
-                          width: 7,
-                        ),
-                        bottom: BorderSide(
-                          color: ColorsResources.black,
-                          width: 7,
-                        ),
-                        left: BorderSide(
-                          color: ColorsResources.black,
-                          width: 7,
-                        ),
-                        right: BorderSide(
-                          color: ColorsResources.black,
-                          width: 7,
-                        )
-                    ),
-                    gradient: LinearGradient(
-                        colors: [
-                          ColorsResources.premiumDark,
-                          ColorsResources.black,
-                        ],
-                        begin: FractionalOffset(0.0, 0.0),
-                        end: FractionalOffset(1.0, 0.0),
-                        stops: [0.0, 1.0],
-                        transform: GradientRotation(-45),
-                        tileMode: TileMode.clamp
-                    ),
-                  ),
+            /* Start - Gradient Background - Dark */
+            Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(17),
+                    topRight: Radius.circular(17),
+                    bottomLeft: Radius.circular(17),
+                    bottomRight: Radius.circular(17)
                 ),
-                /* End - Gradient Background - Dark */
+                border: Border(
+                    top: BorderSide(
+                      color: ColorsResources.black,
+                      width: 7,
+                    ),
+                    bottom: BorderSide(
+                      color: ColorsResources.black,
+                      width: 7,
+                    ),
+                    left: BorderSide(
+                      color: ColorsResources.black,
+                      width: 7,
+                    ),
+                    right: BorderSide(
+                      color: ColorsResources.black,
+                      width: 7,
+                    )
+                ),
+                gradient: LinearGradient(
+                    colors: [
+                      ColorsResources.premiumDark,
+                      ColorsResources.black,
+                    ],
+                    begin: FractionalOffset(0.0, 0.0),
+                    end: FractionalOffset(1.0, 0.0),
+                    stops: [0.0, 1.0],
+                    transform: GradientRotation(-45),
+                    tileMode: TileMode.clamp
+                ),
+              ),
+            ),
+            /* End - Gradient Background - Dark */
 
-                /* Start - Branding Transparent */
-                Align(
-                  alignment: Alignment.center,
-                  child: Opacity(
-                      opacity: 0.1,
-                      child: Transform.scale(
-                          scale: 1.7,
-                          child: const Image(
-                            image: AssetImage("assets/logo.png"),
-                          )
+            /* Start - Branding Transparent */
+            Align(
+              alignment: Alignment.center,
+              child: Opacity(
+                  opacity: 0.1,
+                  child: Transform.scale(
+                      scale: 1.7,
+                      child: const Image(
+                        image: AssetImage("assets/logo.png"),
+                      )
+                  )
+              ),
+            ),
+            /* End - Branding Transparent */
+
+            /* Start - Gradient Background - Golden */
+            Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(17),
+                          topRight: Radius.circular(17),
+                          bottomLeft: Radius.circular(17),
+                          bottomRight: Radius.circular(17)
+                      ),
+                      gradient: RadialGradient(
+                        radius: 1.1,
+                        colors: <Color> [
+                          ColorsResources.primaryColorLighter.withOpacity(0.51),
+                          Colors.transparent,
+                        ],
+                        center: const Alignment(0.79, -0.87),
                       )
                   ),
-                ),
-                /* End - Branding Transparent */
+                  child: SizedBox(
+                    height: calculatePercentage(99, displayLogicalHeight(context)),
+                    width: calculatePercentage(99, displayLogicalWidth(context)),
+                  ),
+                )
+            ),
+            /* End - Gradient Background - Golden */
 
-                /* Start - Gradient Background - Golden */
-                Align(
-                    alignment: Alignment.topRight,
+            /* Start - Browser */
+            ClipRRect(
+                borderRadius: BorderRadius.circular(17),
+                child: WebViewWidget(
+                    controller: webViewController
+                )
+            ),
+            /* End - Browser */
+
+            Align(
+                alignment: Alignment.center,
+                child: Visibility(
+                    visible: loadingAnimationVisibility,
                     child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(17),
-                              topRight: Radius.circular(17),
-                              bottomLeft: Radius.circular(17),
-                              bottomRight: Radius.circular(17)
-                          ),
-                          gradient: RadialGradient(
-                            radius: 1.1,
-                            colors: <Color> [
-                              ColorsResources.primaryColorLighter.withOpacity(0.51),
-                              Colors.transparent,
-                            ],
-                            center: const Alignment(0.79, -0.87),
-                          )
-                      ),
-                      child: SizedBox(
-                        height: calculatePercentage(99, displayLogicalHeight(context)),
-                        width: calculatePercentage(99, displayLogicalWidth(context)),
-                      ),
-                    )
-                ),
-                /* End - Gradient Background - Golden */
-
-                /* Start - Browser */
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(17),
-                    child: WebViewWidget(
-                        controller: webViewController
-                    )
-                ),
-                /* End - Browser */
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Visibility(
-                      visible: loadingAnimationVisibility,
-                      child: Container(
                         height: 399,
                         width: 351,
                         alignment: Alignment.center,
@@ -215,12 +202,11 @@ class _BrowserState extends State<Browser> {
                           colorTwo: ColorsResources.primaryColor,
                           size: 73,
                         )
-                      )
-                  )
-                ),
+                    )
+                )
+            ),
 
-              ],
-            )
+          ],
         )
     );
   }

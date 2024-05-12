@@ -149,44 +149,31 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
   Widget build(BuildContext context) {
 
     return SafeArea(
-        child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: StringsResources.applicationName(),
-            color: ColorsResources.primaryColor,
-            theme: ThemeData(
-              fontFamily: 'Ubuntu',
-              colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ColorsResources.primaryColor),
-              pageTransitionsTheme: const PageTransitionsTheme(builders: {
-                TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-                TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder()
-              })
-            ),
-            home: Scaffold(
-                resizeToAvoidBottomInset: false,
-                backgroundColor: ColorsResources.black,
-                body: Stack(
-                  children: [
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: ColorsResources.black,
+            body: Stack(
+                children: [
 
-                    Container(
-                        width: calculatePercentage(53, displayLogicalWidth(context)),
-                        alignment: AlignmentDirectional.centerStart,
-                        color: Colors.black,
-                        child: AnimatedOpacity(
-                            opacity: opacityAnimation,
-                            duration: Duration(milliseconds: menuOpen ? 753 : 137),
-                            child: SlideTransition(
-                                position: offsetAnimationItems,
-                                child: const Menus()
-                            )
-                        )
-                    ),
+                  Container(
+                      width: calculatePercentage(53, displayLogicalWidth(context)),
+                      alignment: AlignmentDirectional.centerStart,
+                      color: Colors.black,
+                      child: AnimatedOpacity(
+                          opacity: opacityAnimation,
+                          duration: Duration(milliseconds: menuOpen ? 753 : 137),
+                          child: SlideTransition(
+                              position: offsetAnimationItems,
+                              child: const Menus()
+                          )
+                      )
+                  ),
 
-                    allContent(),
+                  allContent(),
 
-                    updatePlaceholder
+                  updatePlaceholder
 
-                  ]
-                )
+                ]
             )
         )
     );

@@ -172,601 +172,584 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
   Widget build(BuildContext context) {
 
     return SafeArea(
-        child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: StringsResources.applicationName(),
-            color: ColorsResources.primaryColor,
-            theme: ThemeData(
-              fontFamily: 'Ubuntu',
-              colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ColorsResources.primaryColor),
-              pageTransitionsTheme: const PageTransitionsTheme(builders: {
-                TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-                TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
-              }),
-            ),
-            home: Scaffold(
-                resizeToAvoidBottomInset: false,
-                backgroundColor: ColorsResources.black,
-                body: Stack(
-                    children: [
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: ColorsResources.black,
+            body: Stack(
+                children: [
 
-                      /* Start - Decorations */
-                      /* Start - Gradient Background - Dark */
-                      Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(17),
-                              topRight: Radius.circular(17),
-                              bottomLeft: Radius.circular(17),
-                              bottomRight: Radius.circular(17)
-                          ),
-                          border: Border(
-                              top: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              ),
-                              bottom: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              ),
-                              left: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              ),
-                              right: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              )
-                          ),
-                          gradient: LinearGradient(
-                              colors: [
-                                ColorsResources.premiumDark,
-                                ColorsResources.black,
-                              ],
-                              begin: FractionalOffset(0.0, 0.0),
-                              end: FractionalOffset(1.0, 0.0),
-                              stops: [0.0, 1.0],
-                              transform: GradientRotation(-45),
-                              tileMode: TileMode.clamp
-                          ),
-                        ),
+                  /* Start - Decorations */
+                  /* Start - Gradient Background - Dark */
+                  Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(17),
+                          topRight: Radius.circular(17),
+                          bottomLeft: Radius.circular(17),
+                          bottomRight: Radius.circular(17)
                       ),
-                      /* End - Gradient Background - Dark */
-
-                      /* Start - Branding Transparent */
-                      Align(
-                        alignment: Alignment.center,
-                        child: Opacity(
-                            opacity: 0.1,
-                            child: Transform.scale(
-                                scale: 1.7,
-                                child: const Image(
-                                  image: AssetImage("assets/logo.png"),
-                                )
-                            )
-                        ),
-                      ),
-                      /* End - Branding Transparent */
-
-                      /* Start - Gradient Background - Golden */
-                      Align(
-                          alignment: Alignment.topRight,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(17),
-                                    topRight: Radius.circular(17),
-                                    bottomLeft: Radius.circular(17),
-                                    bottomRight: Radius.circular(17)
-                                ),
-                                gradient: RadialGradient(
-                                  radius: 1.1,
-                                  colors: <Color> [
-                                    ColorsResources.primaryColorLighter.withOpacity(0.51),
-                                    Colors.transparent,
-                                  ],
-                                  center: const Alignment(0.79, -0.87),
-                                )
-                            ),
-                            child: SizedBox(
-                              height: calculatePercentage(99, displayLogicalHeight(context)),
-                              width: calculatePercentage(99, displayLogicalWidth(context)),
-                            ),
+                      border: Border(
+                          top: BorderSide(
+                            color: ColorsResources.black,
+                            width: 7,
+                          ),
+                          bottom: BorderSide(
+                            color: ColorsResources.black,
+                            width: 7,
+                          ),
+                          left: BorderSide(
+                            color: ColorsResources.black,
+                            width: 7,
+                          ),
+                          right: BorderSide(
+                            color: ColorsResources.black,
+                            width: 7,
                           )
                       ),
-                      /* End - Gradient Background - Golden */
-
-                      /* Start - Gradient Background - Dark */
-                      Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(17),
-                              topRight: Radius.circular(17),
-                              bottomLeft: Radius.circular(17),
-                              bottomRight: Radius.circular(17)
-                          ),
-                          border: Border(
-                              top: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              ),
-                              bottom: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              ),
-                              left: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              ),
-                              right: BorderSide(
-                                color: ColorsResources.black,
-                                width: 7,
-                              )
-                          ),
-                          gradient: LinearGradient(
-                              colors: [
-                                ColorsResources.premiumDark,
-                                ColorsResources.black,
-                              ],
-                              begin: FractionalOffset(0.0, 0.0),
-                              end: FractionalOffset(1.0, 0.0),
-                              stops: [0.0, 1.0],
-                              transform: GradientRotation(-45),
-                              tileMode: TileMode.clamp
-                          ),
-                        ),
+                      gradient: LinearGradient(
+                          colors: [
+                            ColorsResources.premiumDark,
+                            ColorsResources.black,
+                          ],
+                          begin: FractionalOffset(0.0, 0.0),
+                          end: FractionalOffset(1.0, 0.0),
+                          stops: [0.0, 1.0],
+                          transform: GradientRotation(-45),
+                          tileMode: TileMode.clamp
                       ),
-                      /* End - Gradient Background - Dark */
+                    ),
+                  ),
+                  /* End - Gradient Background - Dark */
 
-                      /* Start - Branding Transparent */
-                      Align(
-                        alignment: Alignment.center,
-                        child: Opacity(
-                            opacity: 0.37,
-                            child: Transform.scale(
-                                scale: 1.7,
-                                child: const Image(
-                                  image: AssetImage("assets/sachiels_candlestick_logo.png"),
-                                )
+                  /* Start - Branding Transparent */
+                  Align(
+                    alignment: Alignment.center,
+                    child: Opacity(
+                        opacity: 0.1,
+                        child: Transform.scale(
+                            scale: 1.7,
+                            child: const Image(
+                              image: AssetImage("assets/logo.png"),
+                            )
+                        )
+                    ),
+                  ),
+                  /* End - Branding Transparent */
+
+                  /* Start - Gradient Background - Golden */
+                  Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(17),
+                                topRight: Radius.circular(17),
+                                bottomLeft: Radius.circular(17),
+                                bottomRight: Radius.circular(17)
+                            ),
+                            gradient: RadialGradient(
+                              radius: 1.1,
+                              colors: <Color> [
+                                ColorsResources.primaryColorLighter.withOpacity(0.51),
+                                Colors.transparent,
+                              ],
+                              center: const Alignment(0.79, -0.87),
                             )
                         ),
-                      ),
-                      /* End - Branding Transparent */
+                        child: SizedBox(
+                          height: calculatePercentage(99, displayLogicalHeight(context)),
+                          width: calculatePercentage(99, displayLogicalWidth(context)),
+                        ),
+                      )
+                  ),
+                  /* End - Gradient Background - Golden */
 
-                      /* Start - Gradient Background - Golden */
-                      Align(
-                          alignment: Alignment.topRight,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(17),
-                                    topRight: Radius.circular(17),
-                                    bottomLeft: Radius.circular(17),
-                                    bottomRight: Radius.circular(17)
-                                ),
-                                gradient: RadialGradient(
-                                  radius: 1.1,
-                                  colors: <Color> [
-                                    ColorsResources.primaryColorLighter.withOpacity(0.51),
-                                    Colors.transparent,
-                                  ],
-                                  center: const Alignment(0.79, -0.87),
-                                )
-                            ),
-                            child: SizedBox(
-                              height: calculatePercentage(99, displayLogicalHeight(context)),
-                              width: calculatePercentage(99, displayLogicalWidth(context)),
-                            ),
+                  /* Start - Gradient Background - Dark */
+                  Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(17),
+                          topRight: Radius.circular(17),
+                          bottomLeft: Radius.circular(17),
+                          bottomRight: Radius.circular(17)
+                      ),
+                      border: Border(
+                          top: BorderSide(
+                            color: ColorsResources.black,
+                            width: 7,
+                          ),
+                          bottom: BorderSide(
+                            color: ColorsResources.black,
+                            width: 7,
+                          ),
+                          left: BorderSide(
+                            color: ColorsResources.black,
+                            width: 7,
+                          ),
+                          right: BorderSide(
+                            color: ColorsResources.black,
+                            width: 7,
                           )
                       ),
-                      /* End - Gradient Background - Golden */
+                      gradient: LinearGradient(
+                          colors: [
+                            ColorsResources.premiumDark,
+                            ColorsResources.black,
+                          ],
+                          begin: FractionalOffset(0.0, 0.0),
+                          end: FractionalOffset(1.0, 0.0),
+                          stops: [0.0, 1.0],
+                          transform: GradientRotation(-45),
+                          tileMode: TileMode.clamp
+                      ),
+                    ),
+                  ),
+                  /* End - Gradient Background - Dark */
 
-                      /*
+                  /* Start - Branding Transparent */
+                  Align(
+                    alignment: Alignment.center,
+                    child: Opacity(
+                        opacity: 0.37,
+                        child: Transform.scale(
+                            scale: 1.7,
+                            child: const Image(
+                              image: AssetImage("assets/sachiels_candlestick_logo.png"),
+                            )
+                        )
+                    ),
+                  ),
+                  /* End - Branding Transparent */
+
+                  /* Start - Gradient Background - Golden */
+                  Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(17),
+                                topRight: Radius.circular(17),
+                                bottomLeft: Radius.circular(17),
+                                bottomRight: Radius.circular(17)
+                            ),
+                            gradient: RadialGradient(
+                              radius: 1.1,
+                              colors: <Color> [
+                                ColorsResources.primaryColorLighter.withOpacity(0.51),
+                                Colors.transparent,
+                              ],
+                              center: const Alignment(0.79, -0.87),
+                            )
+                        ),
+                        child: SizedBox(
+                          height: calculatePercentage(99, displayLogicalHeight(context)),
+                          width: calculatePercentage(99, displayLogicalWidth(context)),
+                        ),
+                      )
+                  ),
+                  /* End - Gradient Background - Golden */
+
+                  /*
                        * Start - List Background
                        */
-                      Padding(
-                          padding: const EdgeInsets.fromLTRB(7, 137, 7, 7),
-                          child: Opacity(
-                              opacity: 0.73,
-                              child: ClipRRect(
-                                  borderRadius: const BorderRadius.all(Radius.circular(17)),
-                                  child: Image(
-                                    image: const AssetImage("assets/roundangle_half.png"),
-                                    width: displayLogicalWidth(context),
-                                    fit: BoxFit.fill,
-                                  )
+                  Padding(
+                      padding: const EdgeInsets.fromLTRB(7, 137, 7, 7),
+                      child: Opacity(
+                          opacity: 0.73,
+                          child: ClipRRect(
+                              borderRadius: const BorderRadius.all(Radius.circular(17)),
+                              child: Image(
+                                image: const AssetImage("assets/roundangle_half.png"),
+                                width: displayLogicalWidth(context),
+                                fit: BoxFit.fill,
                               )
                           )
-                      ),
-                      /*
+                      )
+                  ),
+                  /*
                        * End - List Background
                        */
-                      /* End - Decorations */
+                  /* End - Decorations */
 
-                      /*
+                  /*
                        * Start - Content
                        */
-                      /*
+                  /*
                        * Start - Candlestick Information
                        */
-                      Padding(
-                          padding: const EdgeInsets.fromLTRB(25, 177, 25, 7),
-                          child: SizedBox(
-                            height: 231,
-                            width: displayLogicalWidth(context),
-                            child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                  Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 177, 25, 7),
+                      child: SizedBox(
+                        height: 231,
+                        width: displayLogicalWidth(context),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
 
-                                  Expanded(
-                                      flex: 7,
-                                      child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
+                              Expanded(
+                                  flex: 7,
+                                  child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
 
-                                            SizedBox(
-                                                height: 29,
-                                                child: Align(
-                                                    alignment: Alignment.centerLeft,
-                                                    child: Text(
-                                                      widget.previewsDataStructure.candlestickNameValue(),
-                                                      style: TextStyle(
-                                                          color: ColorsResources.premiumLight,
-                                                          fontSize: 23,
-                                                          fontWeight: FontWeight.bold,
-                                                          letterSpacing: 1.37,
-                                                          shadows: [
-                                                            Shadow(
-                                                                color: ColorsResources.primaryColorLighter.withOpacity(0.19),
-                                                                blurRadius: 13,
-                                                                offset: const Offset(-3, 3)
-                                                            )
-                                                          ]
-                                                      ),
-                                                    )
-                                                )
-                                            ),
-
-                                            SizedBox(
-                                                height: 19,
-                                                child: Align(
-                                                    alignment: Alignment.centerLeft,
-                                                    child: Text(
-                                                      widget.previewsDataStructure.candlestickDirectionValue(),
-                                                      style: TextStyle(
-                                                          color: ColorsResources.premiumLight,
-                                                          fontSize: 13,
-                                                          fontWeight: FontWeight.normal,
-                                                          letterSpacing: 1.37,
-                                                          shadows: [
-                                                            Shadow(
-                                                                color: ColorsResources.primaryColorLighter.withOpacity(0.19),
-                                                                blurRadius: 13,
-                                                                offset: const Offset(-3, 3)
-                                                            )
-                                                          ]
-                                                      ),
-                                                    )
-                                                )
-                                            ),
-
-                                            SizedBox(
-                                                height: 171,
-                                                child: Padding(
-                                                    padding: const EdgeInsets.only(top: 7),
-                                                  child: Container(
-                                                      decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(17),
-                                                          color: ColorsResources.premiumDark.withOpacity(0.37)
-                                                      ),
-                                                      child: InkWell(
-                                                          onTap: () {
-
-                                                            launchUrlString("https://geeksempire.co/?s=${widget.previewsDataStructure.candlestickNameValue()}", mode: LaunchMode.externalApplication);
-
-                                                          },
-                                                          child: Align(
-                                                              alignment: Alignment.topLeft,
-                                                              child: Padding(
-                                                                  padding: const EdgeInsets.all(11),
-                                                                  child: Text(
-                                                                      widget.previewsDataStructure.candlestickDescriptionValue(),
-                                                                      maxLines: 9,
-                                                                      textAlign: TextAlign.justify,
-                                                                      style: TextStyle(
-                                                                          color: ColorsResources.premiumLightTransparent,
-                                                                          fontSize: 13,
-                                                                          fontWeight: FontWeight.normal,
-                                                                          letterSpacing: 1.37,
-                                                                          overflow: TextOverflow.ellipsis,
-                                                                          shadows: [
-                                                                            Shadow(
-                                                                                color: ColorsResources.primaryColorLighter.withOpacity(0.19),
-                                                                                blurRadius: 13,
-                                                                                offset: const Offset(-3, 3)
-                                                                            )
-                                                                          ]
-                                                                      )
-                                                                  )
-                                                              )
-                                                          )
-                                                      )
-                                                  )
+                                        SizedBox(
+                                            height: 29,
+                                            child: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  widget.previewsDataStructure.candlestickNameValue(),
+                                                  style: TextStyle(
+                                                      color: ColorsResources.premiumLight,
+                                                      fontSize: 23,
+                                                      fontWeight: FontWeight.bold,
+                                                      letterSpacing: 1.37,
+                                                      shadows: [
+                                                        Shadow(
+                                                            color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                            blurRadius: 13,
+                                                            offset: const Offset(-3, 3)
+                                                        )
+                                                      ]
+                                                  ),
                                                 )
                                             )
+                                        ),
 
-                                          ]
-                                      )
-                                  ),
+                                        SizedBox(
+                                            height: 19,
+                                            child: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Text(
+                                                  widget.previewsDataStructure.candlestickDirectionValue(),
+                                                  style: TextStyle(
+                                                      color: ColorsResources.premiumLight,
+                                                      fontSize: 13,
+                                                      fontWeight: FontWeight.normal,
+                                                      letterSpacing: 1.37,
+                                                      shadows: [
+                                                        Shadow(
+                                                            color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                            blurRadius: 13,
+                                                            offset: const Offset(-3, 3)
+                                                        )
+                                                      ]
+                                                  ),
+                                                )
+                                            )
+                                        ),
 
-                                  Expanded(
-                                      flex: 3,
-                                      child: Container(
-                                          padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                          alignment: Alignment.centerRight,
-                                          child: Transform.scale(
-                                              scale: 1.73,
-                                              child: Image(
-                                                image: NetworkImage(widget.previewsDataStructure.candlestickImageValue()),
-                                                fit: BoxFit.fill,
-                                                alignment: Alignment.center,
-                                              )
-                                          )
+                                        SizedBox(
+                                            height: 171,
+                                            child: Padding(
+                                                padding: const EdgeInsets.only(top: 7),
+                                                child: Container(
+                                                    decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(17),
+                                                        color: ColorsResources.premiumDark.withOpacity(0.37)
+                                                    ),
+                                                    child: InkWell(
+                                                        onTap: () {
+
+                                                          launchUrlString("https://geeksempire.co/?s=${widget.previewsDataStructure.candlestickNameValue()}", mode: LaunchMode.externalApplication);
+
+                                                        },
+                                                        child: Align(
+                                                            alignment: Alignment.topLeft,
+                                                            child: Padding(
+                                                                padding: const EdgeInsets.all(11),
+                                                                child: Text(
+                                                                    widget.previewsDataStructure.candlestickDescriptionValue(),
+                                                                    maxLines: 7,
+                                                                    textAlign: TextAlign.justify,
+                                                                    style: TextStyle(
+                                                                        color: ColorsResources.premiumLightTransparent,
+                                                                        fontSize: 13,
+                                                                        fontWeight: FontWeight.normal,
+                                                                        letterSpacing: 1.37,
+                                                                        overflow: TextOverflow.ellipsis,
+                                                                        shadows: [
+                                                                          Shadow(
+                                                                              color: ColorsResources.primaryColorLighter.withOpacity(0.19),
+                                                                              blurRadius: 13,
+                                                                              offset: const Offset(-3, 3)
+                                                                          )
+                                                                        ]
+                                                                    )
+                                                                )
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            )
+                                        )
+
+                                      ]
+                                  )
+                              ),
+
+                              Expanded(
+                                  flex: 4,
+                                  child: Container(
+                                      alignment: Alignment.centerRight,
+                                      child: Image(
+                                        image: NetworkImage(widget.previewsDataStructure.candlestickImageValue()),
+                                        fit: BoxFit.cover,
+                                        alignment: Alignment.center,
                                       )
                                   )
+                              )
 
-                                ]
-                            ),
-                          )
-                      ),
-                      /*
+                            ]
+                        ),
+                      )
+                  ),
+                  /*
                        * End - Candlestick Information
                        */
 
-                      /*
+                  /*
                        * Start - List
                        */
-                      setupConfigurationOptions(),
-                      /*
+                  setupConfigurationOptions(),
+                  /*
                        * End - List
                        */
 
-                      /*
+                  /*
                        * Start - Market Picker
                        */
-                      Visibility(
-                          visible: marketsVisibility,
-                          child: AnimatedOpacity(
-                            opacity: marketsOpacity,
-                            duration: const Duration(milliseconds: 777),
-                            child: InkWell(
-                              onTap: () {
+                  Visibility(
+                      visible: marketsVisibility,
+                      child: AnimatedOpacity(
+                        opacity: marketsOpacity,
+                        duration: const Duration(milliseconds: 777),
+                        child: InkWell(
+                            onTap: () {
 
-                                hideMarketsPicker();
+                              hideMarketsPicker();
 
-                              },
-                              child: marketsItemsPlaceholder
-                            ),
-                          )
-                      ),
-                      /*
+                            },
+                            child: marketsItemsPlaceholder
+                        ),
+                      )
+                  ),
+                  /*
                        * End - Market Picker
                        */
 
-                      /*
+                  /*
                        * Start - Market Picker
                        */
-                      Visibility(
-                          visible: timeframesVisibility,
-                          child: AnimatedOpacity(
-                            opacity: timeframesOpacity,
-                            duration: const Duration(milliseconds: 777),
-                            child: InkWell(
-                                onTap: () {
+                  Visibility(
+                      visible: timeframesVisibility,
+                      child: AnimatedOpacity(
+                        opacity: timeframesOpacity,
+                        duration: const Duration(milliseconds: 777),
+                        child: InkWell(
+                            onTap: () {
 
-                                  hideTimeframesPicker();
+                              hideTimeframesPicker();
 
-                                },
-                                child: timeframesItemsPlaceholder
-                            ),
-                          )
-                      ),
-                      /*
+                            },
+                            child: timeframesItemsPlaceholder
+                        ),
+                      )
+                  ),
+                  /*
                        * End - Market Picker
                        */
-                      /*
+                  /*
                        * End - Content
                        */
 
-                      /*
+                  /*
                        * Start - Confirm
                        */
-                      Positioned(
-                          bottom: 37,
-                          left: 19,
-                          right: 19,
-                          child: Center(
-                              child: SizedBox(
-                                  height: 49,
-                                  width: 239,
-                                  child: InkWell(
-                                      onTap: () {
+                  Positioned(
+                      bottom: 37,
+                      left: 19,
+                      right: 19,
+                      child: Center(
+                          child: SizedBox(
+                              height: 49,
+                              width: 239,
+                              child: InkWell(
+                                  onTap: () {
 
-                                        if (marketsVisibility) {
+                                    if (marketsVisibility) {
 
-                                          updateConfiguredMarkets();
+                                      updateConfiguredMarkets();
 
-                                          hideMarketsPicker();
+                                      hideMarketsPicker();
 
-                                        } else if (timeframesVisibility) {
+                                    } else if (timeframesVisibility) {
 
-                                          updateConfiguredTimeframes();
+                                      updateConfiguredTimeframes();
 
-                                          hideTimeframesPicker();
+                                      hideTimeframesPicker();
 
-                                        } else {
+                                    } else {
 
-                                          configureIt();
+                                      configureIt();
 
-                                        }
+                                    }
 
-                                      },
-                                      child: confirmButton
-                                  )
+                                  },
+                                  child: confirmButton
                               )
                           )
-                      ),
-                      /*
+                      )
+                  ),
+                  /*
                        * End - Confirm
                        */
 
+                  /* Start - Back */
+                  Row(
+                    children: [
+
                       /* Start - Back */
-                      Row(
-                        children: [
+                      Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                              padding: const EdgeInsets.fromLTRB(19, 19, 0, 0),
+                              child: SizedBox(
+                                  height: 59,
+                                  width: 59,
+                                  child: InkWell(
+                                    onTap: () {
 
-                          /* Start - Back */
-                          Align(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(19, 19, 0, 0),
-                                  child: SizedBox(
-                                      height: 59,
-                                      width: 59,
-                                      child: InkWell(
-                                        onTap: () {
+                                      navigatePopWithResult(context, candlestickAdded);
 
-                                          navigatePopWithResult(context, candlestickAdded);
-
-                                        },
-                                        child: const Image(
-                                          image: AssetImage("assets/back_icon.png"),
-                                        ),
-                                      )
+                                    },
+                                    child: const Image(
+                                      image: AssetImage("assets/back_icon.png"),
+                                    ),
                                   )
                               )
-                          ),
-                          /* End - Back */
-
-                          /* Start - Title */
-                          Align(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                  padding: const EdgeInsets.fromLTRB(19, 19, 0, 0),
-                                  child: SizedBox(
-                                      height: 59,
-                                      width: 155,
-                                      child: Stack(
-                                        children: [
-                                          WidgetMask(
-                                            blendMode: BlendMode.srcATop,
-                                            childSaveLayer: true,
-                                            mask /* Original Image */: Container(
-                                              decoration: const BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                      colors: [
-                                                        ColorsResources.premiumDark,
-                                                        ColorsResources.black,
-                                                      ],
-                                                      transform: GradientRotation(45)
-                                                  )
-                                              ),
-                                            ),
-                                            child: const Image(
-                                              image: AssetImage("assets/rectircle_shape.png"),
-                                            ),
-                                          ),
-                                          Align(
-                                              alignment: Alignment.center,
-                                              child: Padding(
-                                                  padding: const EdgeInsets.all(1.9),
-                                                  child: WidgetMask(
-                                                      blendMode: BlendMode.srcATop,
-                                                      childSaveLayer: true,
-                                                      mask /* Original Image */: Container(
-                                                        decoration: const BoxDecoration(
-                                                            gradient: LinearGradient(
-                                                                colors: [
-                                                                  ColorsResources.black,
-                                                                  ColorsResources.premiumDark,
-                                                                ],
-                                                                transform: GradientRotation(45)
-                                                            )
-                                                        ),
-                                                      ),
-                                                      child: const Image(
-                                                        image: AssetImage("assets/rectircle_shape.png"),
-                                                      )
-                                                  )
-                                              )
-                                          ),
-                                          Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Padding(
-                                                  padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
-                                                  child: Text(
-                                                      StringsResources.configuration(),
-                                                      maxLines: 1,
-                                                      overflow: TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                          color: ColorsResources.premiumLight,
-                                                          fontSize: 19
-                                                      )
-                                                  )
-                                              )
-                                          )
-                                        ],
-                                      )
-                                  )
-                              )
-                          ),
-                          /* End - Title */
-
-                        ],
+                          )
                       ),
                       /* End - Back */
 
-                      /* Start - Advanced */
-                      Positioned(
-                          right: 19,
-                          top: 19,
-                          child: SizedBox(
-                              height: 59,
-                              width: 59,
-                              child: InkWell(
-                                  onTap: () {
-
-                                    launchUrlString(StringsResources.xLink(), mode: LaunchMode.externalApplication);
-
-                                  },
-                                  child: const Image(
-                                    image: AssetImage("assets/advanced_icon.png"),
+                      /* Start - Title */
+                      Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                              padding: const EdgeInsets.fromLTRB(19, 19, 0, 0),
+                              child: SizedBox(
+                                  height: 59,
+                                  width: 155,
+                                  child: Stack(
+                                    children: [
+                                      WidgetMask(
+                                        blendMode: BlendMode.srcATop,
+                                        childSaveLayer: true,
+                                        mask /* Original Image */: Container(
+                                          decoration: const BoxDecoration(
+                                              gradient: LinearGradient(
+                                                  colors: [
+                                                    ColorsResources.premiumDark,
+                                                    ColorsResources.black,
+                                                  ],
+                                                  transform: GradientRotation(45)
+                                              )
+                                          ),
+                                        ),
+                                        child: const Image(
+                                          image: AssetImage("assets/rectircle_shape.png"),
+                                        ),
+                                      ),
+                                      Align(
+                                          alignment: Alignment.center,
+                                          child: Padding(
+                                              padding: const EdgeInsets.all(1.9),
+                                              child: WidgetMask(
+                                                  blendMode: BlendMode.srcATop,
+                                                  childSaveLayer: true,
+                                                  mask /* Original Image */: Container(
+                                                    decoration: const BoxDecoration(
+                                                        gradient: LinearGradient(
+                                                            colors: [
+                                                              ColorsResources.black,
+                                                              ColorsResources.premiumDark,
+                                                            ],
+                                                            transform: GradientRotation(45)
+                                                        )
+                                                    ),
+                                                  ),
+                                                  child: const Image(
+                                                    image: AssetImage("assets/rectircle_shape.png"),
+                                                  )
+                                              )
+                                          )
+                                      ),
+                                      Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Padding(
+                                              padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
+                                              child: Text(
+                                                  StringsResources.configuration(),
+                                                  maxLines: 1,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                      color: ColorsResources.premiumLight,
+                                                      fontSize: 19
+                                                  )
+                                              )
+                                          )
+                                      )
+                                    ],
                                   )
                               )
                           )
                       ),
+                      /* End - Title */
 
-                      Positioned(
-                          right: 0,
-                          top: 79,
-                          child: SizedBox(
-                              width: 99,
-                              child: InkWell(
-                                  onTap: () {
+                    ],
+                  ),
+                  /* End - Back */
 
+                  /* Start - Advanced */
+                  Positioned(
+                      right: 19,
+                      top: 19,
+                      child: SizedBox(
+                          height: 59,
+                          width: 59,
+                          child: InkWell(
+                              onTap: () {
 
+                                launchUrlString(StringsResources.xLink(), mode: LaunchMode.externalApplication);
 
-                                  },
-                                  child: const Image(
-                                    image: AssetImage("assets/advanced_text.png"),
-                                  )
+                              },
+                              child: const Image(
+                                image: AssetImage("assets/advanced_icon.png"),
                               )
                           )
-                      ),
-                      /* End - Advanced */
+                      )
+                  ),
 
-                    ]
-                )
+                  Positioned(
+                      right: 0,
+                      top: 79,
+                      child: SizedBox(
+                          width: 99,
+                          child: InkWell(
+                              onTap: () {
+
+
+
+                              },
+                              child: const Image(
+                                image: AssetImage("assets/advanced_text.png"),
+                              )
+                          )
+                      )
+                  ),
+                  /* End - Advanced */
+
+                ]
             )
         )
     );
