@@ -71,6 +71,10 @@ void main() async {
 
       await FirebaseAuth.instance.currentUser?.reload();
 
+      FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+
+      firebaseMessaging.subscribeToTopic("StatusAI");
+
       runApp(
           Phoenix(
               child: MaterialApp(
