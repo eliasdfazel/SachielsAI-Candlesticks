@@ -3,12 +3,10 @@ description: Sachiels AI Candlesticks
 
 publish_to: 'none'
 
-
 version: 1.0.0+1
 
 environment:
   sdk: ">=3.2.0 <4.0.0"
-
 
 dependencies:
   flutter:
@@ -62,8 +60,7 @@ dependencies:
   firebase_dynamic_links: ^5.4.8
 
   flutter_flip_card: ^0.0.4
-  flutter_html:
-    path: 'X:\Xlutter\Libraries\flutter_html'
+  flutter_html: ^3.0.0-beta.2
 
   flutter_phoenix: ^1.0.0
   flutter_slidable: ^2.0.0
@@ -131,16 +128,12 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 
-
-
 flutter:
 
   uses-material-design: true
 
   assets:
     - assets/
-
-
 
   fonts:
     - family: Ubuntu
