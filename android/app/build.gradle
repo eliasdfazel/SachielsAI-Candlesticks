@@ -51,13 +51,13 @@ android {
         minSdkVersion 26
         targetSdkVersion 36
 
-        versionCode 13
+        versionCode 15
         versionName "${majorVersion}." + getDateMonth() + "." + getDateDay() + "." + getDateYear() + ".${versionCode}"
     }
 
     signingConfigs {
         release {
-            storeFile file("E:\\Xine\\Android\\AppsScreenshotsKeys\\SachielsSignals\\candlesticks.jks")
+            storeFile file("D:\\Xine\\Android\\AppsScreenshotsKeys\\SachielsSignals\\candlesticks.jks")
             storePassword '*sachiels#signals$'
             keyAlias 'sachielssignals'
             keyPassword '*sachiels#signals$'
