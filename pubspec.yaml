@@ -14,7 +14,7 @@ dependencies:
 
 
 
-  ####### ####### #######
+    ####### ####### #######
   app_settings: ^5.1.1
   app_version_update: ^4.0.1
   ####### ####### #######
@@ -64,24 +64,28 @@ dependencies:
 
   flutter_phoenix: ^1.0.0
   flutter_slidable: ^2.0.0
+  fluttertoast: ^8.0.9
   ####### ####### #######
 
 
 
   ####### ####### #######
-  google_sign_in: ^6.0.1
+  google_sign_in: ^6.2.1
   ####### ####### #######
 
 
 
   ####### ####### #######
-  in_app_purchase: ^3.1.10
+  in_app_purchase: ^3.2.3
+  in_app_purchase_android: ^0.4.0+1
+
   intl: ^0.17.0
   ####### ####### #######
 
 
 
   ####### ####### #######
+  liquid_swipe: ^3.1.0
   loading_animation_widget:
     path: 'X:\Xlutter\Libraries\loading_animation_widget'
   local_auth: ^2.1.0
@@ -102,6 +106,7 @@ dependencies:
 
 
   ####### ####### #######
+  screenshot: ^3.0.0
   share_plus: ^7.2.2
   status_bar_control:
     path: 'X:\Xlutter\Libraries\flutter_statusbar_control'
@@ -110,7 +115,7 @@ dependencies:
 
 
   ####### ####### #######
-  url_launcher: ^6.1.5
+  url_launcher: ^6.2.5
   ####### ####### #######
 
 
@@ -118,6 +123,7 @@ dependencies:
   ####### ####### #######
   webview_flutter: ^4.7.0
   widget_mask: ^1.0.0+0
+  win32: ^5.10.1
   ####### ####### #######
 
 

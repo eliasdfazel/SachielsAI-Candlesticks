@@ -28,7 +28,7 @@ android {
 
     namespace "co.geeksempire.sachiels.ai.candlesticks.candlesticks"
 
-    compileSdkVersion 34
+    compileSdkVersion 36
     ndkVersion "25.2.9519653"
 
     compileOptions {
@@ -49,7 +49,7 @@ android {
         applicationId "co.geeksempire.sachiels.ai.candlesticks.candlesticks"
 
         minSdkVersion 26
-        targetSdkVersion 34
+        targetSdkVersion 36
 
         versionCode 13
         versionName "${majorVersion}." + getDateMonth() + "." + getDateDay() + "." + getDateYear() + ".${versionCode}"
