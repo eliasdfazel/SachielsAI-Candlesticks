@@ -76,7 +76,7 @@ dependencies:
 
   ####### ####### #######
   in_app_purchase: ^3.2.3
-  in_app_purchase_android: ^0.4.0+1
+  in_app_purchase_android: ^0.4.0+2
 
   intl: ^0.17.0
   ####### ####### #######
@@ -106,9 +106,7 @@ dependencies:
 
   ####### ####### #######
   screenshot: ^3.0.0
-  share_plus: ^7.2.2
-  status_bar_control:
-    path: 'X:\Xlutter\Libraries\flutter_statusbar_control'
+  share_plus: ^11.0.0
   ####### ####### #######
 
 
