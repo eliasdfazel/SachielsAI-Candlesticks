@@ -19,7 +19,6 @@ import 'package:candlesticks/resources/strings_resources.dart';
 import 'package:candlesticks/utils/authentication/authentication_process.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
-import 'package:candlesticks/utils/ui/system_bars.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
@@ -67,8 +66,6 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
     super.initState();
 
     firebaseAuthentication.currentUser?.reload();
-
-    changeColor(ColorsResources.black, ColorsResources.black);
 
     requestNotificationPermission();
 

@@ -20,7 +20,6 @@ import 'package:candlesticks/utils/io/file_io.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:candlesticks/utils/ui/display.dart';
-import 'package:candlesticks/utils/ui/system_bars.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -144,8 +143,6 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
     super.initState();
 
     BackButtonInterceptor.add(aInterceptor);
-
-    changeColor(ColorsResources.black, ColorsResources.black);
 
     animationController = AnimationController(vsync: this,
         duration: const Duration(milliseconds: 777),

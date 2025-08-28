@@ -20,7 +20,6 @@ import 'package:candlesticks/utils/io/file_io.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:candlesticks/utils/ui/display.dart';
-import 'package:candlesticks/utils/ui/system_bars.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -69,8 +68,6 @@ class _DigitalStoreState extends State<DigitalStore> with TickerProviderStateMix
   @override
   void initState() {
     super.initState();
-
-    changeColor(ColorsResources.black, ColorsResources.black);
 
     BackButtonInterceptor.add(aInterceptor);
 

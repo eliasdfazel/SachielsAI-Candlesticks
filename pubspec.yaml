@@ -12,13 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-
-
-    ####### ####### #######
+  ####### ####### #######
   app_settings: ^5.1.1
   ####### ####### #######
-
-
 
   ####### ####### #######
   back_button_interceptor: ^6.0.1
@@ -26,37 +22,31 @@ dependencies:
   blur: ^3.0.0
   ####### ####### #######
 
-
-
   ####### ####### #######
   connectivity_plus: ^5.0.2
 
-  cloud_firestore: ^4.15.5
-  cloud_functions: ^4.6.5
+  cloud_firestore: ^6.0.0
+  cloud_functions: ^6.0.0
 
   cupertino_icons: ^1.0.5
 
   currency_text_input_formatter: ^2.1.7
   ####### ####### #######
 
-
-
   ####### ####### #######
-  firebase_core: ^2.24.2
-  firebase_app_check: ^0.2.1+8
+  firebase_core: ^4.0.0
+  firebase_app_check: ^0.4.0
 
-  firebase_analytics: ^10.8.0
-  firebase_crashlytics: ^3.4.9
+  firebase_analytics: ^12.0.0
+  firebase_crashlytics: ^5.0.0
 
-  firebase_auth: ^4.16.0
+  firebase_auth: ^6.0.1
 
-  firebase_database: ^10.2.7
+  firebase_database: ^12.0.0
 
-  firebase_remote_config: ^4.3.8
-  firebase_messaging: ^14.7.10
-  firebase_in_app_messaging: ^0.7.4+8
-
-  firebase_dynamic_links: ^5.4.8
+  firebase_remote_config: ^6.0.0
+  firebase_messaging: ^16.0.0
+  firebase_in_app_messaging: ^0.9.0
 
   flutter_flip_card: ^0.0.4
   flutter_html: ^3.0.0-beta.2
@@ -66,13 +56,9 @@ dependencies:
   fluttertoast: ^8.0.9
   ####### ####### #######
 
-
-
   ####### ####### #######
   google_sign_in: ^6.2.1
   ####### ####### #######
-
-
 
   ####### ####### #######
   in_app_purchase: ^3.2.3
@@ -81,8 +67,6 @@ dependencies:
   intl: ^0.17.0
   ####### ####### #######
 
-
-
   ####### ####### #######
   liquid_swipe: ^3.1.0
   loading_animation_widget:
@@ -90,32 +74,26 @@ dependencies:
   local_auth: ^2.1.0
   ####### ####### #######
 
-
-
   ####### ####### #######
   marquee: ^2.2.3
   ####### ####### #######
-
-
 
   ####### ####### #######
   quick_actions: ^1.0.6
   ####### ####### #######
 
-
+  ####### ####### #######
+  permission_handler: ^12.0.1
+  ####### ####### #######
 
   ####### ####### #######
   screenshot: ^3.0.0
   share_plus: ^11.0.0
   ####### ####### #######
 
-
-
   ####### ####### #######
   url_launcher: ^6.2.5
   ####### ####### #######
-
-
 
   ####### ####### #######
   webview_flutter: ^4.7.0

@@ -22,11 +22,11 @@ import 'package:candlesticks/store/utils/digital_store_utils.dart';
 import 'package:candlesticks/utils/modifications/numbers.dart';
 import 'package:candlesticks/utils/navigations/navigation_commands.dart';
 import 'package:candlesticks/utils/ui/display.dart';
-import 'package:candlesticks/utils/ui/system_bars.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class DashboardInterface extends StatefulWidget {
 
@@ -94,8 +94,6 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
   void initState() {
     super.initState();
 
-    changeColor(ColorsResources.black, ColorsResources.black);
-
     configuredPlaceholder = waiting();
 
     retrieveConfiguredCandlesticks();
@@ -123,6 +121,16 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
     ));
 
     digitalStoreUtils.validateSubscriptions();
+
+    Permission.notification.status.then((permissionStatus) {
+
+      if (permissionStatus.isDenied) {
+
+        Permission.notification.request();
+
+      }
+
+    });
 
   }
 
