@@ -651,8 +651,7 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
             children: [
 
               LoadingAnimationWidget.staggeredDotsWave(
-                  colorOne: ColorsResources.premiumLight,
-                  colorTwo: ColorsResources.primaryColor,
+                  color: ColorsResources.black,
                   size: 73
               ),
 

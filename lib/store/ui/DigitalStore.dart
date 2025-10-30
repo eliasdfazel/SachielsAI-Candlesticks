@@ -444,8 +444,7 @@ class _DigitalStoreState extends State<DigitalStore> with TickerProviderStateMix
                               child: Padding(
                                   padding: const EdgeInsets.fromLTRB(0, 0, 0, 153),
                                   child: LoadingAnimationWidget.staggeredDotsWave(
-                                    colorOne: ColorsResources.premiumLight,
-                                    colorTwo: ColorsResources.primaryColor,
+                                    color: ColorsResources.black,
                                     size: 53,
                                   )
                               )

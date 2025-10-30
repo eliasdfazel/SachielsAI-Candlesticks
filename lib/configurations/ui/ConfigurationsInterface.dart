@@ -1818,8 +1818,7 @@ class ConfigurationsInterfaceState extends State<ConfigurationsInterface> with T
               child: Container(
                 alignment: Alignment.center,
                 child: LoadingAnimationWidget.staggeredDotsWave(
-                  colorOne: ColorsResources.premiumDark,
-                  colorTwo: ColorsResources.premiumDarkTransparent,
+                  color: ColorsResources.black,
                   size: 23,
                 ),
               )

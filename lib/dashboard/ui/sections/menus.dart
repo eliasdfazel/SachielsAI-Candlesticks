@@ -8,7 +8,6 @@
  * https://opensource.org/licenses/MIT
  */
 
-import 'package:candlesticks/browser/ui/browser.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
 import 'package:candlesticks/store/data/plans_data_structure.dart';
@@ -152,7 +151,7 @@ class _MenusState extends State<Menus> {
 
                             if (FirebaseAuth.instance.currentUser != null) {
 
-                              navigateTo(context, Browser(websiteAddress: "${StringsResources.historyLink()}?authenticationId=${FirebaseAuth.instance.currentUser!.email!.toUpperCase()}"));
+                              launchUrlString("${StringsResources.historyLink()}?authenticationId=${FirebaseAuth.instance.currentUser!.email!.toUpperCase()}");
 
                             }
 
@@ -209,7 +208,7 @@ class _MenusState extends State<Menus> {
                           splashFactory: InkRipple.splashFactory,
                           onTap: () {
 
-                            navigateTo(context, Browser(websiteAddress: StringsResources.academyLink()));
+                            launchUrlString(StringsResources.academyLink());
 
                           },
                           child: Row(

@@ -12,7 +12,6 @@ import 'dart:io';
 
 import 'package:app_settings/app_settings.dart';
 import 'package:blur/blur.dart';
-import 'package:candlesticks/browser/ui/browser.dart';
 import 'package:candlesticks/dashboard/ui/DashboardInterface.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
@@ -875,7 +874,7 @@ class _EntryConfigurationState extends State<EntryConfigurations> implements Aut
 
       String candlestickId = remoteMessage.data['timestamp'];
 
-      navigateTo(context, Browser(websiteAddress: "${StringsResources.historyLink()}?authenticationId=${FirebaseAuth.instance.currentUser!.email!.toUpperCase()}&&candlestickId=$candlestickId"));
+      launchUrlString("${StringsResources.historyLink()}?authenticationId=${FirebaseAuth.instance.currentUser!.email!.toUpperCase()}&&candlestickId=$candlestickId");
 
     }
 

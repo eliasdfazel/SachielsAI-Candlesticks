@@ -36,8 +36,7 @@ class _PreviewInterfaceState extends State<PreviewInterface> {
   Widget candlesticksPreviewsPlaceholder = Container(
     alignment: Alignment.center,
     child: LoadingAnimationWidget.staggeredDotsWave(
-      colorOne: ColorsResources.premiumLight,
-      colorTwo: ColorsResources.primaryColor,
+      color: ColorsResources.black,
       size: 73,
     ),
   );
