@@ -14,6 +14,7 @@ import 'package:candlesticks/EntryConfigurations.dart';
 import 'package:candlesticks/firebase_options.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
 import 'package:candlesticks/resources/strings_resources.dart';
+import 'package:candlesticks/utils/network/Networking.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -56,18 +57,20 @@ void main() async {
     sound: true,
   );
 
-  final connectivityResult = await (Connectivity().checkConnectivity());
+  final connectivityResults = await (Connectivity().checkConnectivity());
 
-  if (connectivityResult == ConnectivityResult.mobile
-      || connectivityResult == ConnectivityResult.wifi
-      || connectivityResult == ConnectivityResult.vpn
-      || connectivityResult == ConnectivityResult.ethernet) {
+  if (connectivityResults.contains(ConnectivityResult.mobile)
+      || connectivityResults.contains(ConnectivityResult.wifi)
+      || connectivityResults.contains(ConnectivityResult.vpn)
+      || connectivityResults.contains(ConnectivityResult.ethernet)) {
 
     try {
 
-      final internetLookup = await InternetAddress.lookup('sachiel-s-signals.web.app');
+      Networking networking = Networking();
 
-      bool connectionResult = (internetLookup.isNotEmpty && internetLookup[0].rawAddress.isNotEmpty);
+      final internetLookup = await networking.getRequest('https://8.8.8.8/');
+
+      bool connectionResult = (int.parse(internetLookup[Networking.networkStatus].toString()) == 200);
 
       await FirebaseAuth.instance.currentUser?.reload();
 
