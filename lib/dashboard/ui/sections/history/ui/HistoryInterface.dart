@@ -79,7 +79,7 @@ class _HistoryInterfaceState extends State<HistoryInterface> with TickerProvider
   void retrieveCandlesticksHistory() async {
 
     FirebaseFirestore.instance
-        .collection("Sachiels/Candlesticks/History")
+        .collection("Sachiels/Candlesticks/History/Timeframe/Daily")
         .orderBy(HistoryDataStructure.timestamp, descending: true)
         .get().then((QuerySnapshot querySnapshot) {
 
