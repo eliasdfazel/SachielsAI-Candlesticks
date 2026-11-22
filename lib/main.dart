@@ -10,6 +10,7 @@
 
 import 'dart:io';
 
+import 'package:age_range_signals/age_range_signals.dart';
 import 'package:candlesticks/EntryConfigurations.dart';
 import 'package:candlesticks/firebase_options.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
@@ -40,14 +41,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  var appCheckProvider = AndroidProvider.playIntegrity;
-
-  if (kDebugMode) {
-    appCheckProvider = AndroidProvider.debug;
-  }
-
   await FirebaseAppCheck.instance.activate(
-    androidProvider: appCheckProvider,
+    providerAndroid: kDebugMode ? const AndroidDebugProvider() : const AndroidPlayIntegrityProvider(),
   );
 
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
@@ -65,6 +60,20 @@ void main() async {
       || connectivityResults.contains(ConnectivityResult.ethernet)) {
 
     try {
+
+      await AgeRangeSignals.instance.initialize(ageGates: [18]);
+
+      final access = await AgeRangeSignals.instance.requestAgeSignalsAccess();
+
+      if (access == AgeSignalsAccessStatus.shared) {
+
+        final result = await AgeRangeSignals.instance.checkAgeSignals();
+
+        if (result.status == AgeSignalsStatus.verified) {
+
+        }
+
+      }
 
       Networking networking = Networking();
 
