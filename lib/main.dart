@@ -10,7 +10,6 @@
 
 import 'dart:io';
 
-import 'package:age_range_signals/age_range_signals.dart';
 import 'package:candlesticks/EntryConfigurations.dart';
 import 'package:candlesticks/firebase_options.dart';
 import 'package:candlesticks/resources/colors_resources.dart';
@@ -24,7 +23,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:fluttertoast/fluttertoast.dart' show Fluttertoast, Toast, ToastGravity;
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage remoteMessage) async {
@@ -62,64 +60,36 @@ void main() async {
 
     try {
 
-      await AgeRangeSignals.instance.initialize(
-        ageGates: [18],
-      );
+      Networking networking = Networking();
 
-      final ageSignalsAccess = await AgeRangeSignals.instance.requestAgeSignalsAccess();
+      final internetLookup = await networking.getRequest('https://8.8.8.8/');
 
-      if (ageSignalsAccess == AgeSignalsAccessStatus.shared) {
+      bool connectionResult = (int.parse(internetLookup[Networking.networkStatus].toString()) == 200);
 
-        final ageSignalResult = await AgeRangeSignals.instance.checkAgeSignals();
+      await FirebaseAuth.instance.currentUser?.reload();
 
-        if (ageSignalResult.status == AgeSignalsStatus.verified) {
+      FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
 
-          Networking networking = Networking();
+      firebaseMessaging.subscribeToTopic("StatusAI");
 
-          final internetLookup = await networking.getRequest('https://8.8.8.8/');
-
-          bool connectionResult = (int.parse(internetLookup[Networking.networkStatus].toString()) == 200);
-
-          await FirebaseAuth.instance.currentUser?.reload();
-
-          FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
-
-          firebaseMessaging.subscribeToTopic("StatusAI");
-
-          runApp(
-              Phoenix(
-                  child: MaterialApp(
-                      debugShowCheckedModeBanner: false,
-                      title: StringsResources.applicationName(),
-                      color: ColorsResources.primaryColor,
-                      theme: ThemeData(
-                        fontFamily: 'Ubuntu',
-                        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ColorsResources.primaryColor),
-                        pageTransitionsTheme: const PageTransitionsTheme(builders: {
-                          TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
-                          TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
-                        }),
-                      ),
-                      home: EntryConfigurations(internetConnection: connectionResult)
-                  )
+      runApp(
+          Phoenix(
+              child: MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  title: StringsResources.applicationName(),
+                  color: ColorsResources.primaryColor,
+                  theme: ThemeData(
+                    fontFamily: 'Ubuntu',
+                    colorScheme: ColorScheme.fromSwatch().copyWith(secondary: ColorsResources.primaryColor),
+                    pageTransitionsTheme: const PageTransitionsTheme(builders: {
+                      TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+                      TargetPlatform.iOS: FadeUpwardsPageTransitionsBuilder(),
+                    }),
+                  ),
+                  home: EntryConfigurations(internetConnection: connectionResult)
               )
-          );
-
-        } else {
-
-          Fluttertoast.showToast(
-              msg: "Age Restriction Applied! You May Not Proceed.",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.BOTTOM,
-              timeInSecForIosWeb: 1,
-              backgroundColor: Colors.amber,
-              textColor: Colors.white,
-              fontSize: 16.0
-          );
-
-        }
-
-      }
+          )
+      );
 
     } on SocketException catch (exception) {
       debugPrint(exception.message);

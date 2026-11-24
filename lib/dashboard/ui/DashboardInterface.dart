@@ -8,6 +8,7 @@
  * https://opensource.org/licenses/MIT
  */
 
+import 'package:age_range_signals/age_range_signals.dart';
 import 'package:candlesticks/configurations/data/ConfigurationsDataStructure.dart';
 import 'package:candlesticks/configurations/utils/Utils.dart';
 import 'package:candlesticks/dashboard/ui/sections/SachielsSignals.dart';
@@ -27,6 +28,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DashboardInterface extends StatefulWidget {
 
@@ -121,6 +123,8 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
     ));
 
     digitalStoreUtils.validateSubscriptions();
+
+    ageVerification();
 
     Permission.notification.status.then((permissionStatus) {
 
@@ -913,5 +917,73 @@ class DashboardInterfaceState extends State<DashboardInterface> with TickerProvi
   /*
    * End - Search
    */
+
+  void ageVerification() async {
+
+    await AgeRangeSignals.instance.initialize(
+        ageGates: [18]
+    );
+
+    final ageSignalsAccess = await AgeRangeSignals.instance.requestAgeSignalsAccess();
+
+    if (ageSignalsAccess == AgeSignalsAccessStatus.shared) {
+
+      final ageSignalResult = await AgeRangeSignals.instance.checkAgeSignals();
+
+      if (ageSignalResult.status == AgeSignalsStatus.verified) {
+
+
+
+      } else {
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('WARNING: Verify Your Age: 18+'),
+            duration: const Duration(seconds: 37),
+            behavior: SnackBarBehavior.floating, // Floats above bottom UI
+            backgroundColor: Colors.grey,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(19),
+            ),
+            action: SnackBarAction(
+              label: 'PROCEED',
+              textColor: Colors.amber,
+              onPressed: () {
+
+                launchUrl(Uri.parse("https://myaccount.google.com/age-verification"), mode: LaunchMode.externalApplication);
+
+              },
+            ),
+          ),
+        );
+
+      }
+
+    } else {
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('WARNING: Verify Your Age: 18+'),
+          duration: const Duration(seconds: 37),
+          behavior: SnackBarBehavior.floating, // Floats above bottom UI
+          backgroundColor: Colors.grey,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(19),
+          ),
+          action: SnackBarAction(
+            label: 'PROCEED',
+            textColor: Colors.amber,
+            onPressed: () {
+
+              launchUrl(Uri.parse("https://myaccount.google.com/age-verification"), mode: LaunchMode.externalApplication);
+
+            },
+          ),
+        ),
+      );
+
+    }
+
+  }
 
 }
